@@ -1,4 +1,4 @@
-if "作者LinNiQQ号1802952013" == LINNI__Script and "作者LinNiQ群932613422" == Roblox then
+if "By King" == KingScript and "新飞月二飞春" == Roblox then
 ---------------分割线-------------------------------分割线------------------------
 setclipboard("KingQQ新主群https://qm.qq.com/q/SU0hmhIvwk")
 wait(1)
