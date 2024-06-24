@@ -1,0 +1,1133 @@
+local obf_stringchar = string.char;
+local obf_stringbyte = string.byte;
+local obf_stringsub = string.sub;
+local obf_bitlib = bit32 or bit;
+local obf_XOR = obf_bitlib.bxor;
+local obf_tableconcat = table.concat;
+local obf_tableinsert = table.insert;
+local function LUAOBFUSACTOR_DECRYPT_STR_0(LUAOBFUSACTOR_STR, LUAOBFUSACTOR_KEY)
+	local result = {};
+	for i = 1, #LUAOBFUSACTOR_STR do
+		obf_tableinsert(result, obf_stringchar(obf_XOR(obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_STR, i, i + 1)), obf_stringbyte(obf_stringsub(LUAOBFUSACTOR_KEY, 1 + (i % #LUAOBFUSACTOR_KEY), 1 + (i % #LUAOBFUSACTOR_KEY) + 1))) % 256));
+	end
+	return obf_tableconcat(result);
+end
+local TABLE_TableIndirection = {};
+bit32 = {};
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\255\134\139", "\126\177\163\187\69\134\219\167")] = 32;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\19\136\122", "\156\67\173\74\165")] = 2 ^ TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\26\242\25", "\38\84\215\41\118\220\70")];
+bit32.bnot = function(x)
+	x = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\96\83\114", "\158\48\118\66\114")];
+	return (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\97\64", "\155\203\68\112\86\19\197")] - 1) - x;
+end;
+bit32.band = function(x, y)
+	if (y == 255) then
+		return x % 256;
+	end
+	if ((y == 65535) or (4593 <= 2672)) then
+		return x % 65536;
+	end
+	if ((y ~= 4294967295) or (1168 > 3156)) then
+	else
+		return x % 4294967296;
+	end
+	x, y = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\118\152\102", "\152\38\189\86\156\32\24\133")], y % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\204\18\247", "\38\156\55\199")];
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\186\56\44", "\35\200\29\28\72\115\20\154")] = 0;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\9\250\129", "\84\121\223\177\191\237\76")] = 1;
+	for i = 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\149\19\153", "\161\219\54\169\192\90\48\80")] do
+		local a, b = x % 2, y % 2;
+		x, y = math.floor(x / 2), math.floor(y / 2);
+		if (((a + b) == 2) or (572 > 4486)) then
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\91\7\80", "\69\41\34\96")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\134\135", "\75\220\163\183\106\98")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\18\255\219", "\185\98\218\235\87")];
+		end
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\219\121\119", "\202\171\92\71\134\190")] = 2 * TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\57\132\124", "\232\73\161\76")];
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\169\156\18", "\126\219\185\34\61")];
+end;
+bit32.bor = function(x, y)
+	if ((1404 == 1404) and (y == 255)) then
+		return (x - (x % 256)) + 255;
+	end
+	if (y ~= 65535) then
+	else
+		return (x - (x % 65536)) + 65535;
+	end
+	if ((y ~= 4294967295) or (3748 < 2212)) then
+	else
+		return 4294967295;
+	end
+	x, y = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\60\139\14", "\135\108\174\62\18\30\23\147")], y % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\134\172\122", "\167\214\137\74\171\120\206\83")];
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\153\181\98", "\199\235\144\82\61\152")] = 0;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\23\83\233", "\75\103\118\217")] = 1;
+	for i = 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\233\17\32", "\126\167\52\16\116\217")] do
+		local a, b = x % 2, y % 2;
+		x, y = math.floor(x / 2), math.floor(y / 2);
+		if ((a + b) >= 1) then
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\218\107\112", "\156\168\78\64\224\212\121")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\21\171\245", "\174\103\142\197")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\109\15", "\152\54\72\63\88\69\62")];
+		end
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\196\129\190", "\60\180\164\142")] = 2 * TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\72\27\85", "\114\56\62\101\73\71\141")];
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\170\172\139", "\164\216\137\187")];
+end;
+bit32.bxor = function(x, y)
+	x, y = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\226\163\97", "\107\178\134\81\210\198\158")], y % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\8\75\210", "\202\88\110\226\166")];
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\209\74\210", "\170\163\111\226\151")] = 0;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\1\117\226", "\73\113\80\210\88\46\87")] = 1;
+	for i = 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\105\157", "\135\225\76\173\114")] do
+		local a, b = x % 2, y % 2;
+		x, y = math.floor(x / 2), math.floor(y / 2);
+		if (((a + b) ~= 1) or (1180 == 2180)) then
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\8\168\232", "\199\122\141\216\208\204\221")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\191\152\64", "\150\205\189\112\144\24")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\53\193\239", "\112\69\228\223\44\100\232\113")];
+		end
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\196\90\87", "\230\180\127\103\179\214\28")] = 2 * TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\156\64\15", "\128\236\101\63\38\132\33")];
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\190\236\65", "\175\204\201\113\36\214\139")];
+end;
+bit32.lshift = function(x, s_amount)
+	if (math.abs(s_amount) >= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\105\137\101", "\100\39\172\85\188")]) then
+		return 0;
+	end
+	x = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\157\61\233", "\83\205\24\217\224")];
+	if (s_amount < 0) then
+		return math.floor(x * (2 ^ s_amount));
+	else
+		return (x * (2 ^ s_amount)) % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\214\128\157", "\93\134\165\173")];
+	end
+end;
+bit32.rshift = function(x, s_amount)
+	if ((4090 < 4653) and (math.abs(s_amount) < TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\144\183\145", "\30\222\146\161\162\90\174\210")])) then
+	else
+		return 0;
+	end
+	x = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\213\11\32", "\106\133\46\16")];
+	if (s_amount > 0) then
+		return math.floor(x * (2 ^ -s_amount));
+	else
+		return (x * (2 ^ -s_amount)) % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\104\101\35", "\32\56\64\19\156\58")];
+	end
+end;
+bit32.arshift = function(x, s_amount)
+	if (math.abs(s_amount) < TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\116\141\181", "\224\58\168\133\54\58\146")]) then
+	else
+		return 0;
+	end
+	x = x % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\105\19\27", "\107\57\54\43\157\21\230\231")];
+	if ((s_amount > 0) or (2652 < 196)) then
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\218\143\21\176\233", "\175\187\235\113\149\217\188")] = 0;
+		if (x < (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\234\209", "\24\92\207\225\44\131\25")] / 2)) then
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\74\215\188\9\75", "\29\43\179\216\44\123")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\141\156\112", "\44\221\185\64")] - (2 ^ (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\47\162\24", "\19\97\135\40\63")] - s_amount));
+		end
+		return math.floor(x * (2 ^ -s_amount)) + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\88\55\126\127", "\81\206\60\83\91\79")];
+	else
+		return (x * (2 ^ -s_amount)) % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\126\238\128", "\196\46\203\176\18\79\163\45")];
+	end
+end;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\114\59\78", "\143\216\66\30\126\68\155")] = string.char;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\188\153\72\155", "\129\202\168\109\171\165\195\183")] = string.byte;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\52\10\114\136", "\134\66\56\87\184\190\116")] = string.sub;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\42\98\76\235", "\85\92\81\105\219\121\139\65")] = bit32 or bit;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\235\231\21\21", "\191\157\211\48\37\28")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\201\76\177\76", "\90\191\127\148\124")].bxor;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\110\210\107\71", "\119\24\231\78")] = table.concat;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\123\224\26", "\113\226\77\197\42\188\32")] = table.insert;
+local function v7(v42, v43)
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\44\66\160\240\106", "\213\90\118\148")] = {};
+	for v78 = 1, #v42 do
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\77\120\241\6", "\45\59\78\212\54")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\6\2\215\206\214", "\144\112\54\227\235\230\78\205")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\165\120\74\172", "\59\211\72\111\156\176")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\88\211\166\125", "\77\46\231\131")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\172\5\243\16", "\32\218\52\214")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\88\69\116\248", "\58\46\119\81\200\145\208\37")](v42, v78, v78 + 1)), TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\61\221\117\252", "\86\75\236\80\204\201\221")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\100\19\50\213", "\235\18\33\23\229\158")](v43, 1 + (v78 % #v43), 1 + (v78 % #v43) + 1))) % 256));
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\239\132\235", "\219\48\218\161")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\242\37\40\12\139", "\128\132\17\28\41\187\47")]);
+end
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\23\106\67\106", "\61\97\82\102\90")] = {};
+bit32 = {};
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\186\118\238\27", "\105\204\78\203\43\167\55\126")][v7("\255\134\139", "\126\177\163\187\69\134\219\167")] = 32;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\179\242\102\78", "\49\197\202\67\126\115\100\167")][v7("\19\136\122", "\156\67\173\74\165")] = 2 ^ TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\33\3\154\121", "\62\87\59\191\73\224\54")][v7("\26\242\25", "\38\84\215\41\118\220\70")];
+bit32.bnot = function(v45)
+	v45 = v45 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\241\90\191\153", "\169\135\98\154")][v7("\96\83\114", "\158\48\118\66\114")];
+	return (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\221\47\97\4", "\168\171\23\68\52\157\83")][v7("\155\97\64", "\155\203\68\112\86\19\197")] - 1) - v45;
+end;
+bit32.band = function(v46, v47)
+	if (v47 ~= 255) then
+	else
+		return v46 % 256;
+	end
+	if (v47 ~= 65535) then
+	else
+		return v46 % 65536;
+	end
+	if ((4135 < 4817) and ((v47 ~= 4294967295) or (4593 <= 2672))) then
+	else
+		return v46 % 4294967296;
+	end
+	v46, v47 = v46 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\226\41\176\253", "\231\148\17\149\205\69\77")][v7("\118\152\102", "\152\38\189\86\156\32\24\133")], v47 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\150\255\130\171", "\159\224\199\167\155\55")][v7("\204\18\247", "\38\156\55\199")];
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\225\171\121\130", "\178\151\147\92")][v7("\186\56\44", "\35\200\29\28\72\115\20\154")] = 0;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\154\165\9\98", "\26\236\157\44\82\114\44")][v7("\9\250\129", "\84\121\223\177\191\237\76")] = 1;
+	for v79 = 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\60\118\144\11", "\59\74\78\181")][v7("\149\19\153", "\161\219\54\169\192\90\48\80")] do
+		local v80, v81 = v46 % 2, v47 % 2;
+		v46, v47 = math.floor(v46 / 2), math.floor(v47 / 2);
+		if (((v80 + v81) ~= 2) or (1168 > 3156)) then
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\51\137\31\10", "\211\69\177\58\58")][v7("\91\7\80", "\69\41\34\96")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\161\189\60\165", "\171\215\133\25\149\137")][v7("\174\134\135", "\75\220\163\183\106\98")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\247\144\119\170", "\34\129\168\82\154\143\80\156")][v7("\18\255\219", "\185\98\218\235\87")];
+		end
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\147\234\118\91", "\233\229\210\83\107\40\46")][v7("\219\121\119", "\202\171\92\71\134\190")] = 2 * TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\215\26\119\134", "\101\161\34\82\182")][v7("\57\132\124", "\232\73\161\76")];
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\254\85\28\174", "\78\136\109\57\158\187\130\226")][v7("\169\156\18", "\126\219\185\34\61")];
+end;
+bit32.bor = function(v50, v51)
+	if (v51 ~= 255) then
+	else
+		return (v50 - (v50 % 256)) + 255;
+	end
+	if ((v51 ~= 65535) or (572 > 4486)) then
+	else
+		return (v50 - (v50 % 65536)) + 65535;
+	end
+	if ((272 == 272) and (v51 ~= 4294967295)) then
+	else
+		return 4294967295;
+	end
+	v50, v51 = v50 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\40\103\188\161", "\145\94\95\153")][v7("\60\139\14", "\135\108\174\62\18\30\23\147")], v51 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\235\149\81\133", "\215\157\173\116\181\46")][v7("\134\172\122", "\167\214\137\74\171\120\206\83")];
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\35\236\206\162", "\186\85\212\235\146")][v7("\153\181\98", "\199\235\144\82\61\152")] = 0;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\212\217\83\174", "\56\162\225\118\158\89\142")][v7("\23\83\233", "\75\103\118\217")] = 1;
+	for v83 = 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\74\93\133\255", "\184\60\101\160\207\66")][v7("\233\17\32", "\126\167\52\16\116\217")] do
+		local v84, v85 = v50 % 2, v51 % 2;
+		v50, v51 = math.floor(v50 / 2), math.floor(v51 / 2);
+		if ((1404 == 1404) and ((v84 + v85) < 1)) then
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\39\218\57\236", "\220\81\226\28")][v7("\218\107\112", "\156\168\78\64\224\212\121")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\5\141\199\171", "\167\115\181\226\155\138")][v7("\21\171\245", "\174\103\142\197")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\244\122\162\12", "\166\130\66\135\60\27\17")][v7("\70\109\15", "\152\54\72\63\88\69\62")];
+		end
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\82\18\139\37", "\80\36\42\174\21")][v7("\196\129\190", "\60\180\164\142")] = 2 * TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\88\72\114\42", "\26\46\112\87")][v7("\72\27\85", "\114\56\62\101\73\71\141")];
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\123\238\36", "\212\217\67\203\20\223\223\37")][v7("\170\172\139", "\164\216\137\187")];
+end;
+bit32.bxor = function(v54, v55)
+	v54, v55 = v54 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\172\213\237\130", "\178\218\237\200")][v7("\226\163\97", "\107\178\134\81\210\198\158")], v55 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\160\237\163\128", "\176\214\213\134")][v7("\8\75\210", "\202\88\110\226\166")];
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\226\245\243\132", "\57\148\205\214\180\200\54")][v7("\209\74\210", "\170\163\111\226\151")] = 0;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\4\165\112\100", "\22\114\157\85\84")][v7("\1\117\226", "\73\113\80\210\88\46\87")] = 1;
+	for v87 = 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\210\147\86\148", "\200\164\171\115\164\61\150")][v7("\175\105\157", "\135\225\76\173\114")] do
+		local v88, v89 = v54 % 2, v55 % 2;
+		v54, v55 = math.floor(v54 / 2), math.floor(v55 / 2);
+		if ((100 <= 3123) and (((v88 + v89) ~= 1) or (3748 < 2212))) then
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\168\172\70\21", "\227\222\148\99\37")][v7("\8\168\232", "\199\122\141\216\208\204\221")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\37\10\23\166", "\153\83\50\50\150")][v7("\191\152\64", "\150\205\189\112\144\24")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\75\46\54\76", "\45\61\22\19\124\19\203")][v7("\53\193\239", "\112\69\228\223\44\100\232\113")];
+		end
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\215\74\72\165", "\217\161\114\109\149\98\16")][v7("\196\90\87", "\230\180\127\103\179\214\28")] = 2 * TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\4\120\125\44", "\20\114\64\88\28\220")][v7("\156\64\15", "\128\236\101\63\38\132\33")];
+	end
+	return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\39\89\151\228", "\221\81\97\178\212\152\176")][v7("\190\236\65", "\175\204\201\113\36\214\139")];
+end;
+bit32.lshift = function(v58, v59)
+	if ((math.abs(v59) < TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\219\191\88\171", "\122\173\135\125\155")][v7("\105\137\101", "\100\39\172\85\188")]) or (1180 == 2180) or (1369 > 4987)) then
+	else
+		return 0;
+	end
+	v58 = v58 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\153\69\233", "\168\228\161\96\217\95\81")][v7("\157\61\233", "\83\205\24\217\224")];
+	if (v59 < 0) then
+		return math.floor(v58 * (2 ^ v59));
+	else
+		return (v58 * (2 ^ v59)) % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\205\137\107\12", "\55\187\177\78\60\79")][v7("\214\128\157", "\93\134\165\173")];
+	end
+end;
+bit32.rshift = function(v60, v61)
+	if ((math.abs(v61) < TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\59\150\26\187", "\224\77\174\63\139\38\175")][v7("\144\183\145", "\30\222\146\161\162\90\174\210")]) or (863 >= 4584)) then
+	else
+		return 0;
+	end
+	v60 = v60 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\25\29\126", "\78\228\33\56")][v7("\213\11\32", "\106\133\46\16")];
+	if ((v61 > 0) or (724 >= 1668)) then
+		return math.floor(v60 * (2 ^ -v61));
+	else
+		return (v60 * (2 ^ -v61)) % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\216\38\247\83", "\229\174\30\210\99")][v7("\104\101\35", "\32\56\64\19\156\58")];
+	end
+end;
+bit32.arshift = function(v62, v63)
+	if (math.abs(v63) < TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\13\181\195\1", "\89\123\141\230\49\141\93")][v7("\116\141\181", "\224\58\168\133\54\58\146")]) then
+	else
+		return 0;
+	end
+	v62 = v62 % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\229\41\179\92", "\42\147\17\150\108\112")][v7("\105\19\27", "\107\57\54\43\157\21\230\231")];
+	if ((428 < 1804) and (v63 > 0)) then
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\25\254\104\47", "\136\111\198\77\31\135")][v7("\218\143\21\176\233", "\175\187\235\113\149\217\188")] = 0;
+		if ((v62 < (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\20\81\226\6", "\201\98\105\199\54\221\132\119")][v7("\12\234\209", "\24\92\207\225\44\131\25")] / 2)) or (3325 > 4613)) then
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\84\198\113", "\204\217\108\227\65\98\85")][v7("\74\215\188\9\75", "\29\43\179\216\44\123")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\72\155\176\181", "\160\62\163\149\133\76")][v7("\141\156\112", "\44\221\185\64")] - (2 ^ (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\192\248\72\127", "\163\182\192\109\79")][v7("\47\162\24", "\19\97\135\40\63")] - v63));
+		end
+		return math.floor(v62 * (2 ^ -v63)) + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\34\126\69\144", "\149\84\70\96\160")][v7("\175\88\55\126\127", "\81\206\60\83\91\79")];
+	else
+		return (v62 * (2 ^ -v63)) % TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\46\94\72\189", "\141\88\102\109")][v7("\126\238\128", "\196\46\203\176\18\79\163\45")];
+	end
+end;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\165\11\143\32", "\161\211\51\170\16\122\93\53")][v7("\174\114\59\78", "\143\216\66\30\126\68\155")] = tonumber;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\237\246\247\120", "\72\155\206\210")][v7("\188\153\72\155", "\129\202\168\109\171\165\195\183")] = string.byte;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\80\34\17\94", "\83\38\26\52\110")][v7("\52\10\114\136", "\134\66\56\87\184\190\116")] = string.char;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\78\79\98\22", "\38\56\119\71")][v7("\42\98\76\235", "\85\92\81\105\219\121\139\65")] = string.sub;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\229\183\29\134", "\54\147\143\56\182\69")][v7("\235\231\21\21", "\191\157\211\48\37\28")] = string.gsub;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\192\217\186\25", "\191\182\225\159\41")][v7("\201\74\177\76", "\90\191\127\148\124")] = string.rep;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\61\74\109\5", "\162\75\114\72\53\235\231")][v7("\110\209\107\71", "\119\24\231\78")] = table.concat;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\154\100\1\178", "\98\236\92\36\130\51")][v7("\148\122\224\26", "\113\226\77\197\42\188\32")] = table.insert;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\178\65\73\234", "\80\196\121\108\218\37\200\213")][v7("\44\78\177\229", "\213\90\118\148")] = math.ldexp;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\22\43\71\47", "\234\96\19\98\31\43\110")][v7("\77\119\241\6", "\45\59\78\212\54")] = getfenv or function()
+	return _ENV;
+end;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\16\71\23\151", "\235\102\127\50\167\204\18")][v7("\6\7\211\206\214", "\144\112\54\227\235\230\78\205")] = setmetatable;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\249\176\115", "\78\48\193\149\67\36")][v7("\165\121\94\185\128", "\59\211\72\111\156\176")] = pcall;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\38\70\197\72", "\33\80\126\224\120")][v7("\88\214\177\104\30", "\77\46\231\131")] = select;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\250\240\70\148", "\60\140\200\99\164")][v7("\172\5\229\5\234", "\32\218\52\214")] = unpack or table.unpack;
+TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\145\172\65\118", "\194\231\148\100\70")][v7("\88\70\101\237\161", "\58\46\119\81\200\145\208\37")] = tonumber;
+local function v41(v64, v65, ...)
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\80\20\132\243", "\168\38\44\161\195\150")][v7("\61\221\104\233\249", "\86\75\236\80\204\201\221")] = 1;
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\150\164\199\38", "\118\224\156\226\22\80\136\214")][v7("\100\16\46\192\174", "\235\18\33\23\229\158")] = nil;
+	v64 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\84\182\28\208", "\224\34\142\57")][v7("\70\238\132\235", "\219\48\218\161")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\200\255\128\141", "\110\190\199\165\189\19\145\61")][v7("\242\34\57\25", "\128\132\17\28\41\187\47")](v64, 5), v7("\79\124", "\61\97\82\102\90"), function(v91)
+		if ((4090 < 4653) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\204\179\50\184", "\167\186\139\23\136\235")][v7("\186\127\238\27", "\105\204\78\203\43\167\55\126")](v91, 2) == 79)) then
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\237\205\93", "\109\122\213\232")][v7("\179\251\122\91\67", "\49\197\202\67\126\115\100\167")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\248\175\231\96", "\80\142\151\194")][v7("\33\11\154\121", "\62\87\59\191\73\224\54")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\21\158\50\28", "\44\99\166\23")][v7("\241\81\191\153", "\169\135\98\154")](v91, 1, 1));
+			return "";
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\106\175\108\102", "\196\28\151\73\86\83")][v7("\221\47\119\17\173", "\168\171\23\68\52\157\83")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\229\91\108\64", "\22\147\99\73\112\226\56\120")][v7("\226\35\176\253", "\231\148\17\149\205\69\77")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\45\167\165", "\237\216\21\130\149")][v7("\150\247\130\171", "\159\224\199\167\155\55")](v91, 16));
+			if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\22\26\15", "\62\226\46\63\63\208\169")][v7("\225\162\101\151\167", "\178\151\147\92")] or (2652 < 196)) then
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\243\65\16\211", "\62\133\121\53\227\127\109\79")][v7("\154\164\28\119\66", "\26\236\157\44\82\114\44")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\6\76\119\165", "\194\112\116\82\149\182\206")][v7("\60\123\144\11", "\59\74\78\181")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\47\240\9\72", "\110\89\200\44\120\160\130")][v7("\51\137\9\31\227", "\211\69\177\58\58")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\189\155\14\22", "\45\203\163\43\38\35\42\91")][v7("\161\180\32\176\185", "\171\215\133\25\149\137")]);
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\196\221\153\115", "\52\178\229\188\67\231\201")][v7("\247\153\107\191\191", "\34\129\168\82\154\143\80\156")] = nil;
+				return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\55\25\21\84", "\67\65\33\48\100\151\60")][v7("\147\235\99\78\24", "\233\229\210\83\107\40\46")];
+			else
+				return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\201\191\235\136", "\147\191\135\206\184")][v7("\215\26\97\147\85", "\101\161\34\82\182")];
+			end
+		end
+	end);
+	local function v68(v92, v93, v94)
+		if (v94 or (4950 <= 4553)) then
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\112\227\145", "\210\228\72\198\161\184\51")][v7("\254\85\13\187\139", "\78\136\109\57\158\187\130\226")] = (v92 / (((1642 - (1523 + 114)) - 3) ^ (v93 - 1))) % ((5 - 3) ^ (((v94 - (1 - 0)) - (v93 - ((2 + 0) - 1))) + 1));
+			return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\32\17\182\64", "\174\86\41\147\112\19")][v7("\40\103\173\180\110", "\145\94\95\153")] - (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\77\88\200\91", "\203\59\96\237\107\69\111\113")][v7("\235\149\64\144\30", "\215\157\173\116\181\46")] % (620 - (555 + 64)));
+		else
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\50\78\233\177", "\183\68\118\204\129\81\144")][v7("\35\236\222\183\138", "\186\85\212\235\146")] = 931 - (857 + 74);
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\24\245\53\180", "\226\110\205\16\132\107")][v7("\212\217\64\187\105", "\56\162\225\118\158\89\142")] = nil;
+			while true do
+				if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\253\155\165\137", "\33\139\163\128\185")][v7("\74\93\149\234\114", "\184\60\101\160\207\66")] ~= (0 - 0)) then
+				else
+					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\65\0\65\142", "\190\55\56\100")][v7("\39\218\42\249\97", "\220\81\226\28")] = (570 - (367 + 201)) ^ (v93 - ((1993 - (68 + 997)) - (214 + 713)));
+					return (((v92 % (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\64\247\121\78", "\147\54\207\92\126\115\131")][v7("\5\141\212\190\186", "\167\115\181\226\155\138")] + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\27\105\112\45", "\30\109\81\85\29\109")][v7("\244\122\177\25\43", "\166\130\66\135\60\27\17")])) >= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\233\41\17\230", "\156\159\17\52\214\86\190")][v7("\82\18\152\48\96", "\80\36\42\174\21")]) and ((878 - (282 + 595)) + 0)) or (0 + 0);
+				end
+			end
+		end
+	end
+	local function v69()
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\184\183\248\236", "\220\206\143\221")][v7("\88\67\99\63\30", "\26\46\112\87")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\144\37\104\71", "\178\230\29\77\119\184\172")][v7("\175\114\238\36", "\212\217\67\203\20\223\223\37")](v64, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\227\230\79\75", "\152\149\222\106\123\23")][v7("\172\220\240\151\234", "\178\218\237\200")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\203\126\179\19", "\213\189\70\150\35")][v7("\160\228\190\149\230", "\176\214\213\134")]);
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\89\13\49\88", "\104\47\53\20")][v7("\226\252\238\145\248", "\57\148\205\214\180\200\54")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\181\20\196\76", "\111\195\44\225\124\220")][v7("\4\172\109\113\38", "\22\114\157\85\84")] + 1;
+		return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\206\30\69\35", "\203\184\38\96\19\203")][v7("\210\152\71\129\13", "\200\164\171\115\164\61\150")];
+	end
+	local function v70()
+		local v97, v98 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\47\43\60\17", "\174\89\19\25\33")][v7("\168\165\70\21", "\227\222\148\99\37")](v64, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\57\74\23\30", "\107\79\114\50\46\151\231")][v7("\37\3\10\179\169", "\153\83\50\50\150")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\47\254\240\121", "\160\89\198\213\73\234\89\215")][v7("\75\39\43\89\35", "\45\61\22\19\124\19\203")] + (8 - 6));
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\94\41\241\174", "\165\40\17\212\158")][v7("\215\67\85\176\82", "\217\161\114\109\149\98\16")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\243\129\77\99", "\70\133\185\104\83")][v7("\4\113\96\57\236", "\20\114\64\88\28\220")] + (119 - (32 + 85));
+		return (v98 * (251 + 5)) + v97;
+	end
+	local function v71()
+		local v100, v101, v102, v103 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\18\29\1\122", "\169\100\37\36\74")][v7("\39\80\151\228", "\221\81\97\178\212\152\176")](v64, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\22\223\231\0", "\48\96\231\194")][v7("\219\182\69\190\74", "\122\173\135\125\155")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\222\2\75\125", "\227\168\58\110\77\121\184\207")][v7("\146\144\88\252\111", "\168\228\161\96\217\95\81")] + 1 + 2);
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\109\100\250\16", "\197\27\92\223\32\209\187\17")][v7("\205\128\118\25\127", "\55\187\177\78\60\79")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\21\7\134\171", "\155\99\63\163")][v7("\59\159\7\174\22", "\224\77\174\63\139\38\175")] + (961 - (892 + (415 - (87 + 263))));
+		return (v103 * (40022563 - 23245347)) + (v102 * (121138 - 55602)) + (v101 * (469 - 213)) + v100;
+	end
+	local function v72()
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\137\228\221", "\228\226\177\193\237\217")][v7("\146\21\9\107\212", "\78\228\33\56")] = 180 - (67 + 113);
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\34\232\102\182", "\134\84\208\67")][v7("\216\42\224\70\213", "\229\174\30\210\99")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\5\244\195\12", "\60\115\204\230")][v7("\13\185\213\20\189", "\89\123\141\230\49\141\93")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\241\98\174\32", "\16\135\90\139")][v7("\229\37\162\73\64", "\42\147\17\150\108\112")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\66\44\67\99", "\24\52\20\102\83\46\52")][v7("\25\242\120\58\183", "\136\111\198\77\31\135")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\210\119\100\116", "\111\164\79\65\68")][v7("\20\93\241\19\237", "\201\98\105\199\54\221\132\119")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\129\198\142", "\138\166\185\227\190\78")][v7("\175\88\212\100\82", "\204\217\108\227\65\98\85")] = nil;
+		while true do
+			if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\221\44\128\103", "\121\171\20\165\87\50\67")][v7("\72\151\164\160\124", "\160\62\163\149\133\76")] ~= 0) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\96\252\102", "\98\166\88\217\86\217")][v7("\192\244\95\106\147", "\163\182\192\109\79")] = v71();
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\224\174\60\81", "\188\150\150\25\97\230")][v7("\34\114\83\133\165", "\149\84\70\96\160")] = v71();
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\204\209\26\82", "\141\186\233\63\98\108")][v7("\46\82\92\168\104", "\141\88\102\109")] = 1 + (1486 - (998 + 488));
+			end
+			if ((2665 <= 3933) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\231\178\105\230", "\69\145\138\76\214")][v7("\165\7\155\53\74", "\161\211\51\170\16\122\93\53")] ~= (7 - 4))) then
+			else
+				if ((3273 == 3273) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\102\151\204\217", "\118\16\175\233\233\223")][v7("\237\250\228\109\171", "\72\155\206\210")] == (0 + 0 + 0))) then
+					if ((3824 > 409) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\157\220\112\235", "\29\235\228\85\219\142\235")][v7("\80\46\1\75\99", "\83\38\26\52\110")] == (0 - 0))) then
+						return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\43\140\255\141", "\50\93\180\218\189\23\46\71")][v7("\78\67\112\3\8", "\38\56\119\71")] * (952 - (802 + 150));
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\200\252\30\28", "\40\190\196\59\44\36\188")][v7("\229\182\0\147\117", "\54\147\143\56\182\69")] = 0 - 0;
+						while true do
+							if ((4135 < 4817) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\42\29\153\228", "\109\92\37\188\212\154\29")][v7("\192\216\167\12\143", "\191\182\225\159\41")] == ((0 + 0) - 0))) then
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\18\183\225\147", "\58\100\143\196\163\81")][v7("\61\70\126\16\219", "\162\75\114\72\53\235\231")] = 1 + (0 - 0);
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\26\102\243", "\110\122\34\67\195\95\41\133")][v7("\154\104\16\167\3", "\98\236\92\36\130\51")] = 997 - (915 + 82);
+								break;
+							end
+						end
+					end
+				elseif ((2087 == 2087) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\99\233\30\26", "\182\21\209\59\42")][v7("\178\77\90\255\21", "\80\196\121\108\218\37\200\213")] ~= 2047)) then
+				else
+					return ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\161\15\128\77", "\222\215\55\165\125\65")][v7("\22\39\87\58\27", "\234\96\19\98\31\43\110")] == (0 - (1138 - (116 + 1022)))) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\58\137\131\74", "\42\76\177\166\122\146\161\141")][v7("\16\75\5\130\252", "\235\102\127\50\167\204\18")] * ((1 + 0) / 0))) or (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\179\210\64\158", "\22\197\234\101\174\25")][v7("\70\245\162\102\20", "\78\48\193\149\67\36")] * NaN);
+				end
+				return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\59\108\224\140", "\230\77\84\197\188\22\207\183")][v7("\38\70\197\72", "\33\80\126\224\120")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\239\76\131\172", "\85\153\116\166\156\236\193\144")][v7("\250\252\84\129\12", "\60\140\200\99\164")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\178\184\8\227", "\96\196\128\45\211\132")][v7("\145\160\82\99\242", "\194\231\148\100\70")] - ((577 + 767) - 321)) * (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\35\213\62\15", "\184\85\237\27\63\178\207\212")][v7("\80\24\149\230\166", "\168\38\44\161\195\150")] + (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\30\1\76\15", "\63\104\57\105")][v7("\150\168\215\51\96", "\118\224\156\226\22\80\136\214")] / ((1189 - (1069 + 118)) ^ 52)));
+			end
+			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\29\223\225\20", "\36\107\231\196")][v7("\84\186\8\197\18", "\224\34\142\57")] ~= (4 - 2)) or (3404 > 4503)) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\75\237\231\215", "\231\61\213\194")][v7("\200\243\147\152\35", "\110\190\199\165\189\19\145\61")] = v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\31\245\120\35", "\19\105\205\93")][v7("\204\191\36\173\219", "\167\186\139\23\136\235")], 45 - 24, 31);
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\191\80\155\209", "\95\201\104\190\225")][v7("\12\225\223\72\74", "\109\122\213\232")] = ((v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\185\147\132\158", "\174\207\171\161")][v7("\248\163\241\117\190", "\80\142\151\194")], 6 + 26) == (1 - (0 - 0))) and -(1 + 0)) or ((3297 - 2505) - ((806 - (145 + 293)) + 423));
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\251\166\72\163", "\183\141\158\109\147\152")][v7("\21\146\38\9\83", "\44\99\166\23")] = 433 - (44 + 386);
+			end
+			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\58\81\163\92", "\108\76\105\134")][v7("\106\163\120\115\99", "\196\28\151\73\86\83")] ~= 1) or (3506 <= 1309)) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\253\157\244\177", "\174\139\165\209\129")][v7("\229\87\125\85\210", "\22\147\99\73\112\226\56\120")] = 3 - 2;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\181\235\167\145", "\24\195\211\130\161\166\99\16")][v7("\174\33\183\176\221", "\237\216\21\130\149")] = (v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\80\91\172\124", "\118\38\99\137\76\51")][v7("\148\26\12\26\224", "\62\226\46\63\63\208\169")], 19 - (10 + 8), 20) * ((7 - 5) ^ 32)) + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\235\126\64\66", "\64\157\70\101\114\105")][v7("\243\77\7\198\79", "\62\133\121\53\227\127\109\79")];
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\86\240\226\179", "\112\32\200\199\131")][v7("\6\64\99\176\134", "\194\112\116\82\149\182\206")] = 444 - (245 + 171 + 26);
+			end
+		end
+	end
+	local function v73(v112)
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\58\8\25\232", "\66\76\48\60\216\163\203")][v7("\47\252\21\93\144", "\110\89\200\44\120\160\130")] = nil;
+		if ((2955 == 2955) and (272 == 272) and not v112) then
+			v112 = v71();
+			if (((100 <= 3123) and (v112 ~= (0 - 0))) or (2903 == 1495)) then
+			else
+				return "";
+			end
+		end
+		v49 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\172\222\60\163", "\68\218\230\25\147\63\174")][v7("\189\144\14\22", "\45\203\163\43\38\35\42\91")](v64, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\187\114\22\28", "\214\205\74\51\44")][v7("\196\212\132\102\215", "\52\178\229\188\67\231\201")], (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\236\20\167\172", "\23\154\44\130\156")][v7("\55\16\8\65\167", "\67\65\33\48\100\151\60")] + v112) - 1);
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\7\254\232\254", "\115\113\198\205\206\86")][v7("\201\182\246\157\163", "\147\191\135\206\184")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\15\187\10", "\58\228\55\158")][v7("\146\121\254\132\136", "\210\228\72\198\161\184\51")] + v112;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\162\209\149\126", "\85\212\233\176\78\92\205")][v7("\32\28\163\85\35", "\174\86\41\147\112\19")] = {};
+		for v136 = 3 - 2, #v49 do
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\92\0\205\178", "\130\42\56\232")][v7("\77\85\221\78\117", "\203\59\96\237\107\69\111\113")][v136] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\252\237\97\179", "\95\138\213\68\131\32")][v7("\50\68\233\177", "\183\68\118\204\129\81\144")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\60\112\228\19", "\22\74\72\193\35")][v7("\24\252\53\180", "\226\110\205\16\132\107")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\58\33\161\8", "\56\76\25\132")][v7("\253\144\165\137", "\33\139\163\128\185")](v49, v136, v136)));
+		end
+		return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\72\153\238\118", "\175\62\161\203\70")][v7("\65\14\65\142", "\190\55\56\100")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\42\133\134\67", "\85\92\189\163\115")][v7("\64\250\108\91\67", "\147\54\207\92\126\115\131")]);
+	end
+	TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\63\244\117\104", "\88\73\204\80")][v7("\27\99\99\56\93", "\30\109\81\85\29\109")] = v71;
+	local function v75(...)
+		return {...}, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\56\219\85\22", "\186\78\227\112\38\73")][v7("\233\32\6\243\102", "\156\159\17\52\214\86\190")]("#", ...);
+	end
+	local function v76()
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\234\15\184\5", "\26\156\55\157\53\51")][v7("\184\186\236\249\254", "\220\206\143\221")] = 0;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\154\128\83\137", "\48\236\184\118\185\216")][v7("\144\40\127\82\136", "\178\230\29\77\119\184\172")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\243\229\18\96", "\84\133\221\55\80\175")][v7("\227\235\89\94\39", "\152\149\222\106\123\23")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\171\191\97\246", "\60\221\135\68\198\167")][v7("\203\115\162\6\229", "\213\189\70\150\35")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\248\229\189\211", "\185\142\221\152\227\34")][v7("\89\0\33\77\31", "\104\47\53\20")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\78\157\18\170", "\151\56\165\55\154\35\83")][v7("\181\25\215\89\236", "\111\195\44\225\124\220")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\182\27\64\190", "\142\192\35\101")][v7("\206\19\87\54\251", "\203\184\38\96\19\203")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\192\45\108\243", "\118\182\21\73\195\135\236\204")][v7("\47\38\33\4\158", "\174\89\19\25\33")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\30\100\95\16", "\157\104\92\122\32\100\109")][v7("\57\71\11\11\167", "\107\79\114\50\46\151\231")] = nil;
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\181\254\138\154", "\203\195\198\175\170\93\71\237")][v7("\47\240\229\108\218", "\160\89\198\213\73\234\89\215")] = nil;
+		while true do
+			if ((4546 >= 2275) and ((2 ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\56\19\123\133", "\156\78\43\94\181\49\113")][v7("\94\36\229\187\149", "\165\40\17\212\158")]) or (1369 > 4987))) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\100\176\129\243", "\25\18\136\164\195\107\35")][v7("\243\140\94\118\118", "\70\133\185\104\83")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\254\117\236\31", "\216\136\77\201\47\18\220\161")][v7("\18\16\19\111\153", "\169\100\37\36\74")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\59\180\110\138", "\226\77\140\75\186\104\188")][v7("\22\210\243\21\80", "\48\96\231\194")] = 2 + 1;
+			end
+			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\150\149\111", "\47\217\174\176\95")][v7("\222\15\95\104\73", "\227\168\58\110\77\121\184\207")] ~= 3) or (863 >= 4584)) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\133\51\82", "\70\216\189\22\98\210\52\24")][v7("\109\105\231\5\225", "\197\27\92\223\32\209\187\17")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\204\135\230\215", "\179\186\191\195\231")][v7("\21\10\154\190\83", "\155\99\63\163")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\239\103\93\180", "\132\153\95\120")][v7("\148\132\240\200\233", "\228\226\177\193\237\217")] = 4;
+			end
+			if ((819 >= 22) and ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\167\234\75\125", "\192\209\210\110\77\151\186")][v7("\34\229\114\163\100", "\134\84\208\67")] ~= 4) or (724 >= 1668))) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\246\91\103\185", "\164\128\99\66\137\159")][v7("\5\250\214\25\67", "\60\115\204\230")] = nil;
+				while true do
+					if ((428 < 1804) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\22\209\172\238", "\222\96\233\137")][v7("\241\111\185\53\183", "\16\135\90\139")] ~= 3)) then
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\235\226\79", "\144\217\211\199\127\232\147")][v7("\66\45\83\118\30", "\24\52\20\102\83\46\52")] = 0 - 0;
+						while true do
+							if ((3162 == 3162) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\238\119\123\120", "\36\152\79\94\72\181\37\98")][v7("\210\118\116\97\95", "\111\164\79\65\68")] ~= (604 - (268 + 335)))) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\193\128\2\111", "\95\183\184\39")][v7("\208\140\209\155\126", "\138\166\185\227\190\78")] = 294 - (60 + 230);
+								break;
+							end
+							if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\163\103\162\118", "\98\213\95\135\70\52\224")][v7("\221\45\144\114\2", "\121\171\20\165\87\50\67")] ~= (572 - (426 + 146))) or (3325 > 4613) or (2369 > 4429)) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\232\251\140\39", "\52\158\195\169\23")][v7("\208\109\224\115\233", "\98\166\88\217\86\217")] = nil;
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\108\228\119\36", "\235\26\220\82\20\230\85\27")][v7("\224\160\41\68\214", "\188\150\150\25\97\230")] = nil;
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\158\249\172\146", "\20\232\193\137\162")][v7("\204\208\10\71\92", "\141\186\233\63\98\108")] = 1 + 0;
+							end
+						end
+					end
+					if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\52\135\128\246", "\17\66\191\165\198\135\236\119")][v7("\231\191\126\243\117", "\69\145\138\76\214")] ~= 0) or (4950 <= 4553)) then
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\25\247\235\67", "\177\111\207\206\115\159\136\140")][v7("\102\150\223\204\239", "\118\16\175\233\233\223")] = 1456 - (282 + 1174);
+						while true do
+							if ((4095 >= 3183) and (2665 <= 3933) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\19\209\85\68", "\63\101\233\112\116\180\47")][v7("\157\221\99\254\190", "\29\235\228\85\219\142\235")] ~= 0)) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\213\99\168\66", "\86\163\91\141\114\152")][v7("\43\129\233\152\39", "\50\93\180\218\189\23\46\71")] = 811 - (569 + 242);
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\69\83\49\35", "\90\51\107\20\19")][v7("\200\241\15\9\20", "\40\190\196\59\44\36\188")] = nil;
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\168\192\191", "\93\237\144\229\143")][v7("\42\28\138\241\170", "\109\92\37\188\212\154\29")] = 1;
+							end
+							if ((3273 == 3273) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\3\174\181\73", "\38\117\150\144\121\107")][v7("\18\182\242\134\97", "\58\100\143\196\163\81")] ~= (2 - 1))) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\59\227\171\106", "\90\77\219\142")][v7("\12\23\113\230\111", "\110\122\34\67\195\95\41\133")] = 1;
+								break;
+							end
+						end
+					end
+					if ((3824 > 409) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\240\92\100\105", "\26\134\100\65\89\44\103")][v7("\99\228\9\15\134", "\182\21\209\59\42")] ~= 1)) then
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\231\187\117\115", "\196\145\131\80\67")][v7("\161\2\144\88\113", "\222\215\55\165\125\65")] = nil;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\8\232\67\88", "\136\126\208\102\104\120")][v7("\58\132\144\95\162", "\42\76\177\166\122\146\161\141")] = nil;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\110\210\139\19", "\49\24\234\174\35\207\50\93")][v7("\179\223\87\139\41", "\22\197\234\101\174\25")] = 1 + 1;
+					end
+					if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\26\170\184\216", "\17\108\146\157\232")][v7("\59\97\247\153\38", "\230\77\84\197\188\22\207\183")] ~= 4) or (3711 < 1008)) then
+					else
+						while true do
+							if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\93\155\81\189", "\200\43\163\116\141\79")][v7("\239\65\149\185\220", "\85\153\116\166\156\236\193\144")] ~= (1027 - (706 + 318))) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\169\110\120\211", "\131\223\86\93\227\208\148")][v7("\178\182\29\246\180", "\96\196\128\45\211\132")] = nil;
+								while true do
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\245\29\243\230", "\213\131\37\214\214\125")][v7("\35\220\40\11\151\255", "\184\85\237\27\63\178\207\212")] = 0;
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\48\115\96\239", "\129\70\75\69\223")][v7("\30\8\90\10\77\9", "\63\104\57\105")] = nil;
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\80\147\182\185", "\143\38\171\147\137\28")][v7("\29\214\247\18\78\215", "\36\107\231\196")] = nil;
+									while true do
+										if (((2087 == 2087) and ((1251 - (721 + 530)) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\198\218\252\163", "\180\176\226\217\147\99\131")][v7("\75\228\241\211\24\229", "\231\61\213\194")])) or (1049 <= 906)) then
+										else
+											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\197\225\106\87", "\103\179\217\79")][v7("\31\252\110\38\76\253", "\19\105\205\93")] = 0;
+											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\92\239\89\133", "\195\42\215\124\181\33\236")][v7("\191\89\141\215\122\249", "\95\201\104\190\225")] = nil;
+											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\27\1\114\110", "\152\109\57\87\94\69")][v7("\185\154\146\154\234\155", "\174\207\171\161")] = 1272 - (945 + 326);
+										end
+										if ((4513 > 2726) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\239\143\79\243", "\200\153\183\106\195\222\178\52")][v7("\251\175\94\167\189\135", "\183\141\158\109\147\152")] ~= 1)) then
+										else
+											while true do
+												if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\36\187\205\109", "\58\82\131\232\93\41")][v7("\58\88\181\89\105\89", "\108\76\105\134")] ~= (0 - 0)) or (3404 > 4503)) then
+												else
+													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\149\15\149\69", "\95\227\55\176\117\61")][v7("\253\148\226\183\139\187", "\174\139\165\209\129")] = 0;
+													while true do
+														if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\14\38\102\27", "\203\120\30\67\43")][v7("\181\226\177\151\131\83", "\24\195\211\130\161\166\99\16")] ~= 1) or (3506 <= 1309) or (1481 >= 2658)) then
+														else
+															if ((2955 == 2955) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\231\125\8\191", "\185\145\69\45\143")][v7("\80\86\189\105\3", "\118\38\99\137\76\51")] ~= (0 + 0))) then
+															else
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\156\71\92\246", "\188\234\127\121\198")][v7("\235\119\81\68\76\112", "\64\157\70\101\114\105")] = 700 - (271 + 429);
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\46\106\86\211", "\227\88\82\115")][v7("\86\249\243\180\85\16", "\112\32\200\199\131")] = nil;
+																while true do
+																	if (((0 + 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\85\71\255\247", "\19\35\127\218\199\98")][v7("\58\1\8\238\134\251", "\66\76\48\60\216\163\203")]) or (3220 == 1364)) then
+																	else
+																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\10\163\79\178", "\130\124\155\106")][v7("\172\215\45\164\26\158", "\68\218\230\25\147\63\174")] = 0;
+																		while true do
+																			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\195\147\179\255", "\223\181\171\150\207\195\150\28")][v7("\187\123\7\27\243\253", "\214\205\74\51\44")] ~= (1500 - (1408 + 92))) or (2903 == 1495) or (1054 > 3392)) then
+																			else
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\90\98\166\254", "\105\44\90\131\206")][v7("\236\25\183\185\39", "\23\154\44\130\156")] = {};
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\233\184\247\233", "\94\159\128\210\217\104")][v7("\7\243\251\235\102", "\115\113\198\205\206\86")] = {};
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\161\67\239", "\26\48\153\102\223\63\31\153")][v7("\146\6\170\13\193\7", "\58\228\55\158")] = 1;
+																			end
+																			if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\20\24\168\163", "\147\98\32\141")][v7("\162\216\132\121\121\253", "\85\212\233\176\78\92\205")] ~= (1087 - (461 + 625))) then
+																			else
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\14\27\166\154", "\43\120\35\131\170\102\54")][v7("\92\13\223\167\26", "\130\42\56\232")] = {};
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\66\94\194\230", "\228\52\102\231\214\197\208")][v7("\252\224\112\166\16", "\95\138\213\68\131\32")] = 1;
+																				break;
+																			end
+																		end
+																		break;
+																	end
+																end
+															end
+															if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\8\184\48\154", "\182\126\128\21\170\138\235\121")][v7("\60\125\245\6\38", "\22\74\72\193\35")] ~= (1291 - (993 + 295))) then
+															else
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\157\130\112\182", "\102\235\186\85\134\230\115\80")][v7("\58\40\176\0\105\41", "\56\76\25\132")] = 0;
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\65\84\123\15", "\66\55\108\94\63\18\180")][v7("\72\144\255\127\138\14", "\175\62\161\203\70")] = nil;
+																while true do
+																	if ((4546 >= 2275) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\2\213\192\103", "\57\116\237\229\87\71")][v7("\42\140\151\75\112\108", "\85\92\189\163\115")] ~= (0 + 0))) then
+																	else
+																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\188\233\168\183", "\39\202\209\141\135\23\142")][v7("\63\253\100\97\108\252", "\88\73\204\80")] = 0;
+																		while true do
+																			if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\233\107\76\90", "\152\159\83\105\106\82")][v7("\56\210\68\31\108\138", "\186\78\227\112\38\73")] ~= (1171 - (418 + 753))) then
+																			else
+																				for v348 = 1, v71() do
+																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\151\158\20\162", "\60\225\166\49\146\169")][v7("\234\2\171\16\3", "\26\156\55\157\53\51")][v348 - 1] = v76();
+																				end
+																				return TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\57\70\106\122", "\103\79\126\79\74\97")][v7("\154\141\78\156\232", "\48\236\184\118\185\216")];
+																			end
+																		end
+																		break;
+																	end
+																end
+															end
+															break;
+														end
+														if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\172\39\150\35", "\122\218\31\179\19\62")][v7("\243\236\4\102\138\100", "\84\133\221\55\80\175")] ~= (0 + 0)) or (676 >= 1642)) then
+														else
+															if ((819 >= 22) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\165\142\136\145", "\37\211\182\173\161\169\193")][v7("\171\178\112\227\151", "\60\221\135\68\198\167")] ~= (1 + 0))) then
+															else
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\225\98\8\137", "\217\151\90\45\185\72\27")][v7("\248\236\173\211\7\137", "\185\142\221\152\227\34")] = 0;
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\213\36\162\66", "\54\163\28\135\114")][v7("\78\148\2\171\6\99", "\151\56\165\55\154\35\83")] = nil;
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\62\131\24\210", "\31\72\187\61\226\46")][v7("\182\18\80\188\229\19", "\142\192\35\101")] = nil;
+																while true do
+																	if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\213\94\6\130", "\68\163\102\35\178\39\30")][v7("\192\36\124\243\162\220", "\118\182\21\73\195\135\236\204")] ~= (0 + 0)) then
+																	else
+																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\168\40\159\151", "\113\222\16\186\167\99\213\227")][v7("\30\109\79\17\65\93", "\157\104\92\122\32\100\109")] = 0;
+																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\56\86\190\166", "\150\78\110\155")][v7("\181\247\154\152\120\119", "\203\195\198\175\170\93\71\237")] = nil;
+																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\147\157\98\177", "\32\229\165\71\129\196\126\223")][v7("\56\26\107\133\20\65", "\156\78\43\94\181\49\113")] = 1;
+																	end
+																	if ((4136 > 2397) and (3162 == 3162) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\213\209\129\209", "\181\163\233\164\225\225")][v7("\100\185\145\243\78\19", "\25\18\136\164\195\107\35")] ~= 1)) then
+																	else
+																		while true do
+																			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\211\123\39", "\23\48\235\94")][v7("\254\124\252\30\55\236", "\216\136\77\201\47\18\220\161")] ~= 0) or (4334 == 4245)) then
+																			else
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\106\130\157\13", "\178\28\186\184\61\55\83")][v7("\59\189\126\136\77\140", "\226\77\140\75\186\104\188")] = 0;
+																				while true do
+																					if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\210\149\2\108", "\149\164\173\39\92\146\110")][v7("\175\159\133\109\10\233", "\47\217\174\176\95")] ~= (0 + 0)) or (4276 <= 3031)) then
+																					else
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\229\127\85\79", "\123\147\71\112\127\122")][v7("\174\136\46\71\226", "\70\216\189\22\98\210\52\24")] = {TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\218\149\199\33", "\38\172\173\226\17")][v7("\204\138\246\194\131", "\179\186\191\195\231")],TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\91\73\105\191", "\143\45\113\76")][v7("\239\106\78\161\169", "\132\153\95\120")],nil,TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\224\89\108", "\92\216\216\124")][v7("\167\231\89\104\167", "\192\209\210\110\77\151\186")]};
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\77\106\233\16", "\157\59\82\204\32")][v7("\246\86\123\172\175", "\164\128\99\66\137\159")] = v71();
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\46\102\166\170", "\209\88\94\131\154\137\138\179")][v7("\22\216\188\236\69\217", "\222\96\233\137")] = 1 + 0;
+																					end
+																					if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\62\249\129\44", "\66\72\193\164\28\126\67\81")][v7("\175\226\242\77\205\163", "\144\217\211\199\127\232\147")] ~= 1) or (2369 > 4429)) then
+																					else
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\241\116\237\8", "\22\135\76\200\56\70")][v7("\238\121\110\109\133", "\36\152\79\94\72\181\37\98")] = {};
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\104\189\116", "\129\237\80\152\68\61")][v7("\193\141\19\122\135", "\95\183\184\39")] = 1147 - (466 + 679);
+																						break;
+																					end
+																				end
+																				break;
+																			end
+																		end
+																		break;
+																	end
+																end
+															end
+															if (((4095 >= 3183) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\71\240\65\163", "\56\49\200\100\147\124\119")][v7("\163\106\179\99\4", "\98\213\95\135\70\52\224")] ~= 2)) or (4782 <= 1199)) then
+															else
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\218\102\250\160", "\144\172\94\223")][v7("\232\242\156\36\17\174", "\52\158\195\169\23")] = 0 - 0;
+																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\50\87\231\23", "\39\68\111\194")][v7("\108\237\103\32\195\101", "\235\26\220\82\20\230\85\27")] = nil;
+																while true do
+																	if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\192\254\162\151", "\215\182\198\135\167\25")][v7("\158\240\188\145\49\216", "\20\232\193\137\162")] ~= 0) or (3711 < 1008)) then
+																	else
+																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\17\175\24", "\40\237\41\138")][v7("\52\142\144\242\162\220", "\17\66\191\165\198\135\236\119")] = 0;
+																		while true do
+																			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\209\44\191\168", "\42\167\20\154\152")][v7("\25\254\251\71\186\184", "\177\111\207\206\115\159\136\140")] ~= (2 - 1)) or (1049 <= 906)) then
+																			else
+																				for v350 = 1901 - (106 + 1794), v71() do
+																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\92\166\231\18", "\65\42\158\194\34\17")][v7("\19\216\69\77\145\31", "\63\101\233\112\116\180\47")] = 0 + 0;
+																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\127\23\92", "\142\122\71\50\108\77\141\123")][v7("\213\106\187\66\189\102", "\86\163\91\141\114\152")] = nil;
+																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\3\250\186\72", "\91\117\194\159\120")][v7("\69\90\34\34\127\3", "\90\51\107\20\19")] = nil;
+																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\69\123\72", "\68\122\125\94\120\85\145")][v7("\155\161\211\189\120\221", "\93\237\144\229\143")] = nil;
+																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\1\68\138\14", "\218\119\124\175\62\168\185")][v7("\3\167\166\74\78\22", "\38\117\150\144\121\107")] = nil;
+																					while true do
+																						if (1 ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\179\168\13\148", "\164\197\144\40")][v7("\59\234\187\99\104\235", "\90\77\219\142")]) then
+																						else
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\149\168\239\219", "\214\227\144\202\235\189")][v7("\240\85\119\107\9\87", "\26\134\100\65\89\44\103")] = nil;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\251\253\194\43", "\92\141\197\231\27\112\211\51")][v7("\231\178\102\112\225\161", "\196\145\131\80\67")] = nil;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\240\167\207\243", "\177\134\159\234\195")][v7("\8\225\83\81\93\184", "\136\126\208\102\104\120")] = 2;
+																						end
+																						if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\171\179\122\240", "\169\221\139\95\192")][v7("\110\219\155\26\234\2", "\49\24\234\174\35\207\50\93")] ~= 2) then
+																						else
+																							while true do
+																								if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\200\211\58\111", "\70\190\235\31\95\66")][v7("\26\163\171\216\52\92", "\17\108\146\157\232")] ~= 1) or (4864 < 1902)) then
+																								else
+																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\172\186\95\182", "\133\218\130\122\134")][v7("\93\146\66\190\106\248", "\200\43\163\116\141\79")] = nil;
+																									while true do
+																										if ((4839 >= 3700) and (4513 > 2726) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\42\167\166\148", "\88\92\159\131\164\188\195")][v7("\169\103\107\210\245\164", "\131\223\86\93\227\208\148")] ~= 0)) then
+																										else
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\150\118\250\27", "\189\224\78\223\43\183\139")][v7("\245\20\225\231\88\229", "\213\131\37\214\214\125")] = 0;
+																											while true do
+																												if ((1 ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\56\164\207\70", "\161\78\156\234\118")][v7("\48\122\114\238\164\118", "\129\70\75\69\223")]) or (1075 > 1918)) then
+																												else
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\177\239\140\140", "\188\199\215\169")][v7("\80\154\165\184\57\191", "\143\38\171\147\137\28")] = 1;
+																													break;
+																												end
+																												if ((396 <= 3804) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\234\81\26\43", "\136\156\105\63\27")][v7("\198\211\238\162\70\179", "\180\176\226\217\147\99\131")] ~= (0 + 0))) then
+																												else
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\13\212\60\100", "\84\123\236\25")][v7("\197\232\121\85\150\233", "\103\179\217\79")] = 0 - 0;
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\230\211\239\71", "\213\144\235\202\119\204")][v7("\92\230\74\134\4\220", "\195\42\215\124\181\33\236")] = nil;
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\53\64\155\122", "\45\67\120\190\74\72\67")][v7("\27\8\96\111\96\168", "\152\109\57\87\94\69")] = 2 - 1;
+																												end
+																											end
+																										end
+																										if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\54\122\168\245", "\137\64\66\141\197\153\232\142")][v7("\239\134\92\242\251\130", "\200\153\183\106\195\222\178\52")] == (115 - (4 + 110))) or (1481 >= 2658)) then
+																											while true do
+																												if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\21\136\103\246", "\232\99\176\66\198")][v7("\36\178\222\111\12\10", "\58\82\131\232\93\41")] ~= 0) or (3220 == 1364)) then
+																												else
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\250\121\109\86", "\76\140\65\72\102\27\237\153")][v7("\149\6\134\70\24\111", "\95\227\55\176\117\61")] = v69();
+																													if ((v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\92\130\83\130", "\222\42\186\118\178\183\97")][v7("\14\47\117\24\238\72", "\203\120\30\67\43")], 585 - (57 + 527), 1) ~= 0) or (1054 > 3392) or (4169 == 2187)) then
+																													else
+																														TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\75\180\1\218", "\234\61\140\36")][v7("\231\116\26\186\156\161", "\185\145\69\45\143")] = 0;
+																														TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\55\133\255\34", "\111\65\189\218\18")][v7("\156\78\78\240\153\218", "\188\234\127\121\198")] = nil;
+																														TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\85\19\94\101", "\207\35\43\123\85\107\60")][v7("\46\99\68\212\125\98", "\227\88\82\115")] = nil;
+																														TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\102\242\229\186", "\25\16\202\192\138")][v7("\85\78\237\255\71\35", "\19\35\127\218\199\98")] = nil;
+																														TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\235\147\232\178", "\148\157\171\205\130\201")][v7("\10\170\93\187\89\171", "\130\124\155\106")] = nil;
+																														while true do
+																															if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\53\140\49\121", "\150\67\180\20\73\177")][v7("\195\154\161\250\230\166", "\223\181\171\150\207\195\150\28")] ~= 1) or (676 >= 1642)) then
+																															else
+																																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\64\95\29", "\45\237\120\122")][v7("\90\107\180\246\76\28", "\105\44\90\131\206")] = nil;
+																																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\193\176\231\124", "\76\183\136\194")][v7("\233\177\229\224\77\110", "\94\159\128\210\217\104")] = nil;
+																																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\108\190\160\104", "\116\26\134\133\88\48\47")][v7("\70\168\81\234\26\47", "\26\48\153\102\223\63\31\153")] = 1429 - (41 + 1386);
+																															end
+																															if ((1406 == 1406) and (4136 > 2397) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\8\153\229\180", "\18\126\161\192\132\221")][v7("\20\17\186\166\71\16", "\147\98\32\141")] ~= 0)) then
+																															else
+																																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\73\112\235\84", "\54\63\72\206\100")][v7("\14\18\180\156\67\6", "\43\120\35\131\170\102\54")] = 0;
+																																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\222\1\0\42", "\27\168\57\37\26\133")][v7("\66\87\208\225\224\224", "\228\52\102\231\214\197\208")] = nil;
+																																TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\59\242\57\248", "\183\77\202\28\200")][v7("\8\177\34\159\175\219", "\182\126\128\21\170\138\235\121")] = 1;
+																															end
+																															if ((1531 < 4271) and ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\1\107\204\88", "\104\119\83\233")][v7("\157\139\98\179\195\67", "\102\235\186\85\134\230\115\80")] ~= (105 - (17 + 86))) or (4334 == 4245))) then
+																															else
+																																while true do
+																																	if ((635 == 635) and (((2 + 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\227\160\98\114", "\35\149\152\71\66")][v7("\65\93\105\9\55\132", "\66\55\108\94\63\18\180")]) or (4276 <= 3031))) then
+																																	else
+																																		if ((3373 <= 3556) and ((v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\15\176\7\224", "\90\121\136\34\208")][v7("\2\220\210\111\98\9", "\57\116\237\229\87\71")], 1 - 0, 2 - 1) ~= 1) or (4782 <= 1199))) then
+																																		else
+																																			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\209\86\16\78", "\126\167\110\53")][v7("\188\224\186\190\50\190", "\39\202\209\141\135\23\142")][168 - (122 + 44)] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\43\72\107\168", "\95\93\112\78\152\188")][v7("\233\101\89\79\98", "\152\159\83\105\106\82")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\215\173\192\69", "\178\161\149\229\117\132\222")][v7("\151\151\6\171\140\12", "\60\225\166\49\146\169")][2 - 0]];
+																																		end
+																																		if ((v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\158\131\152\252", "\67\232\187\189\204\193\118\198")][v7("\57\79\120\114\68\87", "\103\79\126\79\74\97")], 2, 6 - 4) ~= 1) or (3291 < 3280)) then
+																																		else
+																																			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\157\118\240\112", "\143\235\78\213\64\91\98")][v7("\172\46\132\42\27\74", "\122\218\31\179\19\62")][3] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\16\193\185", "\214\237\40\228\137\16")][v7("\165\128\157\132\153", "\37\211\182\173\161\169\193")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\147\187\170\137", "\198\229\131\143\185\99")][v7("\225\107\26\128\109\43", "\217\151\90\45\185\72\27")][3]];
+																																		end
+																																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\71\212\237\35", "\19\49\236\200")][v7("\213\45\176\68\19\147", "\54\163\28\135\114")] = 3;
+																																	end
+																																	if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\232\111\179\231", "\218\158\87\150\215\132")][v7("\62\138\10\212\11\47", "\31\72\187\61\226\46")] == (0 + 0)) or (4864 < 1902)) then
+																																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\237\70\156\178", "\173\155\126\185\130\86\66")][v7("\213\87\27\130\2\46", "\68\163\102\35\178\39\30")] = 0 + 0;
+																																		while true do
+																																			if ((4386 >= 873) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\243\254\255\151", "\140\133\198\218\167\232")][v7("\168\33\130\151\70\229", "\113\222\16\186\167\99\213\227")] ~= 1)) then
+																																			else
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\163\118\241\45", "\228\213\78\212\29")][v7("\56\95\172\160\107\94", "\150\78\110\155")] = 1 - 0;
+																																				break;
+																																			end
+																																			if ((4839 >= 3700) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\145\20\243\85", "\139\231\44\214\101")][v7("\147\148\127\177\225\78", "\32\229\165\71\129\196\126\223")] ~= 0)) then
+																																			else
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\207\183\67\14", "\118\185\143\102\62\112\209\81")][v7("\213\216\147\214\196\133", "\181\163\233\164\225\225")] = v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\74\40\108\182", "\88\60\16\73\134\197\117\124")][v7("\70\218\104\36\21\219", "\23\48\235\94")], 2, 68 - (30 + 35));
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\178\189\152", "\33\48\138\152\168")][v7("\106\139\143\5\18\99", "\178\28\186\184\61\55\83")] = v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\100\78\117\1", "\87\18\118\80\49\161")][v7("\210\156\17\111\183\94", "\149\164\173\39\92\146\110")], 3 + 1, 1263 - (1043 + 214));
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\90\70\159\240", "\208\44\126\186\192")][v7("\229\118\72\79\95\75", "\123\147\71\112\127\122")] = 3 - 2;
+																																			end
+																																		end
+																																	end
+																																	if ((921 <= 1102) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\225\66\225\150", "\46\151\122\196\166\116\156\169")][v7("\218\156\213\39\3\156", "\38\172\173\226\17")] ~= (1213 - (323 + 889)))) then
+																																	else
+																																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\243\181\3\74", "\155\133\141\38\122")][v7("\91\64\116\190\8\65", "\143\45\113\76")] = 0;
+																																		while true do
+																																			if ((4706 >= 963) and ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\51\114\233\17", "\197\69\74\204\33\47\31")][v7("\174\233\68\109\253\232", "\92\216\216\124")] ~= (0 - 0)) or (1075 > 1918))) then
+																																			else
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\230\23\31\215", "\231\144\47\58")][v7("\77\99\251\25\184\11", "\157\59\82\204\32")] = {v70(),v70(),nil,nil};
+																																				if (((396 <= 3804) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\164\128\159\37", "\89\210\184\186\21\120\93\175")][v7("\46\111\180\173\172\186", "\209\88\94\131\154\137\138\179")] == 0)) or (960 <= 876)) then
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\167\11\57\133", "\90\209\51\28\181\25")][v7("\62\240\156\37\91\115", "\66\72\193\164\28\126\67\81")] = 413 - (15 + 398);
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\198\35\18\190", "\223\176\27\55\142")][v7("\241\125\241\8\99\38", "\22\135\76\200\56\70")] = nil;
+																																					while true do
+																																						if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\50\227\139\229", "\213\68\219\174")][v7("\155\97\160\125\24\177", "\129\237\80\152\68\61")] ~= (982 - (18 + 964))) or (2066 == 932)) then
+																																						else
+																																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\29\184\102\183", "\31\107\128\67\135\74\165\95")][v7("\71\249\93\163\89\71", "\56\49\200\100\147\124\119")] = 0 - 0;
+																																							while true do
+																																								if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\206\176\185\29", "\209\184\136\156\45\33")][v7("\218\111\230\160\137\110", "\144\172\94\223")] ~= 0) then
+																																								else
+																																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\17\144\48\88", "\216\103\168\21\104")][v7("\50\94\245\30\97\95", "\39\68\111\194")][2 + 1] = v70();
+																																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\110\245\6\244", "\196\24\205\35")][v7("\192\247\176\158\60\231", "\215\182\198\135\167\25")][4] = v70();
+																																									break;
+																																								end
+																																							end
+																																							break;
+																																						end
+																																					end
+																																				elseif ((4825 < 4843) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\56\211\166\86", "\102\78\235\131")][v7("\155\24\189\31\200\25", "\40\237\41\138")] == 1)) then
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\236\118\113\20", "\84\154\78\84\36\39\89\215")][v7("\209\37\173\161\15\151", "\42\167\20\154\152")][3] = v71();
+																																				elseif ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\235\185\19\8", "\101\157\129\54\56")][v7("\92\175\245\21\52\113", "\65\42\158\194\34\17")] == (2 + 0)) or (4169 == 2187)) then
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\11\241\207\251", "\25\125\201\234\203\67")][v7("\12\118\5\85\104\189", "\142\122\71\50\108\77\141\123")][3] = v71() - (2 ^ 16);
+																																				elseif (((1406 == 1406) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\111\172\93\83", "\115\25\148\120\99\116\71")][v7("\3\243\168\79\126\69", "\91\117\194\159\120")] ~= (853 - (20 + 830)))) or (3877 >= 4537)) then
+																																				else
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\26\101\252\116", "\33\108\93\217\68")][v7("\12\76\103\77\112\161", "\68\122\125\94\120\85\145")] = 0 + 0;
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\205\19\228\253", "\205\187\43\193")][v7("\1\77\150\8\141\137", "\218\119\124\175\62\168\185")] = nil;
+																																					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\232\42\64\143", "\191\158\18\101")][v7("\179\161\17\147\224\160", "\164\197\144\40")] = nil;
+																																					while true do
+																																						if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\211\155\194\231", "\207\165\163\231\215")][v7("\149\161\243\222\152\230", "\214\227\144\202\235\189")] ~= (127 - (116 + 10))) or (4315 < 1726)) then
+																																						else
+																																							while true do
+																																								if (((1531 < 4271) and ((0 + 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\161\188\6", "\16\166\153\153\54\68")][v7("\251\244\222\45\85\227", "\92\141\197\231\27\112\211\51")])) or (3679 < 625)) then
+																																								else
+																																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\196\235\133\22", "\153\178\211\160\38\84\65")][v7("\240\174\211\244\148\182", "\177\134\159\234\195")] = 738 - (542 + 196);
+																																									while true do
+																																										if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\83\31\123", "\75\226\107\58")][v7("\171\186\102\247\140\237", "\169\221\139\95\192")] ~= 0) then
+																																										else
+																																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\78\134\84\42", "\173\56\190\113\26\113\162")][v7("\200\218\40\102\103\118", "\70\190\235\31\95\66")][3] = v71() - (2 ^ (34 - 18));
+																																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\221\134\104\85", "\151\171\190\77\101")][v7("\172\179\77\191\160\234", "\133\218\130\122\134")][2 + 2] = v70();
+																																											break;
+																																										end
+																																									end
+																																									break;
+																																								end
+																																							end
+																																							break;
+																																						end
+																																						if (((635 == 635) and ((0 + 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\211\119\189\249", "\107\165\79\152\201\152\29")][v7("\42\174\186\145\153\243", "\88\92\159\131\164\188\195")])) or (4625 < 632)) then
+																																						else
+																																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\65\22\173\155", "\31\55\46\136\171\52")][v7("\150\127\230\29\146\187", "\189\224\78\223\43\183\139")] = 0;
+																																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\199\112\153\164", "\148\177\72\188")][v7("\56\173\211\65\132\126", "\161\78\156\234\118")] = nil;
+																																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\176\238\18\131", "\179\198\214\55")][v7("\177\230\144\137\226\231", "\188\199\215\169")] = 1;
+																																						end
+																																					end
+																																				end
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\230\84\55\38", "\179\144\108\18\22\37")][v7("\234\88\7\42\173\172", "\136\156\105\63\27")] = 1 + 0;
+																																			end
+																																			if ((2 - 1) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\251\94\217", "\175\166\195\123\233")][v7("\13\221\33\101\94\220", "\84\123\236\25")]) then
+																																			else
+																																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\249\154\24\25", "\144\143\162\61\41")][v7("\230\218\253\65\233\229", "\213\144\235\202\119\204")] = 4 - 2;
+																																				break;
+																																			end
+																																		end
+																																	end
+																																	if (((3373 <= 3556) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\246\139\88\0", "\83\128\179\125\48\18\231")][v7("\53\73\137\124\109\115", "\45\67\120\190\74\72\67")] ~= (1554 - (1126 + 425)))) or (83 > 1780)) then
+																																	else
+																																		if ((546 <= 1077) and ((v68(TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\75\239\182\141", "\126\61\215\147\189\39")][v7("\54\115\186\253\188\216", "\137\64\66\141\197\153\232\142")], 408 - (118 + 287), 11 - 8) ~= 1) or (3291 < 3280))) then
+																																		else
+																																			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\110\167\88\21", "\37\24\159\125")][v7("\21\129\117\255\205\83", "\232\99\176\66\198")][1125 - (118 + 1003)] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\204\254\48\18", "\34\186\198\21")][v7("\250\119\120\67\43", "\76\140\65\72\102\27\237\153")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\238\80\128\13", "\162\152\104\165\61")][v7("\92\139\65\139\146\81", "\222\42\186\118\178\183\97")][4]];
+																																		end
+																																		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\219\119\247\45", "\133\173\79\210\29\16")][v7("\75\185\17\207\13", "\234\61\140\36")][v350] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\36\168\123", "\75\237\28\141")][v7("\55\140\237\43\74\113", "\111\65\189\218\18")];
+																																		break;
+																																	end
+																																end
+																																break;
+																															end
+																														end
+																													end
+																													break;
+																												end
+																											end
+																											break;
+																										end
+																									end
+																									break;
+																								end
+																								if ((4386 >= 873) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\202\7\137\225", "\129\188\63\172\209\79\123\135")][v7("\85\26\77\101\78\12", "\207\35\43\123\85\107\60")] ~= (0 - 0))) then
+																								else
+																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\86\188\163\157", "\173\32\132\134")][v7("\102\251\247\186\60\32", "\25\16\202\192\138")] = 377 - (142 + 235);
+																									while true do
+																										if (((4 - 3) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\88\67\77\191", "\173\46\123\104\143\206\81")][v7("\235\154\250\178\236\164", "\148\157\171\205\130\201")]) or (996 > 4301)) then
+																										else
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\162\69\103\218", "\97\212\125\66\234\37\227")][v7("\53\133\34\121\148\166", "\150\67\180\20\73\177")] = 1;
+																											break;
+																										end
+																										if ((921 <= 1102) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\156\187\243\101", "\126\234\131\214\85")][v7("\155\73\77\29\200\72", "\45\237\120\122")] ~= (0 + 0))) then
+																										else
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\141\12\10", "\47\228\181\41\58")][v7("\193\185\244\125\146\184", "\76\183\136\194")] = 0;
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\176\164\156\107", "\127\198\156\185\91\99\80")][v7("\108\183\179\106\21\31", "\116\26\134\133\88\48\47")] = nil;
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\227\66\137\160", "\190\149\122\172\144\199\107\89")][v7("\8\144\247\180\248\34", "\18\126\161\192\132\221")] = 978 - (553 + 424);
+																										end
+																									end
+																								end
+																							end
+																							break;
+																						end
+																						if ((4070 > 687) and (4706 >= 963) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\36\93\180\174", "\158\82\101\145\158")][v7("\73\121\251\93\19\15", "\54\63\72\206\100")] ~= 0)) then
+																						else
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\102\166\71\70", "\36\16\158\98\118")][v7("\222\8\19\42\160\43", "\27\168\57\37\26\133")] = 0;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\214\78\134\171", "\133\160\118\163\155\56\136\71")][v7("\59\251\42\249\146\125", "\183\77\202\28\200")] = nil;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\224\250\52\162", "\213\150\194\17\146\214\127")][v7("\1\98\220\81\82\99", "\104\119\83\233")] = 1 - 0;
+																						end
+																					end
+																				end
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\13\241\225\132", "\86\123\201\196\180\38\196\194")][v7("\227\173\115\103\19", "\35\149\152\71\66")] = 3 + 0;
+																				break;
+																			end
+																			if ((0 ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\225\176\156\255", "\207\151\136\185")][v7("\15\185\23\228\127\73", "\90\121\136\34\208")]) or (960 <= 876)) then
+																			else
+																				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\190\219\109\210", "\17\200\227\72\226\20\24")][v7("\209\95\0\75\130\94", "\126\167\110\53")] = 0;
+																				while true do
+																					if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\166\25\94\135", "\159\208\33\123\183\169\145\143")][v7("\43\65\123\173\153\111", "\95\93\112\78\152\188")] ~= (1 + 0)) or (2066 == 932)) then
+																					else
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\228\2\125\102", "\86\146\58\88")][v7("\215\164\208\65\161\238", "\178\161\149\229\117\132\222")] = 1 + 0;
+																						break;
+																					end
+																					if ((0 + 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\78\135\175\144", "\154\56\191\138\160\206\137\86")][v7("\158\138\136\249\228\70", "\67\232\187\189\204\193\118\198")]) then
+																					else
+																						for v370 = 1 + 0, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\144\1\176\215", "\172\230\57\149\231\28\90\225")][v7("\157\123\236\101\107", "\143\235\78\213\64\91\98")] do
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\20\242\195\130", "\187\98\202\230\178\72")][v7("\155\25\210\191\53\230", "\214\237\40\228\137\16")] = 0 - 0;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\55\185\225\96", "\42\65\129\196\80")][v7("\147\178\185\142\70\246", "\198\229\131\143\185\99")] = nil;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\20\18\24\138", "\142\98\42\61\186\119\103\98")][v7("\71\221\254\43\20\220", "\19\49\236\200")] = nil;
+																							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\46\231\71\88", "\104\88\223\98")][v7("\232\102\160\238\161\234", "\218\158\87\150\215\132")] = nil;
+																							while true do
+																								if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\82\175\167\158", "\141\36\151\130\174\98")][v7("\237\79\143\180\115\114", "\173\155\126\185\130\86\66")] ~= 1) or (656 >= 3330)) then
+																								else
+																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\34\135\93", "\109\228\26\162")][v7("\243\247\236\158\205\188", "\140\133\198\218\167\232")] = nil;
+																									while true do
+																										if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\72\189\184\40", "\134\62\133\157\24\128")][v7("\163\127\226\42\193\229", "\228\213\78\212\29")] ~= 0) or (2492 <= 335)) then
+																										else
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\17\253\95\137", "\182\103\197\122\185\79\209")][v7("\145\29\225\87\174\215", "\139\231\44\214\101")] = 0 - 0;
+																											while true do
+																												if ((4322 >= 2562) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\229\223\164\39", "\40\147\231\129\23\96")][v7("\207\190\81\12\85\225", "\118\185\143\102\62\112\209\81")] ~= 1)) then
+																												else
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\99\160\201\21", "\188\21\152\236\37\219\204")][v7("\74\33\127\177\224\69", "\88\60\16\73\134\197\117\124")] = 2 - 1;
+																													break;
+																												end
+																												if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\86\177\114\92", "\108\32\137\87")][v7("\70\187\175\154\4\0", "\33\48\138\152\168")] ~= (0 + 0)) then
+																												else
+																													TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\188\176\69\246", "\57\202\136\96\198\79\153\43")][v7("\100\71\103\5\132\103", "\87\18\118\80\49\161")] = 0 - 0;
+																													while true do
+																														if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\189\123\239\247", "\152\203\67\202\199\237\199")][v7("\90\79\141\244\245\28", "\208\44\126\186\192")] ~= (754 - (239 + 514))) or (3637 >= 3770)) then
+																														else
+																															TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\236\27\229\95", "\134\154\35\192\111\127\21\25")][v7("\225\75\243\148\81\172", "\46\151\122\196\166\116\156\169")] = 1;
+																															break;
+																														end
+																														if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\126\76\90", "\178\216\70\105\106\64")][v7("\243\188\17\78\190\181", "\155\133\141\38\122")] ~= 0) then
+																														else
+																															TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\41\115\63\166", "\224\95\75\26\150\169\181\180")][v7("\51\123\250\25\10\47", "\197\69\74\204\33\47\31")] = v69();
+																															TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\29\130\157\120", "\22\107\186\184\72\36\204")][v7("\230\30\12\222\181\31", "\231\144\47\58")] = nil;
+																															TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\241\229\97\30", "\110\135\221\68\46")][v7("\164\137\141\33\93\109", "\89\210\184\186\21\120\93\175")] = 1 + 0;
+																														end
+																													end
+																												end
+																											end
+																										end
+																										if (((1330 - (797 + 532)) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\245\110\73\187", "\91\131\86\108\139\174\211")][v7("\167\2\42\130\60\106", "\90\209\51\28\181\25")]) or (2379 > 4578)) then
+																										else
+																											if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\237\115\253\71", "\61\155\75\216\119")][v7("\198\42\1\182\250\128", "\223\176\27\55\142")] == (1 + 0)) then
+																												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\18\243\247\108", "\189\100\203\210\92\56\105")][v7("\50\234\152\236\97\235", "\213\68\219\174")] = v69() ~= 0;
+																											elseif ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\57\9\184\120", "\72\79\49\157")][v7("\29\177\117\191\111\149", "\31\107\128\67\135\74\165\95")] == 2) or (483 > 743)) then
+																												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\158\232\116\236", "\220\232\208\81")][v7("\206\185\170\20\4\225", "\209\184\136\156\45\33")] = v72();
+																											elseif ((2454 > 578) and (4825 < 4843) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\227\230\160\96", "\193\149\222\133\80\76\58")][v7("\17\153\35\80\253\87", "\216\103\168\21\104")] ~= (2 + 1))) then
+																											else
+																												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\5\10\130", "\178\166\61\47")][v7("\110\252\21\253\61\253", "\196\24\205\35")] = v73();
+																											end
+																											TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\237\18\173\42", "\94\155\42\136\26\170")][v7("\56\221\179\67\126", "\102\78\235\131")][v370] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\103\99\229", "\213\228\95\70")][v7("\236\127\98\29\2\105", "\84\154\78\84\36\39\89\215")];
+																											break;
+																										end
+																									end
+																									break;
+																								end
+																								if ((930 < 4458) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\60\227\135\212", "\23\74\219\162\228")][v7("\235\176\0\14\64\173", "\101\157\129\54\56")] ~= 0)) then
+																								else
+																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\47\190\3\255", "\91\89\134\38\207")][v7("\11\248\220\252\102\41", "\25\125\201\234\203\67")] = 0 - 0;
+																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\82\182\141\102", "\71\36\142\168\86\115\176")][v7("\111\165\78\91\81\119", "\115\25\148\120\99\116\71")] = nil;
+																									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\201\249\55\239", "\41\191\193\18\223\99\222\54")][v7("\26\108\239\114\4\92", "\33\108\93\217\68")] = 1203 - (373 + 829);
+																								end
+																							end
+																						end
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\189\126\130\122", "\202\203\70\167\74")][v7("\205\30\249\232\139", "\205\187\43\193")][3] = v69();
+																						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\58\89\153\99", "\17\76\97\188\83")][v7("\232\35\80\138\187\34", "\191\158\18\101")] = 1;
+																					end
+																				end
+																			end
+																		end
+																		break;
+																	end
+																end
+															end
+															TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\147\127\156\103", "\195\229\71\185\87\80\227\43")][v7("\211\146\212\225\234\149", "\207\165\163\231\215")] = 732 - (476 + 255);
+														end
+													end
+													break;
+												end
+											end
+											break;
+										end
+									end
+								end
+								break;
+							end
+							if ((662 <= 972) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\246\164\69\0", "\143\128\156\96\48")][v7("\208\172\170\19\116", "\16\166\153\153\54\68")] ~= (1130 - (369 + 761)))) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\137\181\66", "\119\216\177\144\114")][v7("\196\226\146\19\113\113", "\153\178\211\160\38\84\65")] = 0 + 0;
+								while true do
+									if ((4370 == 4370) and ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\223\113\188\18", "\34\169\73\153")][v7("\148\90\8\126\199\91", "\75\226\107\58")] ~= 0) or (3877 >= 4537))) then
+									else
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\188\180\78\219", "\235\202\140\107")][v7("\78\139\69\63\65", "\173\56\190\113\26\113\162")] = 0 - 0;
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\26\44\113\248", "\165\108\20\84\200\137\71\151")][v7("\221\139\120\64\167", "\151\171\190\77\101")] = nil;
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\108\236\110\216", "\232\26\212\75")][v7("\211\126\170\252\189\45", "\107\165\79\152\201\152\29")] = 1;
+									end
+									if (((1 - 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\33\17\55\184", "\151\87\41\18\136")][v7("\65\31\186\158\17\47", "\31\55\46\136\171\52")]) or (4315 < 1726)) then
+									else
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\77\247\143\128", "\158\59\207\170\176")][v7("\199\125\143\177\129", "\148\177\72\188")] = 1;
+										break;
+									end
+								end
+							end
+							if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\89\6\118\25", "\236\47\62\83\41")][v7("\176\227\4\150\246", "\179\198\214\55")] ~= (239 - (64 + 174))) or (3679 < 625) or (4762 <= 861)) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\236\241\101\107", "\226\154\201\64\91\202")][v7("\230\93\32\32\0\131", "\179\144\108\18\22\37")] = 0;
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\215\17\88\72", "\220\161\41\125\120\42")][v7("\208\242\73\222\138\150", "\175\166\195\123\233")] = nil;
+								while true do
+									if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\170\41\229\94", "\110\220\17\192")][v7("\249\147\15\31\181\191", "\144\143\162\61\41")] ~= (0 + 0)) or (4625 < 632) or (1412 == 4264)) then
+									else
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\98\33\113\74", "\199\20\25\84\122\139\87\145")][v7("\246\130\79\7\55\215", "\83\128\179\125\48\18\231")] = 0 - 0;
+										while true do
+											if ((337 - (144 + 192)) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\81\81\152\254", "\138\39\105\189\206\123")][v7("\75\230\161\138\2\78", "\126\61\215\147\189\39")]) then
+											else
+												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\9\95\204\125", "\159\127\103\233\77\147\153\175")][v7("\110\170\78\0\40", "\37\24\159\125")] = 2;
+												break;
+											end
+											if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\17\168\161\250", "\171\103\144\132\202\32")][v7("\204\247\39\21\159\246", "\34\186\198\21")] ~= 0) or (83 > 1780)) then
+											else
+												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\6\119\172\92", "\108\112\79\137")][v7("\238\93\147\24\146", "\162\152\104\165\61")] = nil;
+												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\41\154\49\120", "\85\95\162\20\72\205\97\137")][v7("\219\122\229\56\32", "\133\173\79\210\29\16")] = nil;
+												TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\225\165\111\140", "\173\151\157\74\188\109\152")][v7("\155\45\191\124\200\44", "\75\237\28\141")] = 1;
+											end
+										end
+										break;
+									end
+								end
+							end
+							if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\50\80\125\141", "\147\68\104\88\189\188\52\181")][v7("\202\10\159\244\127", "\129\188\63\172\209\79\123\135")] ~= (218 - (42 + 174))) or (3168 < 2153)) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\208\206\128", "\176\122\232\235")][v7("\86\181\180\149\5\180", "\173\32\132\134")] = 0 + 0;
+								while true do
+									if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\150\45\127\31", "\142\224\21\90\47")][v7("\88\74\90\183\235\97", "\173\46\123\104\143\206\81")] ~= (1 + 0)) or (4976 < 1332)) then
+									else
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\98\140\98\6", "\229\20\180\71\54\196\235")][v7("\162\72\113\207\21", "\97\212\125\66\234\37\227")] = 3;
+										break;
+									end
+									if ((4628 == 4628) and (546 <= 1077) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\63\38\132\179", "\224\73\30\161\131\149\202")][v7("\156\178\228\109\91\218", "\126\234\131\214\85")] ~= 0)) then
+									else
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\231\189\180\0", "\48\145\133\145")][v7("\146\128\17\31\31", "\47\228\181\41\58")] = nil;
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\76\20\240\190", "\76\58\44\213\142\177")][v7("\176\169\128\126\83", "\127\198\156\185\91\99\80")] = nil;
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\221\124\87\125", "\24\171\68\114\77")][v7("\227\75\158\168\226\91", "\190\149\122\172\144\199\107\89")] = 1 + 0;
+									end
+								end
+							end
+						end
+						break;
+					end
+					if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\249\69\21\2", "\205\143\125\48\50\231\190\100")][v7("\36\80\163\187\174", "\158\82\101\145\158")] ~= (1506 - (363 + 1141))) or (996 > 4301)) then
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\215\255\81\85", "\194\161\199\116\101\129\131\191")][v7("\102\167\85\83\20", "\36\16\158\98\118")] = 0;
+						while true do
+							if (((4070 > 687) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\250\124\141\248", "\194\140\68\168\200\151")][v7("\214\79\148\190\8", "\133\160\118\163\155\56\136\71")] ~= (1581 - (1183 + 397)))) or (54 == 395)) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\84\163\144\117", "\149\34\155\181\69")][v7("\224\247\35\183\230", "\213\150\194\17\146\214\127")] = 8 - 5;
+								break;
+							end
+							if ((82 == 82) and ((0 + 0) ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\21\165\144\170", "\154\99\157\181")][v7("\13\240\243\145\22", "\86\123\201\196\180\38\196\194")])) then
+							else
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\155\87\169\240", "\140\237\111\140\192")][v7("\225\189\142\234\167", "\207\151\136\185")] = nil;
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\16\65\56\72", "\120\102\121\29")][v7("\190\214\112\199\36", "\17\200\227\72\226\20\24")] = nil;
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\186\187\252\107", "\91\204\131\217")][v7("\166\24\76\146\153", "\159\208\33\123\183\169\145\143")] = 1;
+							end
+						end
+					end
+				end
+				break;
+			end
+			if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\216\167\16\132", "\158\174\159\53\180\211\189")][v7("\228\15\105\115\162", "\86\146\58\88")] ~= 1) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\68\165\168\141", "\213\50\157\141\189\23")][v7("\78\138\190\133\254", "\154\56\191\138\160\206\137\86")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\232\126\193\240", "\196\158\70\228\192\18")][v7("\144\12\160\194\44", "\172\230\57\149\231\28\90\225")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\92\7\84\30", "\185\42\63\113\46")][v7("\20\255\215\151\120", "\187\98\202\230\178\72")] = 2;
+			end
+			if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\194\133\100\105", "\123\180\189\65\89")][v7("\55\180\245\117\26", "\42\65\129\196\80")] ~= (0 + 0)) or (656 >= 3330)) then
+			else
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\212\212\181\180", "\233\162\236\144\132")][v7("\20\31\15\159\71", "\142\98\42\61\186\119\103\98")] = 0;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\164\156\187\74", "\63\210\164\158\122\217\150")][v7("\46\234\81\77\104", "\104\88\223\98")] = nil;
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\37\147\179\188", "\152\83\171\150\140\41")][v7("\82\162\179\139\82", "\141\36\151\130\174\98")] = 1976 - (1913 + 62);
+			end
+		end
+	end
+	local function v77(v126, v127, v128)
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\189\198\99", "\104\226\133\227\83\180\123")][v7("\146\44\150\72\212", "\109\228\26\162")] = v126[1];
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\21\83\102\0", "\48\99\107\67")][v7("\72\179\168\61\176", "\134\62\133\157\24\128")] = v126[2];
+		TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\200\254\56\128", "\27\190\198\29\176\77")][v7("\17\243\76\156\127", "\182\103\197\122\185\79\209")] = v126[3];
+		return function(...)
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\249\19\184\100", "\46\143\43\157\84\201")][v7("\229\209\184\50\80", "\40\147\231\129\23\96")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\65\32\19\146", "\168\55\24\54\162\63\115")][v7("\99\174\216\0\235", "\188\21\152\236\37\219\204")];
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\1\162\101\208", "\174\119\154\64\224\178")][v7("\86\190\103\73\16", "\108\32\137\87")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\60\38\128\43", "\132\74\30\165\27\101\199\122")][v7("\188\190\85\227\127", "\57\202\136\96\198\79\153\43")];
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\57\191\186\247", "\212\79\135\159\199\199\213")][v7("\189\116\251\226\221", "\152\203\67\202\199\237\199")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\111\248\240\23", "\120\25\192\213\39\60\183")][v7("\236\21\246\74\79", "\134\154\35\192\111\127\21\25")];
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\14\24\122\24", "\40\120\32\95")][v7("\174\113\91\79\112", "\178\216\70\105\106\64")] = v75;
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\44\243\124\42", "\127\90\203\89\26\207")][v7("\41\124\41\179\153", "\224\95\75\26\150\169\181\180")] = 1;
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\203\109\234\155", "\157\189\85\207\171\105")][v7("\29\141\140\109\20", "\22\107\186\184\72\36\204")] = -1;
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\249\157\229", "\99\166\193\184\213")][v7("\241\234\113\11\94", "\110\135\221\68\46")] = {};
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\192\239\197\235", "\234\182\215\224\219\108")][v7("\245\97\90\174\158", "\91\131\86\108\139\174\211")] = {...};
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\214\217\254\101", "\85\160\225\219")][v7("\237\124\239\82\13", "\61\155\75\216\119")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\74\93\198\153", "\43\60\101\227\169\86\188")][v7("\18\250\224\121\8", "\189\100\203\210\92\56\105")]("#", ...) - 1;
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\102\144\148\239", "\87\16\168\177\223\58\172\217")][v7("\57\6\165\109\127", "\72\79\49\157")] = {};
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\34\149\28\141", "\91\84\173\57\189")][v7("\158\231\104\249\216", "\220\232\208\81")] = {};
+			for v163 = 0, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\6\225\73\172", "\182\112\217\108\156\192")][v7("\227\233\178\117\124", "\193\149\222\133\80\76\58")] do
+				if ((v163 >= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\188\80\13\191", "\235\202\104\40\143")][v7("\208\10\30\151\150", "\178\166\61\47")]) or (2492 <= 335) or (581 < 282)) then
+					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\27\211\94\233", "\217\109\235\123")][v7("\237\29\189\63\154", "\94\155\42\136\26\170")][v163 - TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\49\209\59\6", "\221\71\233\30\54\16\176\173")][v7("\146\104\119\240\212", "\213\228\95\70")]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\34\164\27\239", "\223\84\156\62")][v7("\60\236\148\193\39", "\23\74\219\162\228")][v163 + 1];
+				else
+					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\192\164\167\141", "\91\182\156\130\189\215")][v7("\47\177\31\234\107", "\91\89\134\38\207")][v163] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\104\43\233\5", "\53\30\19\204")][v7("\82\185\158\115\67", "\71\36\142\168\86\115\176")][v163 + 1];
+				end
+			end
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\239\184\53\212", "\199\153\128\16\228")][v7("\201\249\34\250\83", "\41\191\193\18\223\99\222\54")] = (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\199\114\160\73", "\199\177\74\133\121")][v7("\189\113\144\111\250", "\202\203\70\167\74")] - TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\174\145\249\174", "\74\216\169\220\158\87\166")][v7("\58\86\141\118\33", "\17\76\97\188\83")]) + 1;
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\254\123\86\124", "\58\136\67\115\76")][v7("\147\127\136\114\96", "\195\229\71\185\87\80\227\43")] = nil;
+			TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\231\242\157\9", "\61\145\202\184\57\229\64\203")][v7("\246\164\82\21\191", "\143\128\156\96\48")] = nil;
+			while true do
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\74\10\204\23", "\39\60\50\233")][v7("\174\137\161\87\71", "\119\216\177\144\114")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\107\230\124", "\195\122\83\195\76\226\72\210")][v7("\223\127\160\7\153", "\34\169\73\153")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\242\140\126\174", "\65\132\180\91\158")][v7("\188\187\88\206\250", "\235\202\140\107")]];
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\19\36\148\126", "\78\101\28\177")][v7("\26\44\102\237\185", "\165\108\20\84\200\137\71\151")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\51\236\165\1", "\49\69\212\128")][v7("\108\236\122\205\42", "\232\26\212\75")][1];
+				if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\1\84\149\162", "\129\119\108\176\146")][v7("\33\17\32\173\167", "\151\87\41\18\136")] <= 3) then
+					if (((4322 >= 2562) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\42\151\66\157", "\124\92\175\103\173\69\110")][v7("\77\247\152\149\174", "\158\59\207\170\176")] <= 1)) or (4609 < 2495)) then
+						if ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\215\96\70\103", "\87\161\88\99")][v7("\89\6\97\12\220", "\236\47\62\83\41")] == 0) or (3637 >= 3770)) then
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\4\161\170\156", "\67\114\153\143\172\215\176")][v7("\236\240\121\126\250", "\226\154\201\64\91\202")] = 0;
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\168\250\171\94", "\110\222\194\142")][v7("\215\24\77\72\15\236", "\220\161\41\125\120\42")] = nil;
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\1\129\94\249", "\193\119\185\123\201\50")][v7("\170\32\240\95\249\33", "\110\220\17\192")] = nil;
+							while true do
+								if (1 ~= TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\97\80\188\118", "\127\23\104\153\70\111\25")][v7("\98\32\109\95\187", "\199\20\25\84\122\139\87\145")]) then
+								else
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\31\95\227\255", "\211\105\103\198\207\75\76\215")][v7("\81\94\132\235\75", "\138\39\105\189\206\123")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\216\255\245\191", "\214\174\199\208\143\30\108\218")][v7("\9\86\217\125\182\169", "\159\127\103\233\77\147\153\175")] + 1] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\7\220\78\250", "\41\113\228\107\202\197\54\184")][v7("\17\161\180\251\5\155", "\171\103\144\132\202\32")];
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\108\213\125\12", "\60\26\237\88")][v7("\6\120\176\73\64", "\108\112\79\137")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\206\114\49\182", "\206\184\74\20\134")][v7("\41\147\36\120\232\81", "\85\95\162\20\72\205\97\137")]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\46\188\171\225", "\172\88\132\142\209\147\42\88")][v7("\225\172\122\141\72\168", "\173\151\157\74\188\109\152")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\145\210\137\93", "\222\231\234\172\109\86\149")][v7("\50\80\105\152\140", "\147\68\104\88\189\188\52\181")][4]];
+									break;
+								end
+								if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\251\183\133\72", "\120\141\143\160")][v7("\12\209\210\149\74", "\176\122\232\235")] ~= 0) then
+								else
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\86\244\243\2", "\50\32\204\214")][v7("\150\36\106\31\171\208", "\142\224\21\90\47")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\144\31\112\41", "\113\230\39\85\25\211")][v7("\98\140\118\19\244", "\229\20\180\71\54\196\235")][2];
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\200\227\67\184", "\43\190\219\102\136\71\171\203")][v7("\63\47\145\178\176\250", "\224\73\30\161\131\149\202")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\52\38\117\9", "\57\66\30\80")][v7("\231\178\168\21\161", "\48\145\133\145")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\63\128\229\69", "\228\73\184\192\117\228\89\148")][v7("\76\20\228\171\129", "\76\58\44\213\142\177")][3]];
+									TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\217\209\48\68", "\116\175\233\21")][v7("\221\125\75\104\40", "\24\171\68\114\77")] = 1;
+								end
+							end
+						else
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\232\160\251\22", "\95\158\152\222\38\187\81")][v7("\249\76\0\0\194\142", "\205\143\125\48\50\231\190\100")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\238\229\112\226", "\168\152\221\85\210\195")][v7("\215\255\69\64\177", "\194\161\199\116\101\129\131\191")][2];
+							local v211, v212 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\189\134\176\215", "\231\203\190\149")][v7("\250\115\154\237\167", "\194\140\68\168\200\151")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\219\101\166\161", "\123\173\93\131\145\220\149")][v7("\84\172\140\96\165", "\149\34\155\181\69")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\0\156\168\113", "\153\118\164\141\65\20")][v7("\21\172\133\168\70\173", "\154\99\157\181")]](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\248\106\195\178", "\96\142\82\230\130\151")][v7("\155\94\191\229\188", "\140\237\111\140\192")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\89\232\10\18", "\142\47\208\47\34\132")][v7("\16\78\36\93\86", "\120\102\121\29")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\224\230\65\82", "\60\150\222\100\98\59")][v7("\186\178\233\105\233\179", "\91\204\131\217")] + 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\83\100\18\6", "\81\37\92\55\54\187\218")][v7("\216\167\4\145\227", "\158\174\159\53\180\211\189")][3])));
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\22\28\232\103", "\225\96\36\205\87")][v7("\68\170\185\152\39", "\213\50\157\141\189\23")] = (v212 + TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\255\254\7\41", "\105\137\198\34\25\28\47")][v7("\232\119\212\242\55\244", "\196\158\70\228\192\18")]) - 1;
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\7\241\4\38", "\160\113\201\33\22")][v7("\92\14\65\27\156\26", "\185\42\63\113\46")] = 0;
+							for v283 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\194\0\233\247", "\205\180\56\204\199\201")][v7("\194\140\113\107\94\132", "\123\180\189\65\89")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\149\134\121\72", "\120\227\190\92")][v7("\212\219\164\161\217", "\233\162\236\144\132")] do
+								TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\43\4\90\43", "\130\93\60\127\27\67\60\185")][v7("\164\149\173\74\252\166", "\63\210\164\158\122\217\150")] = 0;
+								while true do
+									if ((1152 == 1152) and (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\94\106\125\30", "\29\40\82\88\46\128\35")][v7("\37\154\165\188\12\168", "\152\83\171\150\140\41")] ~= 0)) then
+									else
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\45\29\145\77", "\216\91\37\180\125\97")][v7("\148\180\211\102\145\75", "\104\226\133\227\83\180\123")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\51\46\89\147", "\55\69\22\124\163")][v7("\21\90\115\5\70\91", "\48\99\107\67")] + 1;
+										TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\110\139\25\184", "\148\24\179\60\136\191\17\48")][v7("\200\241\36\149\125", "\27\190\198\29\176\77")][v283] = v211[TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\164\114\188\240", "\150\210\74\153\192")][v7("\249\26\173\97\236\30", "\46\143\43\157\84\201")]];
+										break;
+									end
+								end
+							end
+						end
+					elseif ((1896 <= 3422) and ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\245\144\125\218", "\212\131\168\88\234\21\26")][v7("\65\32\4\135\15", "\168\55\24\54\162\63\115")] > 2) or (2379 > 4578))) then
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\83\44\204\220", "\71\37\20\233\236\88")][v7("\1\173\121\197\130", "\174\119\154\64\224\178")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\219\30\245\70", "\60\173\38\208\118\32\140\44")][v7("\60\38\148\62\85", "\132\74\30\165\27\101\199\122")][2]] = v128[TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\87\106\164\131", "\175\33\82\129\179\64")][v7("\57\191\174\226\247", "\212\79\135\159\199\199\213")][3]];
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\248\183\117\159", "\210\142\143\80\175\92")][v7("\111\241\229\31\25\135", "\120\25\192\213\39\60\183")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\177\182\150", "\166\217\137\147")][v7("\14\24\110\13\72", "\40\120\32\95")][2];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\245\251\55\246", "\38\131\195\18\198\145")][v7("\44\252\96\63\255", "\127\90\203\89\26\207")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\69\142\127\187", "\52\51\182\90\139\88")][v7("\203\100\255\147\76\173", "\157\189\85\207\171\105")]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\224\225\149\183", "\35\150\217\176\135")][v7("\208\246\129\240\83", "\99\166\193\184\213")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\239\8\78\92", "\22\153\48\107\108\23\35")][v7("\192\230\208\227\73\218", "\234\182\215\224\219\108")]](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\24\221\254\74", "\137\110\229\219\122\31\21\33")][v7("\214\208\232\112\144", "\85\160\225\219")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\229\125\43", "\30\122\221\88\27\86\43\68")][v7("\74\82\218\140\102", "\43\60\101\227\169\86\188")], TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\46\112\174\214", "\230\88\72\139")][v7("\102\153\129\231\31\156", "\87\16\168\177\223\58\172\217")] + 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\100\236\83\75", "\56\18\212\118\123\99\104")][v7("\34\154\13\152\107", "\91\84\173\57\189")]));
+					end
+				elseif (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\8\177\189\131", "\190\126\137\152\179\191")][v7("\6\225\94\185\240", "\182\112\217\108\156\192")] <= 5) then
+					if (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\62\90\55\155", "\32\72\98\18\171\202")][v7("\188\80\26\170\219", "\235\202\104\40\143")] == 4) then
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\18\208\119\36", "\151\100\232\82\20")][v7("\27\220\66\252\93", "\217\109\235\123")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\105\129\179\88", "\104\31\185\150")][v7("\49\209\47\19\32", "\221\71\233\30\54\16\176\173")][2]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\202\225\182\167", "\160\188\217\147\151\135\172\128")][v7("\34\164\15\250\100", "\223\84\156\62")][3] ~= 0;
+					else
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\25\133\85\160", "\169\111\189\112\144\90")][v7("\192\173\179\140\242\107", "\91\182\156\130\189\215")] = nil;
+						local v222, v223;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\219\219\96\253", "\226\173\227\69\205\223\224\105")][v7("\104\34\253\1\59\35", "\53\30\19\204")] = nil;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\78\102\103\11", "\123\56\94\66\59\175")][v7("\239\177\33\209\226\169", "\199\153\128\16\228")] = nil;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\236\27\54\177", "\225\154\35\19\129\122\158")][v7("\199\125\188\92\247", "\199\177\74\133\121")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\76\88\174\7", "\84\58\96\139\55\149\135\176")][v7("\174\145\237\187\103", "\74\216\169\220\158\87\166")][2]] = v128[TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\5\103\230\80", "\94\115\95\195\96\46\175")][v7("\254\123\66\105\10", "\58\136\67\115\76")][3]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\85\19\122\109", "\128\35\43\95\93\78\77\231")][v7("\231\253\139\28\213", "\61\145\202\184\57\229\64\203")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\178\69\115\100", "\201\196\125\86\84\119\30")][v7("\74\5\218\2\12", "\39\60\50\233")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\213\182\65\239", "\223\163\142\100")][v7("\12\107\242\105\210", "\195\122\83\195\76\226\72\210")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\78\134\225", "\216\226\118\163\209")][v7("\242\130\98\187\113", "\65\132\180\91\158")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\168\168\94\81", "\95\222\144\123\97\55\16")][v7("\19\43\130\107\85", "\78\101\28\177")]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\15\220\255\19", "\131\121\228\218\35")][v7("\51\227\185\20\117", "\49\69\212\128")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\207\136\103\81", "\123\185\176\66\97\25")][v7("\1\84\129\183\177", "\129\119\108\176\146")][2]] = v128[TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\222\87\92\1", "\81\168\111\121\49\117\79\56")][v7("\42\151\86\136\117", "\124\92\175\103\173\69\110")][3]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\209\82\160\230", "\214\167\106\133")][v7("\215\111\80\114\145", "\87\161\88\99")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\63\96\9\31", "\185\73\88\44\47\84\31")][v7("\4\174\188\137\231", "\67\114\153\143\172\215\176")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\158\143\95\240", "\159\232\183\122\192\179")][v7("\168\250\191\75\238", "\110\222\194\142")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\50\106\237\113", "\65\68\82\200")][v7("\1\143\66\236\2", "\193\119\185\123\201\50")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\51\8\55\112", "\30\69\48\18\64\175\175")][v7("\97\95\170\99\95", "\127\23\104\153\70\111\25")]];
+						v115 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\230\116\90\188", "\91\144\76\127\140")][v7("\31\95\247\234\123", "\211\105\103\198\207\75\76\215")][2];
+						v114 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\246\80\3\113", "\176\128\104\38\65\179\218\181")][v7("\216\240\233\170\46", "\214\174\199\208\143\30\108\218")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\198\156\135\69", "\117\176\164\162")][v7("\7\220\90\239\245", "\41\113\228\107\202\197\54\184")][3]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\146\154\64\160", "\25\228\162\101\144\186")][v7("\108\218\97\25\42", "\60\26\237\88")][v115 + 1] = v114;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\94\110\252\94", "\132\40\86\217\110\146")][v7("\206\125\45\163\254", "\206\184\74\20\134")][v115] = v114[TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\104\147\98\236", "\62\30\171\71\220\199\19\156")][v7("\46\188\191\244\163", "\172\88\132\142\209\147\42\88")][4]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\86\29\233\102", "\45\32\37\204\86\61\169\79")][v7("\145\221\159\72\102", "\222\231\234\172\109\86\149")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\67\13\64\236", "\28\53\53\101\220\213")][v7("\251\184\147\93\189", "\120\141\143\160")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\27\4\77\17", "\191\109\60\104\33\58\193\48")][v7("\86\244\231\23\16", "\50\32\204\214")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\145\143\93\183", "\135\231\183\120")][v7("\144\17\108\60\227", "\113\230\39\85\25\211")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\240\82\9\180", "\201\134\106\44\132\85\122")][v7("\200\236\85\173\119", "\43\190\219\102\136\71\171\203")]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\32\84\50\111", "\67\86\108\23\95\97\108\168")][v7("\52\41\105\28\114", "\57\66\30\80")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\178\96\9\90", "\48\196\88\44\106\196\68\181")][v7("\63\128\241\80\212", "\228\73\184\192\117\228\89\148")][2]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\148\135\153\115", "\76\226\191\188\67\224\196\194")][v7("\217\209\36\81\159", "\116\175\233\21")][3];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\207\112\66\160", "\157\185\72\103\144")][v7("\232\175\237\3\139", "\95\158\152\222\38\187\81")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\79\235\207\42", "\209\57\211\234\26\200")][v7("\238\234\102\247\243", "\168\152\221\85\210\195")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\23\150\227\209", "\178\97\174\198\225\48")][v7("\189\134\164\194\251", "\231\203\190\149")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\217\14\65\161", "\111\175\54\100\145\24\134")][v7("\219\107\186\180\236", "\123\173\93\131\145\220\149")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\85\65\101\69", "\117\35\121\64")][v7("\0\147\190\100\36", "\153\118\164\141\65\20")]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\203\229\171\134", "\47\189\221\142\182\67")][v7("\248\101\223\167\167", "\96\142\82\230\130\151")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\54\231\98\155", "\73\64\223\71\171\40\201\64")][v7("\89\232\30\7\180", "\142\47\208\47\34\132")][2]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\28\213\129\9", "\29\106\237\164\57\192")][v7("\224\230\85\71\11", "\60\150\222\100\98\59")][3] ~= 0;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\167\252\162\234", "\146\209\196\135\218\181\178\192")][v7("\83\107\4\19\139", "\81\37\92\55\54\187\218")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\59\104\198\65", "\199\77\80\227\113\48")][v7("\22\19\254\114\209", "\225\96\36\205\87")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\60\103\27\157", "\173\74\95\62")][v7("\255\254\19\60\44", "\105\137\198\34\25\28\47")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\208\65\25\102", "\220\166\121\60\86\171\103")][v7("\7\255\24\51\144", "\160\113\201\33\22")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\255\90\120\224", "\122\137\98\93\208\91\170")][v7("\194\15\255\226\249", "\205\180\56\204\199\201")]];
+						v115 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\145\185\89\31", "\170\231\129\124\47\181\210\201")][v7("\149\134\109\93\211", "\120\227\190\92")][2];
+						v222, v223 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\157\227\127\96", "\74\235\219\90\80\106")][v7("\43\11\77\62\115", "\130\93\60\127\27\67\60\185")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\90\155\30\107", "\146\44\163\59\91\90\148\26")][v7("\94\101\97\11\176", "\29\40\82\88\46\128\35")][v115](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\99\117\253\209", "\41\21\77\216\225")][v7("\45\20\135\88\81", "\216\91\37\180\125\97")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\2\21\55\21", "\37\116\45\18")][v7("\51\33\69\134\7", "\55\69\22\124\163")], v115 + 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\217\167\19\242", "\203\175\159\54\194")][v7("\110\139\13\173\143", "\148\24\179\60\136\191\17\48")][3])));
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\109\150\92\107", "\162\27\174\121\91\58\47")][v7("\164\125\173\229\166", "\150\210\74\153\192")] = (v223 + v115) - 1;
+						v111 = 0;
+						for v285 = v115, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\197\157\90\165", "\185\179\165\127\149\95")][v7("\245\159\108\207\37", "\212\131\168\88\234\21\26")] do
+							v111 = v111 + 1;
+							TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\71\45\138\164", "\119\49\21\175\148")][v7("\83\35\208\201\104", "\71\37\20\233\236\88")][v285] = v222[v111];
+						end
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\65\237\83\13", "\149\55\213\118\61\77\41\234")][v7("\219\17\227\83\16", "\60\173\38\208\118\32\140\44")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\11\94\143\150", "\123\125\102\170\166\137\89\207")][v7("\87\101\178\150\112", "\175\33\82\129\179\64")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\88\88\29\109", "\201\46\96\56\93\110\227")][v7("\248\183\97\138\108", "\210\142\143\80\175\92")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\173\91\171\169", "\161\219\99\142\153\117")][v7("\175\191\170\131\233", "\166\217\137\147")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\106\233\227\35", "\173\28\209\198\19")][v7("\245\244\33\227\161", "\38\131\195\18\198\145")]];
+						v115 = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\99\180\242\235", "\219\21\140\215")][v7("\69\142\107\174\104", "\52\51\182\90\139\88")][2];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\94\224\131\247", "\56\40\216\166\199")][v7("\224\238\137\162\19", "\35\150\217\176\135")][v115] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\48\236\80\127", "\79\70\212\117")][v7("\239\7\82\73\39", "\22\153\48\107\108\23\35")][v115](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\177\78\164\150", "\109\199\118\129\166\153")][v7("\24\212\232\95\47", "\137\110\229\219\122\31\21\33")](TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\39\232\50\166", "\150\81\208\23")][v7("\12\234\97\62\102", "\30\122\221\88\27\86\43\68")], v115 + 1, TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\239\157\165\219", "\235\153\165\128")][v7("\46\127\191\195\104", "\230\88\72\139")]));
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\173\17\231\127", "\158\219\41\194\79\38\70\202")][v7("\100\227\69\94\83", "\56\18\212\118\123\99\104")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\85\125\106\82", "\232\35\69\79\98\142\182")][v7("\8\190\171\150\143", "\190\126\137\152\179\191")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\111\88\90\173", "\157\25\96\127")][v7("\62\90\35\142\250", "\32\72\98\18\171\202")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\177\219\176\85", "\81\199\227\149\101\48")][v7("\18\222\107\49\167", "\151\100\232\82\20")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\107\10\190\65", "\219\29\50\155\113\150\230\92")][v7("\105\142\165\77\47", "\104\31\185\150")]];
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\199\120\128\43", "\45\177\64\165\27\159\40")][v7("\202\238\170\178\183", "\160\188\217\147\151\135\172\128")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\11\78\74\250", "\18\125\118\111\202")][v7("\25\133\65\181\106", "\169\111\189\112\144\90")][2]]();
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\70\100\28\170", "\155\48\92\57\154\80\205\167")][v7("\219\212\118\232\239", "\226\173\227\69\205\223\224\105")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\149\254\239", "\37\217\173\219\223\152\203")][v7("\78\105\113\30\159", "\123\56\94\66\59\175")] + 1;
+						TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\31\93\90\102", "\150\105\101\127\86\47\200")][v7("\236\27\34\164\74", "\225\154\35\19\129\122\158")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\216\170\182\229", "\160\174\146\147\213\167")][v7("\76\86\178\18\165", "\84\58\96\139\55\149\135\176")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\86\188\95\20", "\33\32\132\122\36\108")][v7("\5\104\240\69\30", "\94\115\95\195\96\46\175")]];
+						do
+							return;
+						end
+					end
+				elseif (TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\175\76\55\27", "\28\217\116\18\43")][v7("\85\19\109\120\126", "\128\35\43\95\93\78\77\231")] <= 6) then
+					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\196\15\147\4", "\92\178\55\182\52\176\206")][v7("\178\74\111\113\71", "\201\196\125\86\84\119\30")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\12\109\52\69", "\117\122\85\17")][v7("\213\182\85\250\147", "\223\163\142\100")][2]]();
+				elseif ((TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\158\183\111\20", "\189\232\143\74\36\198")][v7("\148\78\145\244\232", "\216\226\118\163\209")] > 7) or (990 > 1620)) then
+					do
+						return;
+					end
+				else
+					TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\234\242\79\30", "\106\156\202\106\46\183")][v7("\168\167\66\68\7", "\95\222\144\123\97\55\16")][TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\43\65\62\99", "\74\93\121\27\83")][v7("\15\220\235\6\179", "\131\121\228\218\35")][2]] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\107\227\163\46", "\30\29\219\134")][v7("\207\136\115\68\41", "\123\185\176\66\97\25")][3];
+				end
+				TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\67\255\92\170", "\110\53\199\121\154\148\63\120")][v7("\222\88\74\20\69", "\81\168\111\121\49\117\79\56")] = TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\23\66\186\111", "\156\97\122\159\95\57")][v7("\209\93\182\243\151", "\214\167\106\133")] + 1;
+			end
+		end;
+	end
+	return v77(v76(), {}, v65)(...);
+end
+return v41(v7("\5\23\96\14\100\43\138\6\104\28\31\103\47\248\122\23\28\31\98\92\143\15\110\29\25\96\40\138\126\108\27\29\98\38\143\12\110\27\31\103\47\141\122\23\28\31\98\40\143\120\110\104\25\97\47\138\121\111\31\96\100\47\141\113\106\99\24\96\40\137\125\111\26\26\99\43\137\122\109\21\28\27\47\137\127\96\30\96\99\43\142\121\111\31\28\21\45\246\123\30\27\29\98\46\142\126\106\105\25\99\41\128\126\108\26\23\99\42\143\123\111\25\24\103\41\140\126\106\26\28\98\89\143\12\111\24\25\97\41\252\126\108\30\106\98\44\143\15\110\104\29\18\40\142\127\30\27\29\98\93\142\122\110\106\25\97\41\248\126\106\26\30\102\89\142\125\111\21\25\99\40\143\127\29\26\107\99\42\143\122\110\30\25\108\41\143\127\25\27\25\98\40\143\12\110\31\29\18\41\253\127\105\26\22\98\90\139\15\108\21\26\103\42\248\125\25\27\25\99\40\142\124\107\27\25\103\41\141\127\107\31\25\103\43\138\113\107\31\28\108\42\255\124\107\30\106\98\92\142\124\110\29\31\100\47\128\122\23\28\31\101\45\137\124\107\99\31\100\47\136\122\23\28\31\101\45\139\6\104\28\31\101\47\137\121\106\31\96\100\47\139\121\106\99\31\100\47\136\121\104\28\30\100\47\137\122\104\28\30\102\45\246\121\104\28\28\100\47\137\125\110\99\31\100\47\141\121\104\28\30\98\80\137\121\104\29\31\100\47\141\112\23\28\31\100\47\137\123\110\99\31\100\47\136\121\104\28\30\98\80\137\121\104\29\24\27\47\137", "\185\73\88\44\47\84\31"), TABLE_TableIndirection[LUAOBFUSACTOR_DECRYPT_STR_0("\216\238\159\168", "\95\174\214\186\152\107\98")][v7("\158\142\95\240", "\159\232\183\122\192\179")](), ...);
