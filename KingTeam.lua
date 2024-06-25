@@ -3374,6 +3374,15 @@ linni:Button("人物弹人", function()
 end)
 linni:Button("秒开银行", function()
 	game.Workspace.BankRobbery.VaultDoor.Door.Attachment.ProximityPrompt.HoldDuration = 0
+	    game.Workspace.BankRobbery.BankCash.Main.Attachment.ProximityPrompt.MaxActivationDistance = 20
+	local function onKeyPress(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == Enum.KeyCode.E then
+        game.Workspace.BankRobbery.VaultDoor.Door.Attachment.ProximityPrompt.HoldDuration = 0
+	    game.Workspace.BankRobbery.BankCash.Main.Attachment.ProximityPrompt.MaxActivationDistance = 20
+    end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
 end)
 linni:Button("查找ATM", function()
 	while wait(1) do
@@ -3478,7 +3487,7 @@ linni:Button("珠宝秒拿（金库外）", function()
             for _, innerObj in pairs(obj:GetChildren()) do
                 if innerObj.ClassName == "Model" then
                     if innerObj.Name == "Case" then
-              
+           
                     elseif innerObj.Name == "Emerald" then
                         if innerObj:FindFirstChild("Handle") and innerObj.Handle:FindFirstChild("ProximityPrompt") then
                             innerObj.Handle.ProximityPrompt.HoldDuration = 0
@@ -3516,7 +3525,6 @@ linni:Button("珠宝秒拿（金库外）", function()
             end
         end
     end
-
   	end)
 
 linni:Button("珠宝秒拿（金库内）", function()
@@ -3526,7 +3534,7 @@ linni:Button("珠宝秒拿（金库内）", function()
             for _, innerObj in pairs(obj:GetChildren()) do
                 if innerObj.ClassName == "Model" then
                     if innerObj.Name == "Case" then
-                        -- 什么也不做
+                   
                     elseif innerObj.Name == "Emerald" then
                         if innerObj:FindFirstChild("Handle") and innerObj.Handle:FindFirstChild("ProximityPrompt") then
                             innerObj.Handle.ProximityPrompt.HoldDuration = 0
@@ -3564,15 +3572,22 @@ linni:Button("珠宝秒拿（金库内）", function()
             end
         end
     end
-
   	end)
 
 linni:Button("金保险秒开", function()
-    while true do
-        local safe = game.workspace.Game.Entities.GoldJewelSafe.GoldJewelSafe
+   while true do
+        local safe = game.workspace.Game.Entities.JewelSafe.JewelSafe
         safe.Door["Meshes/LargeSafe_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt.HoldDuration = 0
         safe.Name = "safeopen" 
 	end
+	local function onKeyPress(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == Enum.KeyCode.R then
+        safe.Door["Meshes/LargeSafe_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt.HoldDuration = 0
+        safe.Name = "safeopen" 
+    end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
                 end)
 linni:Button("黑保险秒开", function()
     while true do
@@ -3580,6 +3595,14 @@ linni:Button("黑保险秒开", function()
         safe.Door["Meshes/LargeSafe_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt.HoldDuration = 0
         safe.Name = "safeopen" 
 	end
+	local function onKeyPress(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == Enum.KeyCode.R then
+        safe.Door["Meshes/LargeSafe_Cube.002_Cube.003_None (1)"].Attachment.ProximityPrompt.HoldDuration = 0
+        safe.Name = "safeopen" 
+    end
+end
+
+game:GetService("UserInputService").InputBegan:Connect(onKeyPress)
                 end)
 
 linni:Button("银行", function()
