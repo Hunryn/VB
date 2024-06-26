@@ -1,9 +1,14 @@
- --[[King背景UI.@AL★King独家]]
- game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦欢迎使用King",Icon = "rbxassetid://17894875649",Duration = 1,Callback = bindable,Button1 = "脚本超级进化🌝",Button2 = "King Script乱杀❤️"})
+ --[[KingUI.@AL★King独家]]
+  game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "🎵不会跑路",Icon = "rbxassetid://17894875649",Duration = 1,Callback = bindable,Button1 = "不会跑路🙄",Button2 = "不会跑路❤️"})
+ wait(1)
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦不会跑路",Icon = "rbxassetid://18139019694",Duration = 1,Callback = bindable,Button1 = "不会跑路🙄",Button2 = "不会跑路😳"})
+wait(2)
+ game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♠欢迎使用King",Icon = "rbxassetid://17894875649",Duration = 1,Callback = bindable,Button1 = "脚本超级进化🌝",Button2 = "King Script乱杀❤️"})
  wait(2)
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦by King",Icon = "rbxassetid://18139019694",Duration = 1,Callback = bindable,Button1 = "更多未知需要你们探索😊",Button2 = "未来等待着你😳"})
 wait(2)
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦KING祝你开心",Icon = "rbxassetid://18139249668",Duration = 2,Callback = bindable,Button1 = "KING业务全通👍",Button2 = "祝你玩的开心✌️"})
+---------------分割线-------------------------------分割线------------------------
  --[[KING透明UI.@AL★King独家]]
 local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
@@ -101,7 +106,7 @@ function lib:Window(text, preset, closebind)
     Main.Size = UDim2.new(0, 0, 0, 0)
     Main.ClipsDescendants = true
     Main.Visible = true
-    Main.Image = "rbxassetid://17894875649"--这里填你的背景图ID(要roblox的图片ID)
+    Main.Image = "rbxassetid://18216647696"--这里填你的背景图ID(要roblox的图片ID)
     TabHold.Name = "TabHold"
     TabHold.Parent = Main
     TabHold.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
