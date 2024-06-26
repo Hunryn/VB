@@ -1,46 +1,45 @@
- --[[KingUI.@AL★King独家]]
-  game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "🎵不会跑路",Icon = "rbxassetid://17894875649",Duration = 1,Callback = bindable,Button1 = "不会跑路🙄",Button2 = "不会跑路❤️"})
- wait(1)
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦不会跑路",Icon = "rbxassetid://18139019694",Duration = 1,Callback = bindable,Button1 = "不会跑路🙄",Button2 = "不会跑路😳"})
-wait(2)
- game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♠欢迎使用King",Icon = "rbxassetid://17894875649",Duration = 1,Callback = bindable,Button1 = "脚本超级进化🌝",Button2 = "King Script乱杀❤️"})
- wait(2)
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦by King",Icon = "rbxassetid://18139019694",Duration = 1,Callback = bindable,Button1 = "更多未知需要你们探索😊",Button2 = "未来等待着你😳"})
-wait(2)
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "★King Team",Text = "♦KING祝你开心",Icon = "rbxassetid://18139249668",Duration = 2,Callback = bindable,Button1 = "KING业务全通👍",Button2 = "祝你玩的开心✌️"})
----------------分割线-------------------------------分割线------------------------
- --[[KING透明UI.@AL★King独家]]
+ --[[VAPE透明UI.@AL★King独家]]
+ game:GetService("StarterGui"):SetCore("SendNotification",{Title = "KingScprit",Text = "欢迎使用霖溺新UI",Icon = "rbxassetid://17862570082",Duration = 15,Callback = bindable,Button1 = "我要用KingScprit！！",Button2 = "King已经乱杀"})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "KingScprit",Text = "修复超多功能",Icon = "rbxassetid://17862570082",Duration = 25,Callback = bindable,Button1 = "更多未知需要你们探索",Button2 = "King已经乱杀"})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "KingScprit",Text = "KING团队",Icon = "rbxassetid://17862570082",Duration = 30,Callback = bindable,Button1 = "无敌",Button2 = "无敌"})
+
 local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
-local PresetColor = Color3.fromRGB(44, 120, 224)
+local PresetColor = Color3.fromRGB(139, 0, 255)
 local CloseBind = Enum.KeyCode.RightControl
+
 local ui = Instance.new("ScreenGui")
 ui.Name = "ui"
 ui.Parent = game.CoreGui
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
 coroutine.wrap(
     function()
         while wait() do
             lib.RainbowColorValue = lib.RainbowColorValue + 1 / 255
             lib.HueSelectionPosition = lib.HueSelectionPosition + 1
+
             if lib.RainbowColorValue >= 1 then
                 lib.RainbowColorValue = 0
             end
+
             if lib.HueSelectionPosition == 80 then
                 lib.HueSelectionPosition = 0
             end
         end
     end
 )()
+
 local function MakeDraggable(topbarobject, object)
     local Dragging = nil
     local DragInput = nil
     local DragStart = nil
     local StartPosition = nil
+
     local function Update(input)
         local Delta = input.Position - DragStart
         local pos =
@@ -52,12 +51,14 @@ local function MakeDraggable(topbarobject, object)
         )
         object.Position = pos
     end
+
     topbarobject.InputBegan:Connect(
         function(input)
             if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                 Dragging = true
                 DragStart = input.Position
                 StartPosition = object.Position
+
                 input.Changed:Connect(
                     function()
                         if input.UserInputState == Enum.UserInputState.End then
@@ -68,6 +69,7 @@ local function MakeDraggable(topbarobject, object)
             end
         end
     )
+
     topbarobject.InputChanged:Connect(
         function(input)
             if
@@ -78,6 +80,7 @@ local function MakeDraggable(topbarobject, object)
             end
         end
     )
+
     UserInputService.InputChanged:Connect(
         function(input)
             if input == DragInput and Dragging then
@@ -86,9 +89,10 @@ local function MakeDraggable(topbarobject, object)
         end
     )
 end
+
 function lib:Window(text, preset, closebind)
     CloseBind = closebind or Enum.KeyCode.RightControl
-    PresetColor = preset or Color3.fromRGB(44, 120, 224)
+    PresetColor = preset or Color3.fromRGB(139, 0, 255)
     fs = false
     local Main = Instance.new("ImageLabel")
     local TabHold = Instance.new("Frame")
@@ -96,7 +100,7 @@ function lib:Window(text, preset, closebind)
     local Title = Instance.new("TextLabel")
     local TabFolder = Instance.new("Folder")
     local DragFrame = Instance.new("Frame")
-    local DTTransparency = 0.75
+
     Main.Name = "Main"
     Main.Parent = ui
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -106,33 +110,35 @@ function lib:Window(text, preset, closebind)
     Main.Size = UDim2.new(0, 0, 0, 0)
     Main.ClipsDescendants = true
     Main.Visible = true
-    Main.Image = "rbxassetid://18216647696"--这里填你的背景图ID(要roblox的图片ID)
+    Main.BackgroundTransparency = 0.25
+
     TabHold.Name = "TabHold"
     TabHold.Parent = Main
-    TabHold.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TabHold.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
     TabHold.BackgroundTransparency = 1.000
     TabHold.Position = UDim2.new(0.0339285731, 0, 0.147335425, 0)
     TabHold.Size = UDim2.new(0, 107, 0, 254)
-    
-    
+
     TabHoldLayout.Name = "TabHoldLayout"
     TabHoldLayout.Parent = TabHold
     TabHoldLayout.SortOrder = Enum.SortOrder.LayoutOrder
     TabHoldLayout.Padding = UDim.new(0, 11)
+
     Title.Name = "Title"
     Title.Parent = Main
-    Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Title.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
     Title.BackgroundTransparency = 1.000
     Title.Position = UDim2.new(0.0339285731, 0, 0.0564263314, 0)
     Title.Size = UDim2.new(0, 200, 0, 23)
     Title.Font = Enum.Font.GothamSemibold
     Title.Text = text
-    Title.TextColor3 = Color3.fromRGB(68, 68, 68)
-    Title.TextSize = 12.000
+    Title.TextColor3 = Color3.fromRGB(255,255,0)
+    Title.TextSize = 20.000
     Title.TextXAlignment = Enum.TextXAlignment.Left
+
     DragFrame.Name = "DragFrame"
     DragFrame.Parent = Main
-    DragFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    DragFrame.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
     DragFrame.BackgroundTransparency = 1.000
     DragFrame.Size = UDim2.new(0, 560, 0, 41)
     Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .6, true)
@@ -172,9 +178,11 @@ function lib:Window(text, preset, closebind)
     )
     TabFolder.Name = "TabFolder"
     TabFolder.Parent = Main
+
     function lib:ChangePresetColor(toch)
         PresetColor = toch
     end
+
     function lib:Notification(texttitle, textdesc, textbtn)
         local NotificationHold = Instance.new("TextButton")
         local NotificationFrame = Instance.new("Frame")
@@ -183,6 +191,13 @@ function lib:Window(text, preset, closebind)
         local OkayBtnTitle = Instance.new("TextLabel")
         local NotificationTitle = Instance.new("TextLabel")
         local NotificationDesc = Instance.new("TextLabel")
+        ----------AL.King音乐--------------
+        local sound = Instance.new("Sound")
+        sound.SoundId = "rbxassetid://4590657391" --音乐id
+        sound.Parent = game.Workspace
+        sound:Play()
+-----------分割线---------------
+
         NotificationHold.Name = "NotificationHold"
         NotificationHold.Parent = Main
         NotificationHold.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -194,12 +209,14 @@ function lib:Window(text, preset, closebind)
         NotificationHold.Text = ""
         NotificationHold.TextColor3 = Color3.fromRGB(0, 0, 0)
         NotificationHold.TextSize = 14.000
+
         TweenService:Create(
             NotificationHold,
             TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
             {BackgroundTransparency = 0.7}
         ):Play()
         wait(0.4)
+
         NotificationFrame.Name = "NotificationFrame"
         NotificationFrame.Parent = NotificationHold
         NotificationFrame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -207,6 +224,7 @@ function lib:Window(text, preset, closebind)
         NotificationFrame.BorderSizePixel = 0
         NotificationFrame.ClipsDescendants = true
         NotificationFrame.Position = UDim2.new(0.5, 0, 0.498432577, 0)
+
         NotificationFrame:TweenSize(
             UDim2.new(0, 164, 0, 193),
             Enum.EasingDirection.Out,
@@ -214,6 +232,7 @@ function lib:Window(text, preset, closebind)
             .6,
             true
         )
+
         OkayBtn.Name = "OkayBtn"
         OkayBtn.Parent = NotificationFrame
         OkayBtn.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
@@ -224,44 +243,49 @@ function lib:Window(text, preset, closebind)
         OkayBtn.Text = ""
         OkayBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
         OkayBtn.TextSize = 14.000
+
         OkayBtnCorner.CornerRadius = UDim.new(0, 5)
         OkayBtnCorner.Name = "OkayBtnCorner"
         OkayBtnCorner.Parent = OkayBtn
+
         OkayBtnTitle.Name = "OkayBtnTitle"
         OkayBtnTitle.Parent = OkayBtn
-        OkayBtnTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        OkayBtnTitle.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
         OkayBtnTitle.BackgroundTransparency = 1.000
         OkayBtnTitle.Position = UDim2.new(0.0763888881, 0, 0, 0)
         OkayBtnTitle.Size = UDim2.new(0, 181, 0, 42)
         OkayBtnTitle.Font = Enum.Font.Gotham
         OkayBtnTitle.Text = textbtn
-        OkayBtnTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+        OkayBtnTitle.TextColor3 = Color3.fromRGB(139, 0, 255)
         OkayBtnTitle.TextSize = 14.000
         OkayBtnTitle.TextXAlignment = Enum.TextXAlignment.Left
+
         NotificationTitle.Name = "NotificationTitle"
         NotificationTitle.Parent = NotificationFrame
-        NotificationTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        NotificationTitle.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
         NotificationTitle.BackgroundTransparency = 1.000
         NotificationTitle.Position = UDim2.new(0.0670731738, 0, 0.0829015523, 0)
         NotificationTitle.Size = UDim2.new(0, 143, 0, 26)
         NotificationTitle.Font = Enum.Font.Gotham
         NotificationTitle.Text = texttitle
-        NotificationTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+        NotificationTitle.TextColor3 = Color3.fromRGB(139, 0, 255)
         NotificationTitle.TextSize = 18.000
         NotificationTitle.TextXAlignment = Enum.TextXAlignment.Left
+
         NotificationDesc.Name = "NotificationDesc"
         NotificationDesc.Parent = NotificationFrame
-        NotificationDesc.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        NotificationDesc.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
         NotificationDesc.BackgroundTransparency = 1.000
         NotificationDesc.Position = UDim2.new(0.0670000017, 0, 0.218999997, 0)
         NotificationDesc.Size = UDim2.new(0, 143, 0, 91)
         NotificationDesc.Font = Enum.Font.Gotham
         NotificationDesc.Text = textdesc
-        NotificationDesc.TextColor3 = Color3.fromRGB(255, 255, 255)
+        NotificationDesc.TextColor3 = Color3.fromRGB(139, 0, 255)
         NotificationDesc.TextSize = 15.000
         NotificationDesc.TextWrapped = true
         NotificationDesc.TextXAlignment = Enum.TextXAlignment.Left
         NotificationDesc.TextYAlignment = Enum.TextYAlignment.Top
+
         OkayBtn.MouseEnter:Connect(
             function()
                 TweenService:Create(
@@ -271,6 +295,7 @@ function lib:Window(text, preset, closebind)
                 ):Play()
             end
         )
+
         OkayBtn.MouseLeave:Connect(
             function()
                 TweenService:Create(
@@ -280,6 +305,7 @@ function lib:Window(text, preset, closebind)
                 ):Play()
             end
         )
+
         OkayBtn.MouseButton1Click:Connect(
             function()
                 NotificationFrame:TweenSize(
@@ -289,41 +315,41 @@ function lib:Window(text, preset, closebind)
                     .6,
                     true
                 )
+
                 wait(0.4)
+
                 TweenService:Create(
                     NotificationHold,
                     TweenInfo.new(.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
                     {BackgroundTransparency = 1}
                 ):Play()
+
                 wait(.3)
+
                 NotificationHold:Destroy()
             end
         )
     end
-        ----------AL.King音乐--------------
-    local sound = Instance.new("Sound")
-    sound.SoundId = "rbxassetid://4590657391" --音乐id
-    sound.Parent = game.Workspace
-    sound:Play()
-    -----------分割线---------------
     local tabhold = {}
     function tabhold:Tab(text)
         local TabBtn = Instance.new("TextButton")
         local TabTitle = Instance.new("TextLabel")
         local TabBtnIndicator = Instance.new("Frame")
         local TabBtnIndicatorCorner = Instance.new("UICorner")
+
         TabBtn.Name = "TabBtn"
         TabBtn.Parent = TabHold
-        TabBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TabBtn.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
         TabBtn.BackgroundTransparency = 1.000
         TabBtn.Size = UDim2.new(0, 107, 0, 21)
         TabBtn.Font = Enum.Font.SourceSans
         TabBtn.Text = ""
         TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
         TabBtn.TextSize = 14.000
+
         TabTitle.Name = "TabTitle"
         TabTitle.Parent = TabBtn
-        TabTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        TabTitle.BackgroundColor3 = Color3.fromRGB(139, 0, 255)
         TabTitle.BackgroundTransparency = 1.000
         TabTitle.Size = UDim2.new(0, 107, 0, 21)
         TabTitle.Font = Enum.Font.Gotham
@@ -331,14 +357,18 @@ function lib:Window(text, preset, closebind)
         TabTitle.TextColor3 = Color3.fromRGB(150, 150, 150)
         TabTitle.TextSize = 14.000
         TabTitle.TextXAlignment = Enum.TextXAlignment.Left
+
         TabBtnIndicator.Name = "TabBtnIndicator"
         TabBtnIndicator.Parent = TabBtn
         TabBtnIndicator.BackgroundColor3 = PresetColor
         TabBtnIndicator.BorderSizePixel = 0
         TabBtnIndicator.Position = UDim2.new(0, 0, 1, 0)
         TabBtnIndicator.Size = UDim2.new(0, 0, 0, 2)
+
         TabBtnIndicatorCorner.Name = "TabBtnIndicatorCorner"
         TabBtnIndicatorCorner.Parent = TabBtnIndicator
+        TabBtnIndicator.BackgroundTransparency = 0.25
+
         coroutine.wrap(
             function()
                 while wait() do
@@ -346,6 +376,7 @@ function lib:Window(text, preset, closebind)
                 end
             end
         )()
+
         local Tab = Instance.new("ScrollingFrame")
         local TabLayout = Instance.new("UIListLayout")
 
