@@ -1,6 +1,6 @@
 repeat
     task.wait()
-until game:IsLoaded()
+until game:IsLoaded()。
 
 local Language = {
     ["en-us"] = {
