@@ -23,7 +23,7 @@ local function Image(ID, Button)
 end
 
 local function Round2px()
-	local NewImage = Image("http://www.roblox.com/asset/?id=140717123582569");
+	local NewImage = Image("http://www.roblox.com/asset/?id=18766675197");
 	NewImage.ScaleType = Enum.ScaleType.Slice;
 	NewImage.SliceCenter = Rect.new(2, 2, 298, 298);
 	NewImage.ImageColor3 = Color3.fromRGB(12, 4, 20);
