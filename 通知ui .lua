@@ -23,7 +23,7 @@ local function Image(ID, Button)
 end
 
 local function Round2px()
-	local NewImage = Image("http://www.roblox.com/asset/?id=132595527701011");
+	local NewImage = Image("http://www.roblox.com/asset/?id=140717123582569");
 	NewImage.ScaleType = Enum.ScaleType.Slice;
 	NewImage.SliceCenter = Rect.new(2, 2, 298, 298);
 	NewImage.ImageColor3 = Color3.fromRGB(12, 4, 20);
@@ -32,7 +32,7 @@ local function Round2px()
 end
 
 local function Shadow2px()
-	local NewImage = Image("http://www.roblox.com/asset/?id=132595527701011");
+	local NewImage = Image("http://www.roblox.com/asset/?id=18139019694");
 	NewImage.ScaleType = Enum.ScaleType.Slice;
 	NewImage.SliceCenter = Rect.new(17, 17, 283, 283);
 	NewImage.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30);
