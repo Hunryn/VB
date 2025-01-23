@@ -13,8 +13,17 @@ local Config = {
     -- 视觉设置
     BackgroundColor = Color3.fromRGB(20, 20, 40),
     BackgroundTransparency = 0.3,
-    NeonColor = Color3.fromRGB(0, 255, 255),
-    NeonTransparency = 0.2,
+
+    -- 霓虹边框设置
+    NeonGradient = {
+        Colors = {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 200)),
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(200, 0, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 200))
+        },
+        Speed = 0.8,
+        TransparencyRange = {0.95, 1} -- 完全透明范围
+    },
 
     -- 文字渐变
     TextGradient = {
@@ -33,13 +42,17 @@ local Config = {
         ExitDuration = 0.5,
         EasingStyle = Enum.EasingStyle.Quint,
         Spacing = 15,
-        RotationSpeed = 0.5  -- 新增旋转速度
+        RotationSpeed = 0.5
     },
 
-    -- 音效设置
-    SoundEffects = {
-        Show = "rbxassetid://9046898034",
-        Hide = "rbxassetid://9046898035"
+    -- 高级效果
+    AdvancedEffects = {
+        EnableParticles = true,
+        ParticleSettings = {
+            Size = 8,
+            Lifetime = 1.5,
+            Speed = 20
+        }
     }
 }
 
@@ -47,7 +60,6 @@ local Config = {
 local AssetManager = {
     Fallback = {
         ["rbxassetid://5761488251"] = "rbxassetid://3570695787",
-        ["rbxassetid://5761498316"] = "rbxassetid://5553946656",
         default = "rbxassetid://3570695787"
     },
     LoadImage = function(id)
@@ -77,18 +89,7 @@ Container.Parent = NotificationGui
 
 -- 通知队列管理
 local activeNotifications = {}
-local updateConnection = nil
 
-local function UpdatePositions()
-    local totalHeight = 0
-    for i, notification in ipairs(activeNotifications) do
-        local frameHeight = notification.frame.AbsoluteSize.Y
-        notification.targetPosition = UDim2.new(0, 20, 0, totalHeight + (i-1)*Config.Animation.Spacing)
-        totalHeight = totalHeight + frameHeight + Config.Animation.Spacing
-    end
-end
-
--- 渐变文本组件
 local function CreateText(text, isTitle)
     local label = Instance.new("TextLabel")
     label.Text = text
@@ -100,7 +101,7 @@ local function CreateText(text, isTitle)
     label.RichText = true
     label.TextWrapped = true
 
-    -- 三色渐变
+    -- 文字渐变
     local gradient = Instance.new("UIGradient")
     gradient.Color = ColorSequence.new(Config.TextGradient.Colors)
     gradient.Rotation = Config.TextGradient.Rotation
@@ -121,14 +122,11 @@ local function CreateText(text, isTitle)
     return label
 end
 
--- 通知容器创建
 local function CreateNotificationFrame(options)
-    local container = Instance.new("ImageLabel")
-    container.Image = AssetManager.LoadImage("rbxassetid://5761488251")
-    container.ScaleType = Enum.ScaleType.Slice
-    container.SliceCenter = Rect.new(2, 2, 298, 298)
+    local container = Instance.new("Frame")
     container.BackgroundTransparency = 1
     container.Size = UDim2.new(1, 0, 0, 0)
+    container.ClipsDescendants = true
 
     -- 背景层
     local bg = Instance.new("Frame")
@@ -137,31 +135,66 @@ local function CreateNotificationFrame(options)
     bg.BackgroundTransparency = Config.BackgroundTransparency
     bg.Parent = container
 
-    -- 霓虹边框
-    local border = Instance.new("ImageLabel")
-    border.Image = AssetManager.LoadImage("rbxassetid://5761498316")
-    border.ScaleType = Enum.ScaleType.Slice
-    border.SliceCenter = Rect.new(17, 17, 283, 283)
+    -- 动态霓虹边框
+    local border = Instance.new("Frame")
     border.Size = options.BorderSize and UDim2.fromScale(options.BorderSize, options.BorderSize) or UDim2.fromScale(1.2, 1.2)
     border.AnchorPoint = Vector2.new(0.5, 0.5)
     border.Position = UDim2.fromScale(0.5, 0.5)
-    border.ImageColor3 = Config.NeonColor
-    border.ImageTransparency = Config.NeonTransparency
-    border.ZIndex = -1
+    border.BackgroundTransparency = 1
     border.Parent = container
 
-    -- 旋转动画
+    -- 渐变层
+    local gradient = Instance.new("UIGradient")
+    gradient.Color = ColorSequence.new(Config.NeonGradient.Colors)
+    gradient.Rotation = 90
+
+    -- 动态光效
+    local glow = Instance.new("Frame")
+    glow.Size = UDim2.fromScale(1, 1)
+    glow.BackgroundTransparency = 1
+    glow.Parent = border
+
+    -- 边框描边
+    local uistroke = Instance.new("UIStroke")
+    uistroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    uistroke.Thickness = 3
+    uistroke.Transparency = 1
+    uistroke.Parent = container
+
+    -- 动态渐变动画
     task.spawn(function()
-        local rotationAngle = 0
+        local phase = 0
         while container.Parent do
-            rotationAngle = (rotationAngle + Config.Animation.RotationSpeed) % 360
-            TweenService:Create(border, TweenInfo.new(1.5, Enum.EasingStyle.Linear), {
-                Rotation = rotationAngle,
-                ImageTransparency = 0.2 + math.sin(os.clock()*2)*0.1
-            }):Play()
-            task.wait(0.05)
+            -- 透明度波动
+            local minT, maxT = unpack(Config.NeonGradient.TransparencyRange)
+            local currentT = minT + (maxT - minT) * math.abs(math.sin(phase))
+            
+            -- 颜色流动
+            local offset = phase % 1
+            gradient.Offset = Vector2.new(offset, offset)
+            
+            -- 应用效果
+            uistroke.Transparency = currentT
+            glow.BackgroundTransparency = currentT
+            uistroke.Color = gradient.Color.ColorSequence.points[1].Value:Lerp(
+                gradient.Color.ColorSequence.points[2].Value, 
+                math.sin(phase)
+            )
+            
+            phase += Config.NeonGradient.Speed * 0.1
+            task.wait(0.03)
         end
     end)
+
+    -- 粒子效果
+    if Config.AdvancedEffects.EnableParticles then
+        local emitter = Instance.new("ParticleEmitter")
+        emitter.Color = ColorSequence.new(options.ParticleColor or gradient.Color.ColorSequence.points[1].Value)
+        emitter.Size = NumberSequence.new(1, Config.AdvancedEffects.ParticleSettings.Size)
+        emitter.Lifetime = NumberRange.new(Config.AdvancedEffects.ParticleSettings.Lifetime)
+        emitter.Speed = NumberRange.new(Config.AdvancedEffects.ParticleSettings.Speed)
+        emitter.Parent = border
+    end
 
     return container
 end
@@ -182,7 +215,6 @@ return {
             local title = CreateText(options.Title, true)
             title.Size = UDim2.new(1, -20, 0, 26)
             title.Position = UDim2.fromOffset(10, 5)
-            title.Rotation = options.TextRotation or 0  -- 文字旋转
             title.Parent = frame
             contentHeight += 30
         end
@@ -214,7 +246,7 @@ return {
                 Config.Animation.EasingStyle
             ), {
                 Position = UDim2.new(-1, 20, 0, frame.Position.Y.Offset),
-                ImageTransparency = 1
+                BackgroundTransparency = 1
             }):Play()
             task.wait(Config.Animation.ExitDuration)
             frame:Destroy()
