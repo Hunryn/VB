@@ -1,3 +1,4 @@
+-- 通知ui.lua
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -10,6 +11,7 @@ local Config = {
     -- 背景配置
     BackgroundColor = Color3.fromRGB(20, 20, 40),
     BackgroundTransparency = 0.3,
+    ShadowIntensity = 0.14,
     
     -- 音效配置
     SoundEffect = "rbxassetid://9882371641",
@@ -24,10 +26,10 @@ local Config = {
         ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
     },
     
-    -- 通用配置
+    -- 动画配置
     Padding = 10,
     TweenTime = 1,
-    TweenStyle = Enum.EasingStyle.Sine,
+    TweenStyle = Enum.EasingStyle.Quint,
     TweenDirection = Enum.EasingDirection.Out
 }
 
@@ -51,85 +53,76 @@ local function Image(ID, Button)
     return NewImage
 end
 
--- 带背景的圆角容器
-local function RoundContainer()
+-- 高级背景容器
+local function CreateBubble()
     local container = Image("http://www.roblox.com/asset/?id=5761488251")
     container.ScaleType = Enum.ScaleType.Slice
     container.SliceCenter = Rect.new(2, 2, 298, 298)
     
-    -- 背景层
-    local bg = Instance.new("Frame")
-    bg.Size = UDim2.fromScale(1, 1)
-    bg.BackgroundColor3 = Config.BackgroundColor
-    bg.BackgroundTransparency = Config.BackgroundTransparency
-    bg.Parent = container
+    -- 渐变背景层
+    local bgGradient = Instance.new("UIGradient")
+    bgGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Config.BackgroundColor),
+        ColorSequenceKeypoint.new(1, Config.BackgroundColor:Lerp(Color3.new(0,0,0), 0.3))
+    })
+    bgGradient.Rotation = 90
+    bgGradient.Parent = container
     
-    -- 容器样式
-    container.ImageColor3 = Config.BackgroundColor:Lerp(Color3.new(0,0,0), 0.3)
+    -- 动态透明度
     container.ImageTransparency = Config.BackgroundTransparency
     return container
 end
 
--- 动态霓虹边框
-local function NeonBorder(parent)
-    local border1 = Image("http://www.roblox.com/asset/?id=5761498316")
-    border1.ScaleType = Enum.ScaleType.Slice
-    border1.SliceCenter = Rect.new(17, 17, 283, 283)
-    border1.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30)
-    border1.Position = -UDim2.fromOffset(15, 15)
-    border1.ImageColor3 = Config.NeonColor
-    border1.ImageTransparency = 0.5
+-- 霓虹光效系统
+local function NeonEffect(parent)
+    local border = Image("http://www.roblox.com/asset/?id=5761498316")
+    border.ScaleType = Enum.ScaleType.Slice
+    border.SliceCenter = Rect.new(17, 17, 283, 283)
+    border.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30)
+    border.Position = -UDim2.fromOffset(15, 15)
+    border.ImageColor3 = Config.NeonColor
+    border.ImageTransparency = 0.7
     
-    local border2 = border1:Clone()
-    border2.ImageColor3 = Config.NeonColor:Complement()
-    
-    -- 呼吸灯动画
-    local function animate()
+    -- 动态光效
+    coroutine.wrap(function()
+        local direction = 1
         while parent.Parent do
-            TweenService:Create(border1, TweenInfo.new(Config.BorderAnimationSpeed), {
-                ImageTransparency = 0.8
-            }):Play()
-            TweenService:Create(border2, TweenInfo.new(Config.BorderAnimationSpeed), {
-                ImageTransparency = 0.3
+            local targetTrans = direction == 1 and 0.3 or 0.7
+            TweenService:Create(border, TweenInfo.new(Config.BorderAnimationSpeed, Enum.EasingStyle.Sine), {
+                ImageTransparency = targetTrans
             }):Play()
             task.wait(Config.BorderAnimationSpeed)
-            TweenService:Create(border1, TweenInfo.new(Config.BorderAnimationSpeed), {
-                ImageTransparency = 0.3
-            }):Play()
-            TweenService:Create(border2, TweenInfo.new(Config.BorderAnimationSpeed), {
-                ImageTransparency = 0.8
-            }):Play()
-            task.wait(Config.BorderAnimationSpeed)
+            direction = -direction
         end
-    end
+    end)()
     
-    border1.Parent = parent
-    border2.Parent = parent
-    coroutine.wrap(animate)()
+    return border
 end
 
--- 渐变文字组件
-local function GradientLabel(text, font, size)
+-- 高级文字组件
+local function CreateText(content, isTitle)
     local label = Instance.new("TextLabel")
-    label.Text = text
-    label.Font = font
-    label.TextSize = size
+    label.Text = content
+    label.Font = isTitle and Enum.Font.GothamSemibold or Enum.Font.Gotham
+    label.TextSize = 14
+    label.TextColor3 = Color3.new(1,1,1)
     label.BackgroundTransparency = 1
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.RichText = true
     
-    -- 渐变效果
-    local gradient = Instance.new("UIGradient")
-    gradient.Color = ColorSequence.new(Config.GradientColors)
-    gradient.Rotation = 90
-    gradient.Parent = label
+    -- 动态渐变
+    local textGradient = Instance.new("UIGradient")
+    textGradient.Color = ColorSequence.new(Config.GradientColors)
+    textGradient.Rotation = 90
+    textGradient.Enabled = true
+    textGradient.Parent = label
     
-    -- 动态渐变偏移
+    -- 渐变动画
     coroutine.wrap(function()
         local offset = 0
         while label.Parent do
-            gradient.Offset = Vector2.new(0, math.sin(offset) * 0.5 + 0.5)
-            offset += 0.05
+            textGradient.Offset = Vector2.new(0, math.sin(offset)*0.3 + 0.5)
+            offset += 0.02
             task.wait(0.05)
         end
     end)()
@@ -141,96 +134,96 @@ end
 local function PlaySound()
     local sound = Instance.new("Sound")
     sound.SoundId = Config.SoundEffect
-    sound.Volume = 0.5
+    sound.Volume = 0.3
     sound.Parent = SoundService
     sound:Play()
     game:GetService("Debris"):AddItem(sound, 3)
 end
 
--- 核心逻辑
-local InstructionObjects = {}
+-- 动画队列系统
+local NotificationQueue = {}
 local LastTick = tick()
 
-local function Update()
+local function UpdateNotifications()
     local delta = tick() - LastTick
-    local previous = {}
+    local activeHeight = 0
     
-    for _, obj in pairs(InstructionObjects) do
-        local label, progress, done = obj[1], obj[2], obj[3]
+    for index, notification in ipairs(NotificationQueue) do
+        local container = notification.container
+        local progress = notification.progress
         
-        if not done then
+        if progress < 1 then
             progress = math.clamp(progress + delta/Config.TweenTime, 0, 1)
-            obj[2] = progress
-            if progress >= 1 then obj[3] = true end
+            notification.progress = progress
         end
         
         local tweenValue = TweenService:GetValue(progress, Config.TweenStyle, Config.TweenDirection)
-        local targetY = #previous * (Config.Padding + label.AbsoluteSize.Y)
-        label.Position = label.Position:Lerp(UDim2.new(-1, 20, 0, targetY), tweenValue)
-        table.insert(previous, label)
+        local targetY = activeHeight + (index-1)*Config.Padding
+        container.Position = UDim2.new(-1,20,0,targetY):Lerp(UDim2.new(0,20,0,targetY), tweenValue)
+        activeHeight += container.AbsoluteSize.Y
     end
     
     LastTick = tick()
 end
 
-RunService:BindToRenderStep("NotificationUpdate", Enum.RenderPriority.First.Value, Update)
+RunService:BindToRenderStep("NotificationAnim", Enum.RenderPriority.First.Value, UpdateNotifications)
 
 return {
     Notify = function(properties)
-        local title = properties.Title
+        local title = properties.Title or "通知"
         local desc = properties.Description
         local duration = properties.Duration or 5
         
-        if title or desc then
-            PlaySound()
-            
-            -- 计算内容高度
-            local height = title and 26 or 0
-            if desc then
-                local textSize = TextService:GetTextSize(desc, 14, Enum.Font.Gotham, Vector2.new(280, math.huge))
-                height += textSize.Y + 8
-            end
-            
-            -- 创建容器
-            local container = RoundContainer()
-            container.Size = UDim2.new(1, 0, 0, height)
-            container.Position = UDim2.new(-1, 20, 0, 0)
-            container.Parent = Container
-            
-            -- 添加霓虹边框
-            NeonBorder(container)
-            
-            -- 标题
-            if title then
-                local titleLabel = GradientLabel(title, Enum.Font.GothamSemibold, 14)
-                titleLabel.Size = UDim2.new(1, -10, 0, 26)
-                titleLabel.Position = UDim2.fromOffset(10, 0)
-                titleLabel.Parent = container
-            end
-            
-            -- 描述
-            if desc then
-                local descLabel = GradientLabel(desc, Enum.Font.Gotham, 14)
-                descLabel.TextWrapped = true
-                descLabel.Size = UDim2.new(1, -10, 1, title and -26 or 0)
-                descLabel.Position = UDim2.fromOffset(10, title and 26 or 0)
-                descLabel.TextYAlignment = title and Enum.TextYAlignment.Top or Enum.TextYAlignment.Center
-                descLabel.Parent = container
-            end
-            
-            -- 入场动画
-            table.insert(InstructionObjects, {container, 0, false})
-            
-            -- 自动淡出
-            coroutine.wrap(function()
-                task.wait(duration)
-                TweenService:Create(container, TweenInfo.new(0.5), {
-                    ImageTransparency = 1,
-                    BackgroundTransparency = 1
-                }):Play()
-                task.wait(0.5)
-                container:Destroy()
-            end)()
+        PlaySound()
+        
+        -- 创建容器
+        local container = CreateBubble()
+        container.Size = UDim2.new(1, 0, 0, 0)
+        container.Parent = Container
+        
+        -- 添加霓虹边框
+        NeonEffect(container)
+        
+        -- 构建内容
+        local contentHeight = 0
+        if title then
+            local titleLabel = CreateText(title, true)
+            titleLabel.Size = UDim2.new(1, -20, 0, 26)
+            titleLabel.Position = UDim2.fromOffset(10, 5)
+            titleLabel.Parent = container
+            contentHeight += 31
         end
+        
+        if desc then
+            local descLabel = CreateText(desc, false)
+            descLabel.TextWrapped = true
+            descLabel.Size = UDim2.new(1, -20, 0, 0)
+            descLabel.Position = UDim2.fromOffset(10, contentHeight)
+            descLabel.AutomaticSize = Enum.AutomaticSize.Y
+            descLabel.Parent = container
+            contentHeight += descLabel.TextBounds.Y + 5
+        end
+        
+        -- 调整容器尺寸
+        container.Size = UDim2.new(1, 0, 0, contentHeight + 10)
+        
+        -- 加入队列
+        local notification = {
+            container = container,
+            progress = 0
+        }
+        table.insert(NotificationQueue, notification)
+        
+        -- 自动移除
+        coroutine.wrap(function()
+            task.wait(duration)
+            TweenService:Create(container, TweenInfo.new(0.5), {
+                ImageTransparency = 1,
+                BackgroundTransparency = 1
+            }):Play()
+            task.wait(0.5)
+            container:Destroy()
+            table.remove(NotificationQueue, table.find(NotificationQueue, notification))
+        end)()
     end
 }
