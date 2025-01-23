@@ -8,7 +8,7 @@ local Players = game:GetService("Players")
 local Config = {
     -- 视觉设置
     BackgroundColor = Color3.fromRGB(20, 20, 40),
-    BackgroundTransparency = 0.7,  -- 提高透明度
+    BackgroundTransparency = 1,  -- 提高透明度
     NeonColor = Color3.fromRGB(120, 255, 255),  -- 更亮的霓虹色
     NeonTransparency = 0.3,  -- 新增边框透明度设置
     TextGradient = {
