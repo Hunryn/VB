@@ -66,6 +66,100 @@ Container.Position = UDim2.new(0, 20, 0.5, -20)
 Container.BackgroundTransparency = 1
 Container.Parent = NotificationGui
 
+local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
+local TextService = game:GetService("TextService")
+local SoundService = game:GetService("SoundService")
+local Players = game:GetService("Players")
+
+--[[
+    增强型通知系统 v2.1
+    功能特性：
+    - 多通知队列管理
+    - 渐变文字效果
+    - 动态边框动画
+    - 安全资源加载
+--]]
+
+-- 全局配置表
+local Config = {
+    -- 基础设置
+    DebugMode = false,
+    SafeMode = true,
+
+    -- 视觉设置
+    BackgroundColor = Color3.fromRGB(20, 20, 40),
+    BackgroundTransparency = 0.3,
+    NeonColor = Color3.fromRGB(0, 255, 255),
+    TextGradient = {
+        Colors = {
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
+        },
+        Speed = 0.05
+    },
+
+    -- 音效设置
+    SoundEffects = {
+        Show = "rbxassetid://9046898034",
+        Hide = "rbxassetid://9046898035"
+    },
+
+    -- 动画设置
+    Animation = {
+        EnterDuration = 0.8,
+        ExitDuration = 0.5,
+        EasingStyle = Enum.EasingStyle.Quint,
+        Spacing = 15
+    }
+}
+
+-- 安全资源管理系统
+local AssetManager = {
+    Fallback = {
+        ["rbxassetid://5761488251"] = "rbxassetid://3570695787",  -- 主容器
+        ["rbxassetid://5761498316"] = "rbxassetid://5553946656",  -- 边框
+        default = "rbxassetid://3570695787"
+    },
+    LoadImage = function(id)
+        if Config.SafeMode then
+            local success = pcall(function()
+                game:GetService("ContentProvider"):PreloadAsync({id})
+            end)
+            return success and id or (AssetManager.Fallback[id] or AssetManager.Fallback.default)
+        end
+        return id
+    end
+}
+
+-- UI初始化
+local Player = Players.LocalPlayer
+local NotificationGui = Instance.new("ScreenGui")
+NotificationGui.Name = "EnhancedNotifications"
+NotificationGui.ResetOnSpawn = false
+NotificationGui.Parent = RunService:IsStudio() and Player:WaitForChild("PlayerGui") or game:GetService("CoreGui")
+
+local Container = Instance.new("Frame")
+Container.Name = "Container"
+Container.Size = UDim2.new(0, 320, 0.5, 0)
+Container.Position = UDim2.new(0, 20, 0.5, -20)
+Container.BackgroundTransparency = 1
+Container.Parent = NotificationGui
+
+-- 通知队列管理
+local activeNotifications = {}
+local updateConnection = nil
+
+local function UpdatePositions()
+    local totalHeight = 0
+    for i, notification in ipairs(activeNotifications) do
+        local frameHeight = notification.frame.AbsoluteSize.Y
+        notification.targetPosition = UDim2.new(0, 20, 0, totalHeight + (i-1)*Config.Animation.Spacing)
+        totalHeight = totalHeight + frameHeight + Config.Animation.Spacing
+    end
+end
+
+
 -- 调试系统
 local function DebugPrint(...)
     if Config.DebugMode then
@@ -159,34 +253,6 @@ local function CreateNotificationFrame()
     return container
 end
 
--- 通知队列管理
-local activeNotifications = {}
-local updateConnection = nil
-
-local function UpdatePositions()
-    local totalHeight = 0
-    for i, notification in ipairs(activeNotifications) do
-        local targetY = totalHeight + (i-1) * Config.Animation.Spacing
-        notification.targetPosition = UDim2.new(0, 20, 0, targetY)
-        totalHeight += notification.frame.AbsoluteSize.Y
-    end
-end
-
-local function AnimateNotifications()
-    while #activeNotifications > 0 do
-        local changed = false
-        for i, notification in ipairs(activeNotifications) do
-            local currentPos = notification.frame.Position
-            local newPos = currentPos:Lerp(notification.targetPosition, 0.15)
-            if (currentPos.Y.Offset - newPos.Y.Offset) > 1 then
-                notification.frame.Position = newPos
-                changed = true
-            end
-        end
-        if not changed then break end
-        task.wait()
-    end
-end
 
 -- 主接口
 return {
