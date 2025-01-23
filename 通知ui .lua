@@ -4,28 +4,19 @@ local TextService = game:GetService("TextService")
 local SoundService = game:GetService("SoundService")
 local Players = game:GetService("Players")
 
--- 全局配置表（用户可自定义）
+-- 全局配置表
 local Config = {
-    -- 基础设置
-    DebugMode = true,
-    SafeMode = true,
-
     -- 视觉设置
     BackgroundColor = Color3.fromRGB(20, 20, 40),
-    BackgroundTransparency = 0.3,
-    NeonColor = Color3.fromRGB(0, 255, 255),
+    BackgroundTransparency = 0.7,  -- 提高透明度
+    NeonColor = Color3.fromRGB(120, 255, 255),  -- 更亮的霓虹色
+    NeonTransparency = 0.3,  -- 新增边框透明度设置
     TextGradient = {
         Colors = {
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
+            ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 220, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 200, 255))
         },
         Speed = 0.05
-    },
-
-    -- 音效设置
-    SoundEffects = {
-        Show = "rbxassetid://9046898034",
-        Hide = "rbxassetid://9046898035"
     },
 
     -- 动画设置
@@ -36,7 +27,6 @@ local Config = {
         Spacing = 15
     }
 }
-
 -- 安全资源管理
 local AssetManager = {
     Fallback = {
@@ -210,7 +200,7 @@ local function CreateText(text, isTitle)
     return label
 end
 
--- 通知容器
+-- 修改后的通知容器创建函数
 local function CreateNotificationFrame()
     local container = Instance.new("ImageLabel")
     container.Image = AssetManager.LoadImage("rbxassetid://5761488251")
@@ -219,34 +209,39 @@ local function CreateNotificationFrame()
     container.BackgroundTransparency = 1
     container.Size = UDim2.new(1, 0, 0, 0)
 
-    -- 背景层
+    -- 半透明背景层
     local bg = Instance.new("Frame")
     bg.Size = UDim2.fromScale(1, 1)
     bg.BackgroundColor3 = Config.BackgroundColor
-    bg.BackgroundTransparency = Config.BackgroundTransparency
+    bg.BackgroundTransparency = Config.BackgroundTransparency  -- 应用新透明度
     bg.Parent = container
 
-    -- 霓虹边框
+    -- 增强霓虹边框
     local border = Instance.new("ImageLabel")
     border.Image = AssetManager.LoadImage("rbxassetid://5761498316")
     border.ScaleType = Enum.ScaleType.Slice
     border.SliceCenter = Rect.new(17, 17, 283, 283)
-    border.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30)
-    border.Position = -UDim2.fromOffset(15, 15)
+    border.Size = UDim2.fromScale(1.05, 1.05)  -- 稍微放大边框
+    border.Position = UDim2.fromScale(-0.025, -0.025)
     border.ImageColor3 = Config.NeonColor
-    border.ImageTransparency = 0.7
+    border.ImageTransparency = Config.NeonTransparency  -- 使用独立透明度设置
+    border.ZIndex = -1
     border.Parent = container
 
-    -- 边框动画
+    -- 动态边框脉冲动画
     task.spawn(function()
         local phase = 0
         while container.Parent do
-            local target = phase % 2 == 0 and 0.3 or 0.7
-            TweenService:Create(border, TweenInfo.new(1.5), {
-                ImageTransparency = target
+            local targetTrans = phase % 2 == 0 and 0.15 or 0.45
+            local targetSize = phase % 2 == 0 and 1.03 or 1.05
+            
+            TweenService:Create(border, TweenInfo.new(1.2, Enum.EasingStyle.Sine), {
+                ImageTransparency = targetTrans,
+                Size = UDim2.fromScale(targetSize, targetSize)
             }):Play()
+            
             phase += 1
-            task.wait(1.5)
+            task.wait(1.2)
         end
     end)
 
