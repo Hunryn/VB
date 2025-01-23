@@ -1,3 +1,4 @@
+-- 增强版通知系统核心模块
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -5,211 +6,218 @@ local Players = game:GetService("Players")
 
 local Player = Players.LocalPlayer
 
--- 主题系统配置
+-- 增强主题系统
 local Themes = {
-    Dark = {
+    Cyber = {
         Background = Color3.fromRGB(12, 4, 20),
-        Text = Color3.fromRGB(255, 255, 255),
-        Shadow = Color3.fromRGB(26, 26, 26)
+        Text = Color3.fromRGB(0, 255, 255),
+        Border = Color3.fromRGB(0, 200, 200),
+        Shadow = Color3.fromRGB(0, 80, 80)
     },
-    Red = {
-        Background = Color3.fromRGB(150, 20, 20),
-        Text = Color3.fromRGB(255, 230, 230),
-        Shadow = Color3.fromRGB(80, 10, 10)
+    NeonRed = {
+        Background = Color3.fromRGB(40, 0, 0),
+        Text = Color3.fromRGB(255, 50, 50),
+        Border = Color3.fromRGB(255, 0, 0),
+        Shadow = Color3.fromRGB(80, 0, 0)
     }
 }
 
--- 动画系统配置
-local AnimationStyles = {
-    Spring = {
+-- 增强动画系统
+local AnimationPresets = {
+    CyberSlide = {
+        Style = Enum.EasingStyle.Quint,
+        Direction = Enum.EasingDirection.Out,
+        Time = 0.8
+    },
+    Hologram = {
         Style = Enum.EasingStyle.Elastic,
         Direction = Enum.EasingDirection.Out,
         Time = 1.2
-    },
-    Bounce = {
-        Style = Enum.EasingStyle.Bounce,
-        Direction = Enum.EasingDirection.Out,
-        Time = 1.5
-    },
-    Default = {
-        Style = Enum.EasingStyle.Sine,
-        Direction = Enum.EasingDirection.Out,
-        Time = 1
     }
 }
 
--- UI容器初始化
+-- 容器初始化（修复显示问题）
 local NotifGui = Instance.new("ScreenGui")
-NotifGui.Name = "EnhancedNotif"
-NotifGui.Parent = RunService:IsStudio() and Player.PlayerGui or game:GetService("CoreGui")
+NotifGui.Name = "CyberNotif"
+NotifGui.ResetOnSpawn = false
+NotifGui.DisplayOrder = 100
+NotifGui.Parent = Player:WaitForChild("PlayerGui")
 
 local Container = Instance.new("Frame")
 Container.Name = "Container"
-Container.Position = UDim2.new(0, 20, 0.5, -20)
-Container.Size = UDim2.new(0, 300, 0.5, 0)
+Container.AnchorPoint = Vector2.new(0, 0.5)
+Container.Position = UDim2.new(0, 20, 0.5, 0) -- 修正定位锚点
+Container.Size = UDim2.new(0, 320, 0, 0)
 Container.BackgroundTransparency = 1
 Container.Parent = NotifGui
 
--- 通用组件生成器
-local function Image(ID, isButton)
-    local NewImage = Instance.new(isButton and "ImageButton" or "ImageLabel")
-    NewImage.Image = ID
-    NewImage.BackgroundTransparency = 1
-    return NewImage
-end
-
--- 动态圆角背景
-local function Round2px(theme)
-    local NewImage = Image("rbxassetid://5761488251")
-    NewImage.ScaleType = Enum.ScaleType.Slice
-    NewImage.SliceCenter = Rect.new(2, 2, 298, 298)
-    NewImage.ImageColor3 = Themes[theme].Background
-    NewImage.ImageTransparency = 0.14
-    return NewImage
-end
-
--- 动态阴影
-local function Shadow2px(theme)
-    local NewImage = Image("rbxassetid://5761498316")
-    NewImage.ScaleType = Enum.ScaleType.Slice
-    NewImage.SliceCenter = Rect.new(17, 17, 283, 283)
-    NewImage.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30)
-    NewImage.Position = -UDim2.fromOffset(15, 15)
-    NewImage.ImageColor3 = Themes[theme].Shadow
-    return NewImage
-end
-
--- 文本标签生成器
-local function CreateLabel(text, font, size, theme, isButton)
-    local Label = Instance.new(isButton and "TextButton" or "TextLabel")
-    Label.Text = text
-    Label.Font = font
-    Label.TextSize = size
-    Label.BackgroundTransparency = 1
-    Label.TextXAlignment = Enum.TextXAlignment.Left
-    Label.RichText = true
-    Label.TextColor3 = Themes[theme].Text
-    return Label
-end
-
--- 通知管理核心
-local Padding = 10
-local DescriptionPadding = 10
-local MaxWidth = 280
-local ActiveNotifications = {}
-local LastUpdate = tick()
-
--- 动画更新系统
-local function UpdateNotifications()
-    local deltaTime = tick() - LastUpdate
-    local visibleHeight = 0
+-- 霓虹边框生成器
+local function CreateNeonBorder(parent, theme)
+    local border = Instance.new("UIStroke")
+    border.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    border.Color = Themes[theme].Border
+    border.Transparency = 0.3
+    border.Thickness = 2
     
-    for index, notification in ipairs(ActiveNotifications) do
-        if notification.Visible then
-            local targetPos = UDim2.new(0, 0, 0, visibleHeight + (index-1)*Padding)
-            notification.Position = notification.Position:Lerp(
-                targetPos,
-                TweenService:GetValue(
-                    math.min(deltaTime / notification.AnimTime, 1),
-                    notification.AnimStyle,
-                    notification.AnimDirection
-                )
-            )
-            visibleHeight += notification.AbsoluteSize.Y
-        end
-    end
-    LastUpdate = tick()
+    local glow = Instance.new("UIGradient")
+    glow.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0, Themes[theme].Border),
+        ColorSequenceKeypoint.new(1, Color3.new(1,1,1))
+    }
+    glow.Rotation = 90
+    glow.Transparency = NumberSequence.new(0.5)
+    
+    glow.Parent = border
+    border.Parent = parent
+    return border
 end
 
-RunService:BindToRenderStep("NotificationUpdate", Enum.RenderPriority.First.Value, UpdateNotifications)
-
--- 渐隐效果
-local function FadeOut(notification)
-    local fadeInfo = TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
-    TweenService:Create(notification, fadeInfo, {ImageTransparency = 1}):Play()
-    for _, child in ipairs(notification:GetChildren()) do
-        if child:IsA("GuiObject") then
-            TweenService:Create(child, fadeInfo, {TextTransparency = 1}):Play()
-        end
-    end
-    task.wait(0.3)
-    notification:Destroy()
+-- 动态背景生成（修复初始位置问题）
+local function CreateCyberPanel(theme)
+    local panel = Instance.new("Frame")
+    panel.Size = UDim2.new(1, 0, 0, 0)
+    panel.Position = UDim2.new(-1, 0, 0, 0) -- 修正初始位置
+    panel.BackgroundColor3 = Themes[theme].Background
+    panel.BackgroundTransparency = 0.2
+    
+    -- 添加动态模糊
+    local blur = Instance.new("BlurEffect")
+    blur.Size = 8
+    blur.Parent = panel
+    
+    -- 添加霓虹边框
+    CreateNeonBorder(panel, theme)
+    
+    return panel
 end
 
--- 通知创建主函数
+-- 增强动画系统
+local function AnimateEntry(panel, config)
+    local targetSize = UDim2.new(1, 0, 0, panel.ContentSize)
+    local targetPos = UDim2.new(0, 0, 0, panel.LayoutOrder * (panel.ContentSize + 10))
+    
+    local sizeTween = TweenService:Create(
+        panel,
+        TweenInfo.new(
+            config.Time,
+            config.Style,
+            config.Direction
+        ),
+        {Size = targetSize}
+    )
+    
+    local posTween = TweenService:Create(
+        panel,
+        TweenInfo.new(
+            config.Time * 0.8,
+            Enum.EasingStyle.Quad,
+            Enum.EasingDirection.Out
+        ),
+        {Position = targetPos}
+    )
+    
+    sizeTween:Play()
+    posTween:Play()
+end
+
+-- 通知管理核心（优化内存管理）
+local ActiveNotifications = {}
+local function UpdateLayout()
+    local totalHeight = 0
+    for _, note in ipairs(ActiveNotifications) do
+        if note.Visible then
+            note.Position = UDim2.new(0, 0, 0, totalHeight)
+            totalHeight += note.AbsoluteSize.Y + 10
+        end
+    end
+end
+
+-- 增强通知创建函数
 return {
-    Notify = function(properties)
-        local config = {
-            Title = properties.Title or "通知",
-            Description = properties.Description or "",
-            Duration = properties.Duration or 5,
-            Theme = properties.Theme or "Dark",
-            Icon = properties.Icon,
-            Animation = properties.Animation or "Default",
-            OnClick = properties.OnClick
-        }
-
-        -- 计算布局尺寸
-        local textBounds = TextService:GetTextSize(
-            config.Description,
-            14,
-            Enum.Font.Gotham,
-            Vector2.new(MaxWidth, math.huge)
-        )
-
+    Notify = function(config)
+        -- 参数验证与默认值
+        local theme = Themes[config.Theme] and config.Theme or "Cyber"
+        local animation = AnimationPresets[config.Animation] or AnimationPresets.CyberSlide
+        
         -- 创建通知主体
-        local notification = Round2px(config.Theme)
-        notification.Size = UDim2.new(0, 300, 0, textBounds.Y + (config.Title and 36 or 20))
-        notification.Position = UDim2.new(-1, 20, 0, 0)
-        notification.Parent = Container
-
-        -- 添加阴影
-        Shadow2px(config.Theme).Parent = notification
-
+        local panel = CreateCyberPanel(theme)
+        panel.Parent = Container
+        
+        -- 内容布局
+        local content = Instance.new("Frame")
+        content.Size = UDim2.new(1, -20, 1, -20)
+        content.Position = UDim2.new(0, 10, 0, 10)
+        content.BackgroundTransparency = 1
+        content.Parent = panel
+        
         -- 添加图标
         if config.Icon then
-            local icon = Image(config.Icon)
-            icon.Size = UDim2.fromOffset(24, 24)
-            icon.Position = UDim2.fromOffset(8, 8)
-            icon.Parent = notification
+            local icon = Instance.new("ImageLabel")
+            icon.Size = UDim2.fromOffset(28, 28)
+            icon.Position = UDim2.new(0, 0, 0, 0)
+            icon.Image = config.Icon
+            icon.Parent = content
         end
-
-        -- 标题文字
-        if config.Title then
-            local title = CreateLabel(config.Title, Enum.Font.GothamSemibold, 16, config.Theme)
-            title.Size = UDim2.new(1, -40, 0, 24)
-            title.Position = UDim2.new(0, config.Icon and 36 or 12, 0, 8)
-            title.Parent = notification
-        end
-
-        -- 描述文字
-        local description = CreateLabel(config.Description, Enum.Font.Gotham, 14, config.Theme)
-        description.TextWrapped = true
-        description.Size = UDim2.new(1, -20, 0, textBounds.Y)
-        description.Position = UDim2.new(0, 12, 0, config.Title and 36 or 12)
-        description.Parent = notification
-
-        -- 点击交互
+        
+        -- 文字内容
+        local textContainer = Instance.new("Frame")
+        textContainer.Size = UDim2.new(1, -40, 1, 0)
+        textContainer.Position = UDim2.new(0, 40, 0, 0)
+        textContainer.BackgroundTransparency = 1
+        textContainer.Parent = content
+        
+        local title = Instance.new("TextLabel")
+        title.Text = config.Title or "系统通知"
+        title.Font = Enum.Font.SciFi
+        title.TextSize = 18
+        title.TextColor3 = Themes[theme].Text
+        title.Size = UDim2.new(1, 0, 0, 28)
+        title.Parent = textContainer
+        
+        local desc = Instance.new("TextLabel")
+        desc.Text = config.Description or ""
+        desc.Font = Enum.Font.Code
+        desc.TextSize = 14
+        desc.TextColor3 = Themes[theme].Text:lerp(Color3.new(1,1,1), 0.3)
+        desc.Size = UDim2.new(1, 0, 1, -32)
+        desc.Position = UDim2.new(0, 0, 0, 32)
+        desc.TextWrapped = true
+        desc.Parent = textContainer
+        
+        -- 动态计算高度
+        local textSize = TextService:GetTextSize(
+            desc.Text,
+            14,
+            desc.Font,
+            Vector2.new(textContainer.AbsoluteSize.X, math.huge)
+        )
+        panel.ContentSize = textSize.Y + 60  -- 添加边距
+        
+        -- 注册点击事件
         if config.OnClick then
-            notification.InputBegan:Connect(function(input)
+            panel.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 then
                     config.OnClick()
-                    FadeOut(notification)
+                    panel.Visible = false
                 end
             end)
         end
-
-        -- 动画配置
-        local animConfig = AnimationStyles[config.Animation]
-        notification.AnimTime = animConfig.Time
-        notification.AnimStyle = animConfig.Style
-        notification.AnimDirection = animConfig.Direction
-
-        -- 自动销毁
-        table.insert(ActiveNotifications, notification)
-        task.delay(config.Duration, function()
-            FadeOut(notification)
-            table.remove(ActiveNotifications, table.find(ActiveNotifications, notification))
+        
+        -- 执行入场动画
+        AnimateEntry(panel, animation)
+        table.insert(ActiveNotifications, panel)
+        
+        -- 自动关闭逻辑
+        task.spawn(function()
+            task.wait(config.Duration or 5)
+            panel.Visible = false
+            UpdateLayout()
+            task.wait(1)
+            panel:Destroy()
+            table.remove(ActiveNotifications, table.find(ActiveNotifications, panel))
         end)
+        
+        -- 实时布局更新
+        UpdateLayout()
     end
 }
