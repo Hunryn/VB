@@ -1,3 +1,4 @@
+-- 文件: 通知ui.lua
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -6,74 +7,6 @@ local Players = game:GetService("Players")
 
 -- 全局配置表
 local Config = {
-    -- 视觉设置
-    BackgroundColor = Color3.fromRGB(20, 20, 40),
-    BackgroundTransparency = 1,  -- 提高透明度
-    NeonColor = Color3.fromRGB(120, 255, 255),  -- 更亮的霓虹色
-    NeonTransparency = 0.3,  -- 新增边框透明度设置
-    TextGradient = {
-        Colors = {
-            ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 220, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 200, 255))
-        },
-        Speed = 0.05
-    },
-
-    -- 动画设置
-    Animation = {
-        EnterDuration = 0.8,
-        ExitDuration = 0.5,
-        EasingStyle = Enum.EasingStyle.Quint,
-        Spacing = 15
-    }
-}
--- 安全资源管理
-local AssetManager = {
-    Fallback = {
-        Bubble = "rbxassetid://3570695787",
-        Border = "rbxassetid://5553946656"
-    },
-    LoadImage = function(id)
-        if Config.SafeMode then
-            local success = pcall(game.GetObjects, game, id)
-            return success and id or AssetManager.Fallback[id]
-        end
-        return id
-    end
-}
-
--- UI初始化
-local Player = Players.LocalPlayer
-local NotificationGui = Instance.new("ScreenGui")
-NotificationGui.Name = "EnhancedNotifications"
-NotificationGui.ResetOnSpawn = false
-NotificationGui.Parent = RunService:IsStudio() and Player:WaitForChild("PlayerGui") or game:GetService("CoreGui")
-
-local Container = Instance.new("Frame")
-Container.Name = "Container"
-Container.Size = UDim2.new(0, 320, 0.5, 0)
-Container.Position = UDim2.new(0, 20, 0.5, -20)
-Container.BackgroundTransparency = 1
-Container.Parent = NotificationGui
-
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
-local TextService = game:GetService("TextService")
-local SoundService = game:GetService("SoundService")
-local Players = game:GetService("Players")
-
---[[
-    增强型通知系统 v2.1
-    功能特性：
-    - 多通知队列管理
-    - 渐变文字效果
-    - 动态边框动画
-    - 安全资源加载
---]]
-
--- 全局配置表
-local Config = {
-    -- 基础设置
     DebugMode = false,
     SafeMode = true,
 
@@ -81,18 +14,17 @@ local Config = {
     BackgroundColor = Color3.fromRGB(20, 20, 40),
     BackgroundTransparency = 0.3,
     NeonColor = Color3.fromRGB(0, 255, 255),
+    NeonTransparency = 0.2,
+
+    -- 文字渐变
     TextGradient = {
         Colors = {
             ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 255)),
-            ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 255, 255))
+            ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)),
+            ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 255))
         },
-        Speed = 0.05
-    },
-
-    -- 音效设置
-    SoundEffects = {
-        Show = "rbxassetid://9046898034",
-        Hide = "rbxassetid://9046898035"
+        Speed = 0.05,
+        Rotation = 45
     },
 
     -- 动画设置
@@ -100,15 +32,22 @@ local Config = {
         EnterDuration = 0.8,
         ExitDuration = 0.5,
         EasingStyle = Enum.EasingStyle.Quint,
-        Spacing = 15
+        Spacing = 15,
+        RotationSpeed = 0.5  -- 新增旋转速度
+    },
+
+    -- 音效设置
+    SoundEffects = {
+        Show = "rbxassetid://9046898034",
+        Hide = "rbxassetid://9046898035"
     }
 }
 
--- 安全资源管理系统
+-- 安全资源管理
 local AssetManager = {
     Fallback = {
-        ["rbxassetid://5761488251"] = "rbxassetid://3570695787",  -- 主容器
-        ["rbxassetid://5761498316"] = "rbxassetid://5553946656",  -- 边框
+        ["rbxassetid://5761488251"] = "rbxassetid://3570695787",
+        ["rbxassetid://5761498316"] = "rbxassetid://5553946656",
         default = "rbxassetid://3570695787"
     },
     LoadImage = function(id)
@@ -149,26 +88,6 @@ local function UpdatePositions()
     end
 end
 
-
--- 调试系统
-local function DebugPrint(...)
-    if Config.DebugMode then
-        print("[DEBUG]", os.date("%X"), ...)
-    end
-end
-
--- 音效播放
-local function PlaySound(soundId)
-    if not soundId then return end
-    local sound = Instance.new("Sound")
-    sound.SoundId = soundId
-    sound.Volume = 0.3
-    sound.Parent = SoundService
-    sound:Play()
-    DebugPrint("播放音效:", soundId)
-    game:GetService("Debris"):AddItem(sound, 5)
-end
-
 -- 渐变文本组件
 local function CreateText(text, isTitle)
     local label = Instance.new("TextLabel")
@@ -181,27 +100,29 @@ local function CreateText(text, isTitle)
     label.RichText = true
     label.TextWrapped = true
 
-    -- 渐变效果
+    -- 三色渐变
     local gradient = Instance.new("UIGradient")
     gradient.Color = ColorSequence.new(Config.TextGradient.Colors)
-    gradient.Rotation = 90
+    gradient.Rotation = Config.TextGradient.Rotation
     gradient.Parent = label
 
-    -- 动态动画
+    -- 浮动动画
     task.spawn(function()
-        local offset = 0
+        local baseY = label.Position.Y.Offset
         while label.Parent do
-            gradient.Offset = Vector2.new(0, math.sin(offset) * 0.3 + 0.5)
-            offset += Config.TextGradient.Speed
-            task.wait(0.05)
+            TweenService:Create(label, TweenInfo.new(1.5, Enum.EasingStyle.Sine), {
+                Position = UDim2.new(label.Position.X.Scale, label.Position.X.Offset, 
+                                 0, baseY + math.sin(os.clock()*3)*3)
+            }):Play()
+            task.wait(0.5)
         end
     end)
 
     return label
 end
 
--- 修改后的通知容器创建函数
-local function CreateNotificationFrame()
+-- 通知容器创建
+local function CreateNotificationFrame(options)
     local container = Instance.new("ImageLabel")
     container.Image = AssetManager.LoadImage("rbxassetid://5761488251")
     container.ScaleType = Enum.ScaleType.Slice
@@ -209,69 +130,59 @@ local function CreateNotificationFrame()
     container.BackgroundTransparency = 1
     container.Size = UDim2.new(1, 0, 0, 0)
 
-    -- 半透明背景层
+    -- 背景层
     local bg = Instance.new("Frame")
     bg.Size = UDim2.fromScale(1, 1)
     bg.BackgroundColor3 = Config.BackgroundColor
-    bg.BackgroundTransparency = Config.BackgroundTransparency  -- 应用新透明度
+    bg.BackgroundTransparency = Config.BackgroundTransparency
     bg.Parent = container
 
-    -- 增强霓虹边框
+    -- 霓虹边框
     local border = Instance.new("ImageLabel")
     border.Image = AssetManager.LoadImage("rbxassetid://5761498316")
     border.ScaleType = Enum.ScaleType.Slice
     border.SliceCenter = Rect.new(17, 17, 283, 283)
-    border.Size = UDim2.fromScale(1.05, 1.05)  -- 稍微放大边框
-    border.Position = UDim2.fromScale(-0.025, -0.025)
+    border.Size = options.BorderSize and UDim2.fromScale(options.BorderSize, options.BorderSize) or UDim2.fromScale(1.2, 1.2)
+    border.AnchorPoint = Vector2.new(0.5, 0.5)
+    border.Position = UDim2.fromScale(0.5, 0.5)
     border.ImageColor3 = Config.NeonColor
-    border.ImageTransparency = Config.NeonTransparency  -- 使用独立透明度设置
+    border.ImageTransparency = Config.NeonTransparency
     border.ZIndex = -1
     border.Parent = container
 
-    -- 动态边框脉冲动画
+    -- 旋转动画
     task.spawn(function()
-        local phase = 0
+        local rotationAngle = 0
         while container.Parent do
-            local targetTrans = phase % 2 == 0 and 0.15 or 0.45
-            local targetSize = phase % 2 == 0 and 1.03 or 1.05
-            
-            TweenService:Create(border, TweenInfo.new(1.2, Enum.EasingStyle.Sine), {
-                ImageTransparency = targetTrans,
-                Size = UDim2.fromScale(targetSize, targetSize)
+            rotationAngle = (rotationAngle + Config.Animation.RotationSpeed) % 360
+            TweenService:Create(border, TweenInfo.new(1.5, Enum.EasingStyle.Linear), {
+                Rotation = rotationAngle,
+                ImageTransparency = 0.2 + math.sin(os.clock()*2)*0.1
             }):Play()
-            
-            phase += 1
-            task.wait(1.2)
+            task.wait(0.05)
         end
     end)
 
     return container
 end
 
-
--- 主接口
 return {
-    Config = Config,  -- 暴露配置表供外部修改
+    Config = Config,
 
     Notify = function(options)
-        -- 参数验证
         options = options or {}
-        if not options.Title and not options.Description then
-            warn("通知需要标题或描述内容")
-            return
-        end
+        if not options.Title and not options.Description then return end
 
-        -- 创建容器
-        local frame = CreateNotificationFrame()
+        local frame = CreateNotificationFrame(options)
         frame.Parent = Container
-        PlaySound(Config.SoundEffects.Show)
 
-        -- 构建内容
+        -- 内容构建
         local contentHeight = 0
         if options.Title then
             local title = CreateText(options.Title, true)
             title.Size = UDim2.new(1, -20, 0, 26)
             title.Position = UDim2.fromOffset(10, 5)
+            title.Rotation = options.TextRotation or 0  -- 文字旋转
             title.Parent = frame
             contentHeight += 30
         end
@@ -285,9 +196,8 @@ return {
             contentHeight += desc.TextBounds.Y + 5
         end
 
-        -- 调整容器尺寸
         frame.Size = UDim2.new(1, 0, 0, contentHeight + 10)
-
+        
         -- 入场动画
         frame.Position = UDim2.new(-1, 20, 0, 0)
         TweenService:Create(frame, TweenInfo.new(
@@ -296,12 +206,6 @@ return {
         ), {
             Position = UDim2.new(0, 20, 0, 0)
         }):Play()
-
-        -- 加入队列
-        table.insert(activeNotifications, {
-            frame = frame,
-            targetPosition = UDim2.new(0, 20, 0, 0)
-        })
 
         -- 自动移除
         task.delay(options.Duration or 5, function()
@@ -312,21 +216,8 @@ return {
                 Position = UDim2.new(-1, 20, 0, frame.Position.Y.Offset),
                 ImageTransparency = 1
             }):Play()
-            PlaySound(Config.SoundEffects.Hide)
             task.wait(Config.Animation.ExitDuration)
             frame:Destroy()
-            for i, notif in ipairs(activeNotifications) do
-                if notif.frame == frame then
-                    table.remove(activeNotifications, i)
-                    break
-                end
-            end
-            UpdatePositions()
         end)
-
-        -- 启动动画循环
-        if not updateConnection then
-            updateConnection = RunService.Heartbeat:Connect(AnimateNotifications)
-        end
     end
 }
