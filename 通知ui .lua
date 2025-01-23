@@ -12,7 +12,7 @@ local Config = {
     BackgroundTransparency = 0.3,
     
     -- 音效配置
-    SoundEffect = "rbxassetid://9046898034",
+    SoundEffect = "rbxassetid://9882371641",
     
     -- 霓虹边框配置
     NeonColor = Color3.fromRGB(0, 255, 255),
