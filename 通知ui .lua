@@ -1,189 +1,215 @@
--- 文件: 通知ui.lua
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
+local Players = game:GetService("Players")
 
-local Rainbow = {
-    Colors = {
-        Color3.fromRGB(255, 0, 0),    -- 红
-        Color3.fromRGB(255, 165, 0),  -- 橙
-        Color3.fromRGB(255, 255, 0),  -- 黄
-        Color3.fromRGB(0, 255, 0),    -- 绿
-        Color3.fromRGB(0, 127, 255),  -- 蓝
-        Color3.fromRGB(75, 0, 130),   -- 靛
-        Color3.fromRGB(238, 130, 238) -- 紫
-    },
-    Speed = 0.5
-}
+local Player = Players.LocalPlayer
 
-local Config = {
-    FontEffects = {
-        CharColorChange = true,      -- 字符独立变色
-        WaveAmplitude = 3,           -- 文字波动幅度
-        RotationSpeed = 2            -- 旋转速度(度/秒)
+-- 主题系统配置
+local Themes = {
+    Dark = {
+        Background = Color3.fromRGB(12, 4, 20),
+        Text = Color3.fromRGB(255, 255, 255),
+        Shadow = Color3.fromRGB(26, 26, 26)
     },
-    
-    BorderEffects = {
-        SparkleDensity = 20,         -- 闪烁粒子密度
-        FlowSpeed = 1.5,             -- 流光速度
-        Thickness = 4                -- 边框厚度
+    Red = {
+        Background = Color3.fromRGB(150, 20, 20),
+        Text = Color3.fromRGB(255, 230, 230),
+        Shadow = Color3.fromRGB(80, 10, 10)
     }
 }
 
-local function CreateRainbowText(text, isTitle)
-    local container = Instance.new("Frame")
-    container.BackgroundTransparency = 1
-    container.Size = UDim2.new(1, 0, 0, 20)
-    
-    local chars = {}
-    for i = 1, #text do
-        local charLabel = Instance.new("TextLabel")
-        charLabel.Text = text:sub(i,i)
-        charLabel.Font = isTitle and Enum.Font.GothamBold or Enum.Font.Gotham
-        charLabel.TextSize = isTitle and 16 or 14
-        charLabel.Size = UDim2.new(0, 10, 0, 20)
-        charLabel.Position = UDim2.new(0, (i-1)*12, 0, 0)
-        charLabel.BackgroundTransparency = 1
-        charLabel.Parent = container
-        
-        -- 字符颜色动画
-        task.spawn(function()
-            local phase = math.random()
-            while charLabel.Parent do
-                local colorIndex = math.floor((phase * #Rainbow.Colors)) % #Rainbow.Colors + 1
-                charLabel.TextColor3 = Rainbow.Colors[colorIndex]
-                phase = (phase + Rainbow.Speed * 0.01) % 1
-                task.wait(0.1)
-            end
-        end)
-        
-        -- 浮动效果
-        task.spawn(function()
-            local baseY = 0
-            while charLabel.Parent do
-                TweenService:Create(charLabel, TweenInfo.new(1, Enum.EasingStyle.Sine), {
-                    Position = UDim2.new(charLabel.Position.X.Scale, charLabel.Position.X.Offset,
-                                      0, baseY + math.sin(os.clock()*2)*Config.FontEffects.WaveAmplitude)
-                }):Play()
-                task.wait(0.5)
-            end
-        end)
-        
-        table.insert(chars, charLabel)
-    end
-    return container
+-- 动画系统配置
+local AnimationStyles = {
+    Spring = {
+        Style = Enum.EasingStyle.Elastic,
+        Direction = Enum.EasingDirection.Out,
+        Time = 1.2
+    },
+    Bounce = {
+        Style = Enum.EasingStyle.Bounce,
+        Direction = Enum.EasingDirection.Out,
+        Time = 1.5
+    },
+    Default = {
+        Style = Enum.EasingStyle.Sine,
+        Direction = Enum.EasingDirection.Out,
+        Time = 1
+    }
+}
+
+-- UI容器初始化
+local NotifGui = Instance.new("ScreenGui")
+NotifGui.Name = "EnhancedNotif"
+NotifGui.Parent = RunService:IsStudio() and Player.PlayerGui or game:GetService("CoreGui")
+
+local Container = Instance.new("Frame")
+Container.Name = "Container"
+Container.Position = UDim2.new(0, 20, 0.5, -20)
+Container.Size = UDim2.new(0, 300, 0.5, 0)
+Container.BackgroundTransparency = 1
+Container.Parent = NotifGui
+
+-- 通用组件生成器
+local function Image(ID, isButton)
+    local NewImage = Instance.new(isButton and "ImageButton" or "ImageLabel")
+    NewImage.Image = ID
+    NewImage.BackgroundTransparency = 1
+    return NewImage
 end
 
-local function CreateSparklingBorder(parent)
-    local border = Instance.new("Frame")
-    border.Size = UDim2.fromScale(1, 1)
-    border.BackgroundTransparency = 1
-    border.ClipsDescendants = true
+-- 动态圆角背景
+local function Round2px(theme)
+    local NewImage = Image("rbxassetid://5761488251")
+    NewImage.ScaleType = Enum.ScaleType.Slice
+    NewImage.SliceCenter = Rect.new(2, 2, 298, 298)
+    NewImage.ImageColor3 = Themes[theme].Background
+    NewImage.ImageTransparency = 0.14
+    return NewImage
+end
+
+-- 动态阴影
+local function Shadow2px(theme)
+    local NewImage = Image("rbxassetid://5761498316")
+    NewImage.ScaleType = Enum.ScaleType.Slice
+    NewImage.SliceCenter = Rect.new(17, 17, 283, 283)
+    NewImage.Size = UDim2.fromScale(1, 1) + UDim2.fromOffset(30, 30)
+    NewImage.Position = -UDim2.fromOffset(15, 15)
+    NewImage.ImageColor3 = Themes[theme].Shadow
+    return NewImage
+end
+
+-- 文本标签生成器
+local function CreateLabel(text, font, size, theme, isButton)
+    local Label = Instance.new(isButton and "TextButton" or "TextLabel")
+    Label.Text = text
+    Label.Font = font
+    Label.TextSize = size
+    Label.BackgroundTransparency = 1
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.RichText = true
+    Label.TextColor3 = Themes[theme].Text
+    return Label
+end
+
+-- 通知管理核心
+local Padding = 10
+local DescriptionPadding = 10
+local MaxWidth = 280
+local ActiveNotifications = {}
+local LastUpdate = tick()
+
+-- 动画更新系统
+local function UpdateNotifications()
+    local deltaTime = tick() - LastUpdate
+    local visibleHeight = 0
     
-    -- 动态流光层
-    local flow = Instance.new("Frame")
-    flow.Size = UDim2.fromScale(2, 1)
-    flow.BackgroundColor3 = Color3.new(1,1,1)
-    flow.BackgroundTransparency = 0.8
-    flow.Parent = border
-    
-    -- 流光渐变
-    local gradient = Instance.new("UIGradient")
-    gradient.Color = ColorSequence.new(Rainbow.Colors)
-    gradient.Rotation = 90
-    gradient.Parent = flow
-    
-    -- 流光动画
-    task.spawn(function()
-        while border.Parent do
-            TweenService:Create(flow, TweenInfo.new(2, Enum.EasingStyle.Linear), {
-                Position = UDim2.new(-1, 0, 0, 0)
-            }):Play()
-            task.wait(2)
-            flow.Position = UDim2.new(0, 0, 0, 0)
+    for index, notification in ipairs(ActiveNotifications) do
+        if notification.Visible then
+            local targetPos = UDim2.new(0, 0, 0, visibleHeight + (index-1)*Padding)
+            notification.Position = notification.Position:Lerp(
+                targetPos,
+                TweenService:GetValue(
+                    math.min(deltaTime / notification.AnimTime, 1),
+                    notification.AnimStyle,
+                    notification.AnimDirection
+                )
+            )
+            visibleHeight += notification.AbsoluteSize.Y
         end
-    end)
-    
-    -- 闪烁粒子
-    for _ = 1, Config.BorderEffects.SparkleDensity do
-        task.spawn(function()
-            local spark = Instance.new("Frame")
-            spark.Size = UDim2.fromOffset(4,4)
-            spark.BackgroundColor3 = Rainbow.Colors[math.random(#Rainbow.Colors)]
-            spark.AnchorPoint = Vector2.new(0.5,0.5)
-            spark.Position = UDim2.new(math.random(), 0, math.random(), 0)
-            spark.Parent = border
-            
-            -- 粒子动画
-            while spark.Parent do
-                TweenService:Create(spark, TweenInfo.new(0.5), {
-                    BackgroundTransparency = math.random(0.3,0.7),
-                    Rotation = math.random(360)
-                }):Play()
-                task.wait(math.random(1,3))
-            end
-        end)
     end
-    
-    return border
+    LastUpdate = tick()
 end
 
--- 修改后的Notify函数
+RunService:BindToRenderStep("NotificationUpdate", Enum.RenderPriority.First.Value, UpdateNotifications)
+
+-- 渐隐效果
+local function FadeOut(notification)
+    local fadeInfo = TweenInfo.new(0.25, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
+    TweenService:Create(notification, fadeInfo, {ImageTransparency = 1}):Play()
+    for _, child in ipairs(notification:GetChildren()) do
+        if child:IsA("GuiObject") then
+            TweenService:Create(child, fadeInfo, {TextTransparency = 1}):Play()
+        end
+    end
+    task.wait(0.3)
+    notification:Destroy()
+end
+
+-- 通知创建主函数
 return {
-    Notify = function(options)
-        local frame = Instance.new("Frame")
-        frame.BackgroundTransparency = 1
-        frame.Size = UDim2.new(0, 300, 0, 0)
-        frame.Parent = script.Parent.Container
-        
-        -- 添加彩虹边框
-        local border = CreateSparklingBorder(frame)
-        border.Size = UDim2.fromScale(1.1,1.1)
-        border.Position = UDim2.fromScale(-0.05,-0.05)
-        
-        -- 创建动态文字
-        local textContainer = Instance.new("Frame")
-        textContainer.Size = UDim2.new(1, -20, 0, 0)
-        textContainer.Position = UDim2.fromOffset(10,5)
-        textContainer.BackgroundTransparency = 1
-        textContainer.Parent = frame
-        
-        if options.Title then
-            local title = CreateRainbowText(options.Title, true)
-            title.Parent = textContainer
-            textContainer.Size = UDim2.new(1, -20, 0, 30)
+    Notify = function(properties)
+        local config = {
+            Title = properties.Title or "通知",
+            Description = properties.Description or "",
+            Duration = properties.Duration or 5,
+            Theme = properties.Theme or "Dark",
+            Icon = properties.Icon,
+            Animation = properties.Animation or "Default",
+            OnClick = properties.OnClick
+        }
+
+        -- 计算布局尺寸
+        local textBounds = TextService:GetTextSize(
+            config.Description,
+            14,
+            Enum.Font.Gotham,
+            Vector2.new(MaxWidth, math.huge)
+        )
+
+        -- 创建通知主体
+        local notification = Round2px(config.Theme)
+        notification.Size = UDim2.new(0, 300, 0, textBounds.Y + (config.Title and 36 or 20))
+        notification.Position = UDim2.new(-1, 20, 0, 0)
+        notification.Parent = Container
+
+        -- 添加阴影
+        Shadow2px(config.Theme).Parent = notification
+
+        -- 添加图标
+        if config.Icon then
+            local icon = Image(config.Icon)
+            icon.Size = UDim2.fromOffset(24, 24)
+            icon.Position = UDim2.fromOffset(8, 8)
+            icon.Parent = notification
         end
-        
-        if options.Description then
-            local desc = CreateRainbowText(options.Description, false)
-            desc.Position = UDim2.fromOffset(0,30)
-            desc.Parent = textContainer
-            textContainer.Size += UDim2.new(0,0,0,30)
+
+        -- 标题文字
+        if config.Title then
+            local title = CreateLabel(config.Title, Enum.Font.GothamSemibold, 16, config.Theme)
+            title.Size = UDim2.new(1, -40, 0, 24)
+            title.Position = UDim2.new(0, config.Icon and 36 or 12, 0, 8)
+            title.Parent = notification
         end
-        
-        -- 入场动画
-        frame.Position = UDim2.new(-1, 0, 0.5, 0)
-        TweenService:Create(frame, TweenInfo.new(0.8), {
-            Position = UDim2.new(0, 20, 0.5, 0),
-            Rotation = math.random(-3,3)
-        }):Play()
-        
-        -- 持续旋转
-        task.spawn(function()
-            while frame.Parent do
-                frame.Rotation += Config.FontEffects.RotationSpeed
-                task.wait(0.1)
-            end
-        end)
-        
-        -- 自动移除
-        task.delay(options.Duration or 5, function()
-            TweenService:Create(frame, TweenInfo.new(0.5), {
-                BackgroundTransparency = 1,
-                Position = UDim2.new(1,0,0.5,0)
-            }):Play()
-            task.wait(0.6)
-            frame:Destroy()
+
+        -- 描述文字
+        local description = CreateLabel(config.Description, Enum.Font.Gotham, 14, config.Theme)
+        description.TextWrapped = true
+        description.Size = UDim2.new(1, -20, 0, textBounds.Y)
+        description.Position = UDim2.new(0, 12, 0, config.Title and 36 or 12)
+        description.Parent = notification
+
+        -- 点击交互
+        if config.OnClick then
+            notification.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    config.OnClick()
+                    FadeOut(notification)
+                end
+            end)
+        end
+
+        -- 动画配置
+        local animConfig = AnimationStyles[config.Animation]
+        notification.AnimTime = animConfig.Time
+        notification.AnimStyle = animConfig.Style
+        notification.AnimDirection = animConfig.Direction
+
+        -- 自动销毁
+        table.insert(ActiveNotifications, notification)
+        task.delay(config.Duration, function()
+            FadeOut(notification)
+            table.remove(ActiveNotifications, table.find(ActiveNotifications, notification))
         end)
     end
 }
