@@ -213,5 +213,5 @@ return {
 			table.insert(InstructionObjects, {NewLabel, 0, false});
 			coroutine.wrap(FadeOutAfter)(NewLabel, Duration);
 		end
-	end,
+	end
 }
